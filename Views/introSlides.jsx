@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
 import React, { useState } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const slides = [
   {
@@ -37,6 +38,7 @@ const slides = [
 ];
 
 const IntroSlides = () => {
+  const navigation = useNavigation();
   const [showApp, setShowApp] = useState();
 
   const renderItem = ({ item }) => {
@@ -83,6 +85,7 @@ const IntroSlides = () => {
       renderDoneButton={_renderDoneButton}
       renderNextButton={_renderNextButton}
       showSkipButton="true"
+      onSkip={()=>navigation.navigate("landingPage")}
       contentContainerStyle={{
         resizeMode: "contain",
       }}
