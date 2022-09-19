@@ -74,7 +74,7 @@ const IntroSlides = () => {
   const _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <AntDesign name="check" color="rgba(255, 255, 255, .9)" size={24} />
+        <AntDesign name="check" color="rgba(255, 255, 255, .9)" size={24} onPress={() => navigation.navigate("landingPage") } />
       </View>
     );
   };
