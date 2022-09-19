@@ -31,7 +31,7 @@ const LandingPage = () => {
 
           <Image
             style={styles.Logo}
-            source={require("../../assets/vlogo.png")}
+            source={require("../../assets/vlogo2.png")}
           />
 
           <Text style={[styles.Label, { marginTop: 50, fontSize: 26 }]}>

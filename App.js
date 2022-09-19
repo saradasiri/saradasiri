@@ -1,11 +1,11 @@
-import LoginProcess from "./views/login/loginProcess";
-import IntroSlides from "./views/introSlides";
-import LandingPage from "./views/landingPage/landingPage"
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
+import LoginProcess from "./views/login/loginProcess";
+import IntroSlides from "./views/introSlides";
+import LandingPage from "./views/landingPage/landingPage";
 import ConfirmEmailProcess from "./views/register/confirmEmail/confirmEmailProcess";
 import SetPasswordProcess from "./views/register/setPassword/setPasswordProcess";
 import VerifyOTP from "./views/register/verifyOTP/verifyOTP";
@@ -16,12 +16,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="introSlides">
-      <Stack.Screen
+        <Stack.Screen
           name="introSlides"
           options={{
             headerShown: false,
             headerStyle: {
-              backgroundColor: '#F2F6FF'
+              backgroundColor: "#F2F6FF",
             },
             headerTitle: "",
           }}
@@ -31,10 +31,7 @@ export default function App() {
           name="landingPage"
           options={{
             headerShown: false,
-            // headerStyle: {
-            //   backgroundColor: '#F2F6FF'
-            // },
-            // headerTitle: "",
+            ...TransitionPresets.SlideFromRightIOS,
           }}
           component={LandingPage}
         />
@@ -43,7 +40,7 @@ export default function App() {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#F2F6FF'
+              backgroundColor: "#F2F6FF",
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
@@ -55,7 +52,7 @@ export default function App() {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#F2F6FF'
+              backgroundColor: "#F2F6FF",
             },
             ...TransitionPresets.ModalSlideFromBottomIOS,
             headerTitle: "",
@@ -67,31 +64,31 @@ export default function App() {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#F2F6FF'
+              backgroundColor: "#F2F6FF",
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
           }}
           component={SetPasswordProcess}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="verifyOTP"
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#F2F6FF'
+              backgroundColor: "#F2F6FF",
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
           }}
           component={VerifyOTP}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="setUpPin"
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#F2F6FF'
+              backgroundColor: "#F2F6FF",
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",

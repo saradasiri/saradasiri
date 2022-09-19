@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 import React, { useState } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { AntDesign } from "@expo/vector-icons";
@@ -7,12 +14,12 @@ import { useNavigation } from "@react-navigation/native";
 const slides = [
   {
     key: "one",
-    image: require("../assets/vlogo.png"),
+    image: require("../assets/vlogo2.png"),
     backgroundColor: "#270041",
     styles: {
-      width: 330,
-      height :90
-    }
+      width: 260,
+      height: 75,
+    },
   },
   {
     key: "two",
@@ -31,7 +38,7 @@ const slides = [
   {
     key: "four",
     title: "Capital para emprender",
-    text:"Con Vadi puedes lanzar un activo digital para reunir el capital privado necesario para desarrollar tu proyecto",
+    text: "Con Vadi puedes lanzar un activo digital para reunir el capital privado necesario para desarrollar tu proyecto",
     image: require("../assets/rocket.png"),
     backgroundColor: "#270041",
   },
@@ -53,7 +60,7 @@ const IntroSlides = () => {
           backgroundColor: `${item.backgroundColor}`,
         }}
       >
-        <Image source={item.image} style={item.styles}/>
+        <Image source={item.image} style={item.styles} />
         {item.title && <Text style={styles.title}>{item.title}</Text>}
         {item.text && <Text style={styles.text}>{item.text}</Text>}
       </SafeAreaView>
@@ -61,12 +68,12 @@ const IntroSlides = () => {
   };
   const _renderNextButton = () => {
     return (
-      <View style={styles.buttonCircle}>
-        <AntDesign
+      <View>
+        {/* <AntDesign
           name="rightcircle"
           color="rgba(255, 255, 255, .9)"
           size={24}
-        />
+        /> */}
       </View>
     );
   };
@@ -74,22 +81,55 @@ const IntroSlides = () => {
   const _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <AntDesign name="check" color="rgba(255, 255, 255, .9)" size={24} onPress={() => navigation.navigate("landingPage") } />
+        <AntDesign
+          name="check"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          onPress={() => navigation.navigate("landingPage")}
+        />
+      </View>
+    );
+  };
+
+  const _renderSkipButton = () => {
+    return (
+      <View style={styles.skipped}>
+        <Text
+          style={{ color: "white", textAlign: "center", fontSize: 16 }}
+          onPress={() => navigation.navigate("landingPage")}
+        >
+          Skip
+        </Text>
       </View>
     );
   };
   return (
-    <AppIntroSlider
-      data={slides}
-      renderItem={renderItem}
-      renderDoneButton={_renderDoneButton}
-      renderNextButton={_renderNextButton}
-      showSkipButton="true"
-      onSkip={()=>navigation.navigate("landingPage")}
-      contentContainerStyle={{
-        resizeMode: "contain",
-      }}
-    />
+    <>
+      <StatusBar style="auto" />
+      <AppIntroSlider
+        dotStyle={{
+          backgroundColor: "#bababa",
+          top: -50,
+          width: 30,
+          height: 5,
+        }}
+        activeDotStyle={{
+          backgroundColor: "#00BFFF",
+          top: -50,
+          width: 30,
+          height: 5,
+        }}
+        data={slides}
+        renderItem={renderItem}
+        renderDoneButton={_renderDoneButton}
+        renderNextButton={_renderNextButton}
+        renderSkipButton={_renderSkipButton}
+        showSkipButton="true"
+        contentContainerStyle={{
+          resizeMode: "contain",
+        }}
+      />
+    </>
   );
 };
 
@@ -120,6 +160,15 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 25,
     textAlign: "center",
-    paddingTop:20    
+    paddingTop: 20,
+  },
+  skipped: {
+    height: 30,
+    width: 70,
+    backgroundColor: "#483D8B",
+    justifyContent: "center",
+    borderRadius: 10,
+    top: -680,
+    left: 15,
   },
 });
