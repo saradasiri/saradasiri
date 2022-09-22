@@ -98,8 +98,10 @@ const CompleteProfile1 = (formik) => {
       firstName: values.firstName.trim(),
       secondName: values.secondName,
       name: values.name,
-      birth: birth.toDateString(),
-      dateISO: birth.toISOString(),
+      // birth: birth.toDateString(),
+      birth: "",
+      // dateISO: birth.toISOString(),
+      dateISO: "",
       nationality: nationality,
       countryBirth: values.countryBirth,
       curp: values.curp ? values.curp : "",
@@ -112,19 +114,21 @@ const CompleteProfile1 = (formik) => {
       isTokenSubscribed: values.isTokenSubscribed,
     };
 
-    if (values.fund < values.lower || values.fund > values.upper) {
-      alert(`Your Investment Range is : \n${values.range}`);
-    }
-    if (values.fund < 100) {
-      alert("Minimum Amount is 100");
-    }
-    if (
-      values.fund >= values.lower &&
-      values.fund >= 100 &&
-      values.fund <= values.upper
-    ) {
-      navigation.navigate("completeProfile2",{profile1});
-    }
+    // if (values.fund < values.lower || values.fund > values.upper) {
+    //   alert(`Your Investment Range is : \n${values.range}`);
+    // }
+    // if (values.fund < 100) {
+    //   alert("Minimum Amount is 100");
+    // }
+    // if (
+    //   values.fund >= values.lower &&
+    //   values.fund >= 100 &&
+    //   values.fund <= values.upper
+    // ) {
+    //   navigation.navigate("completeProfile2",{profile1});
+    // }
+    
+    navigation.navigate("completeProfile2",{profile1});
   };
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
@@ -574,7 +578,7 @@ const CompleteProfile1 = (formik) => {
           ) : null}
 
           <TouchableOpacity
-            disabled={!(formik.isValid && formik.dirty && age)}
+            // disabled={!(formik.isValid && formik.dirty && age)}
             onPress={() => {
               handleFormSubmit(values);
             }}

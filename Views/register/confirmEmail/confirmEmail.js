@@ -30,16 +30,16 @@ const ConfirmEmail = (formik) => {
   }
 
   const handleSubmit = () => {
-    alert(
-      "Email : " +
-        values.email +
-        "\nConfirm Email : " +
-        values.confirmEmail +
-        "\nIs Privacy Checked: " +
-        isPrivacyChecked +
-        "\nIs Accepted : " +
-        isAccepted
-    );
+    // alert(
+    //   "Email : " +
+    //     values.email +
+    //     "\nConfirm Email : " +
+    //     values.confirmEmail +
+    //     "\nIs Privacy Checked: " +
+    //     isPrivacyChecked +
+    //     "\nIs Accepted : " +
+    //     isAccepted
+    // );
     navigation.navigate("setPassword");
   };
 
@@ -188,14 +188,14 @@ const ConfirmEmail = (formik) => {
                       : 0.5,
                 },
               ]}
-              disabled={
-                !(
-                  formik.isValid &&
-                  formik.dirty &&
-                  isPrivacyChecked &&
-                  isAccepted
-                )
-              }
+              // disabled={
+              //   !(
+              //     formik.isValid &&
+              //     formik.dirty &&
+              //     isPrivacyChecked &&
+              //     isAccepted
+              //   )
+              // }
               onPress={() => {
                 handleSubmit();
               }}

@@ -27,7 +27,7 @@ const SetPassword = (formik) => {
     return null;
   }
   const handleSubmit = () => {
-    alert("Password : " + values.password)
+    // alert("Password : " + values.password)
     navigation.navigate("verifyOTP")
   };
 
@@ -158,7 +158,7 @@ const SetPassword = (formik) => {
                 styles.button,
                 { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
               ]}
-              disabled={!(formik.isValid && formik.dirty)}
+              // disabled={!(formik.isValid && formik.dirty)}
               onPress={() => {
                 handleSubmit();
               }}

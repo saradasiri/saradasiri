@@ -94,13 +94,14 @@ const CompleteProfile2 = (formik) => {
             style={styles.Logo}
             source={require("../../../assets/vlogo.png")}
           />
+          <Text>{values.range === "$0 - $9,999"}</Text>
 
           {values.range === "$0 - $9,999" ? (
             <View style={styles.tab}>
-              <View style={[styles.tab1, { marginLeft: 0 }]}></View>
+              <View style={[styles.tab1, { marginLeft: 0,backgroundColor: "#D9D9D9" }]}></View>
               <Text>1</Text>
 
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
+              <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
                 <Text>2</Text>
               </View>
 
@@ -350,7 +351,7 @@ const CompleteProfile2 = (formik) => {
 
           <View style={{ marginBottom: 40 }}>
             <TouchableOpacity
-              disabled={!(formik.isValid && formik.dirty)}
+              // disabled={!(formik.isValid && formik.dirty)}
               onPress={() => {
                 handleFormSubmit(values);
               }}

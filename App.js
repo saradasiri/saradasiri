@@ -14,6 +14,9 @@ import SetUpPin from "./views/register/setUpPin/setUpPin";
 import AccountLevel from "./views/accountLevel/accountLevel";
 import CompleteProfileProcess1 from "./views/completeProfile/completeProfile1/completeProfileProcess1";
 import CompleteProfileProcess2 from "./views/completeProfile/completeProfile2/completeProfileProcess2";
+import CompleteProfileProcess3 from "./views/completeProfile/completeProfile3/completeProfileProcess3";
+import CompleteProfile4 from "./views/completeProfile/completeProfile4/completeProfile4";
+import FundingProcess from "./views/funding/fundingProcess"
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -134,6 +137,44 @@ export default function App() {
           headerTitle: "",
         }}
         component={CompleteProfileProcess2}
+      />
+       <Stack.Screen
+        name="completeProfile3"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#F2F6FF",
+          },
+          ...TransitionPresets.SlideFromRightIOS,
+          headerTitle: "",
+        }}
+        component={CompleteProfileProcess3}
+      />
+       <Stack.Screen
+        name="completeProfile4"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#F2F6FF",
+          },
+          ...TransitionPresets.SlideFromRightIOS,
+          headerTitle: "",
+        }}
+        component={CompleteProfile4}
+      />
+
+      
+<Stack.Screen
+        name="funding"
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#F2F6FF",
+          },
+          ...TransitionPresets.SlideFromRightIOS,
+          headerTitle: "",
+        }}
+        component={FundingProcess}
       />
       </Stack.Navigator>
     </NavigationContainer>
