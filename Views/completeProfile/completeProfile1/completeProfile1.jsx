@@ -334,8 +334,9 @@ const CompleteProfile1 = (formik) => {
                 withCountryButton={false}
                 withCallingCode
                 onSelect={(country) => {
+                  console.log(country)
                   const { cca2 } = country;
-                  setCountryBirth(cca2);
+                   setCountryBirth(cca2);
                 }}
                 style={{ fontSize: 24, width: 322, paddingBottom: 50 }}
               />

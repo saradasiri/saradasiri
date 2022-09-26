@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#483D8B",
     justifyContent: "center",
     borderRadius: 10,
-    top: -680,
+    top: -630,
     left: 15,
   },
 });
