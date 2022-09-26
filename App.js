@@ -4,7 +4,6 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 // import "react-native-gesture-handler";
-<<<<<<< HEAD
 import LoginProcess from "./views/login/loginProcess";
 import IntroSlides from "./views/introSlides";
 import LandingPage from "./views/landingPage/landingPage";
@@ -22,9 +21,6 @@ import CountryCodePicker from "./src/countryCodePicker"
 import MobileVerify from "./views/mobileVerify";
 import MobileInput from "./views/mobileInput";
 import VerifyMobile from "./views/verifyMobileOtp";
-=======
-import LoginProcess from "./Views/login/loginProcess";
-import IntroSlides from "./Views/introSlides";
 import LandingPage from "./Views/landingPage/landingPage";
 import ConfirmEmailProcess from "./Views/register/confirmEmail/confirmEmailProcess";
 import SetPasswordProcess from "./Views/register/setPassword/setPasswordProcess";
@@ -37,18 +33,13 @@ import CompleteProfileProcess3 from "./Views/completeProfile/completeProfile3/co
 import CompleteProfile4 from "./Views/completeProfile/completeProfile4/completeProfile4";
 import FundingProcess from "./Views/funding/fundingProcess";
 import WalletHome from "./Views/walletHome/walletHome";
->>>>>>> e2ca21c749fda5c7bb89aedd76c9d5de2719d2db
 
 export default function App() {
   const Stack = createStackNavigator();
   return (
-<<<<<<< HEAD
-  <NavigationContainer>
-      <Stack.Navigator initialRouteName="introSlides">
-=======
+ 
   <NavigationContainer theme={{ colors: { background: "#270041" } }}>
       <Stack.Navigator initialRouteName="walletHome">
->>>>>>> e2ca21c749fda5c7bb89aedd76c9d5de2719d2db
         <Stack.Screen
           name="introSlides"
           options={{
