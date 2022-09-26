@@ -17,11 +17,15 @@ import CompleteProfileProcess2 from "./views/completeProfile/completeProfile2/co
 import CompleteProfileProcess3 from "./views/completeProfile/completeProfile3/completeProfileProcess3";
 import CompleteProfile4 from "./views/completeProfile/completeProfile4/completeProfile4";
 import FundingProcess from "./views/funding/fundingProcess"
+import CountryCodePicker from "./src/countryCodePicker"
+import MobileVerify from "./views/mobileVerify";
+import MobileInput from "./views/mobileInput";
+import VerifyMobile from "./views/verifyMobileOtp";
 
 export default function App() {
   const Stack = createStackNavigator();
   return (
-  <NavigationContainer theme={{ colors: { background: "#270041" } }}>
+  <NavigationContainer>
       <Stack.Navigator initialRouteName="introSlides">
         <Stack.Screen
           name="introSlides"
@@ -33,6 +37,50 @@ export default function App() {
             headerTitle: "",
           }}
           component={IntroSlides}
+        />
+          <Stack.Screen
+          name="phoneCode"
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#F2F6FF",
+            },
+            headerTitle: "",
+          }}
+          component={CountryCodePicker}
+        />
+          <Stack.Screen
+          name="mobileVerify"
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#F2F6FF",
+            },
+            headerTitle: "",
+          }}
+          component={MobileVerify}
+        />
+         <Stack.Screen
+          name="verifyMobileOtp"
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#F2F6FF",
+            },
+            headerTitle: "",
+          }}
+          component={VerifyMobile}
+        />
+          <Stack.Screen
+          name="mobileotp"
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#F2F6FF",
+            },
+            headerTitle: "",
+          }}
+          component={MobileInput}
         />
         <Stack.Screen
           name="landingPage"
