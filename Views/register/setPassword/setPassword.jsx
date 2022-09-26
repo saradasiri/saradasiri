@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const SetPassword = (formik) => {
   const navigation = useNavigation();
+
   const { values, errors, touched } = formik;
 
   let [fontsLoad, error] = useFonts({
@@ -27,8 +28,8 @@ const SetPassword = (formik) => {
     return null;
   }
   const handleSubmit = () => {
-    alert("Password : " + values.password)
-    navigation.navigate("verifyOTP")
+    alert("Password : " + values.password);
+    navigation.navigate("verifyOTP");
   };
 
   return (
@@ -43,7 +44,8 @@ const SetPassword = (formik) => {
             <Text
               style={[
                 styles.text,
-                // { color: errors.password && touched.password ? "red" : "#33B7B0" },
+                // { color: errors.password &&
+                { color: touched.password ? "red" : "#33B7B0" },
               ]}
             >
               Correo electrónico

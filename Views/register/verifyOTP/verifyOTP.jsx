@@ -30,7 +30,7 @@ const VerifyOTP = (email) => {
 
   const handleSubmit = () => {
     alert("OTP : " + otpInput);
-    navigation.navigate("setUpPin")
+    navigation.navigate("setUpPin");
   };
 
   return (
@@ -76,8 +76,8 @@ const VerifyOTP = (email) => {
 
         <View style={{ marginTop: 50 }}>
           <TouchableOpacity
-            style={[styles.button, { opacity: otpInput.length>5 ? 1 : 0.5 }]}
-            disabled={!(otpInput.length>5)}
+            style={[styles.button, { opacity: otpInput.length > 5 ? 1 : 0.5 }]}
+            disabled={!(otpInput.length > 5)}
             onPress={() => {
               handleSubmit();
             }}

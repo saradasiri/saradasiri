@@ -71,7 +71,7 @@ const Login = (formik) => {
         <View>
           <StatusBar style="auto" />
           <Toast position="top" topOffset={-10} />
-         
+
           <Text style={styles.Label}>¡Hola de nuevo!</Text>
 
           <View style={{ paddingTop: 70 }}>
@@ -81,7 +81,7 @@ const Login = (formik) => {
                 // { color: errors.email && touched.email ? "red" : "#33B7B0" },
               ]}
             >
-             Correo electrónico
+              Correo electrónico
             </Text>
             <View>
               <TextInput
@@ -117,7 +117,7 @@ const Login = (formik) => {
                 styles.text,
                 {
                   // color:
-                    // errors.password && touched.password ? "red" : "#808080",
+                  // errors.password && touched.password ? "red" : "#808080",
                 },
               ]}
             >
@@ -156,7 +156,7 @@ const Login = (formik) => {
 
           <View style={styles.signup}>
             <Text style={{ fontFamily: "NunitoSans_400Regular" }}>
-            ¿Olvidaste tu contraseña?
+              ¿Olvidaste tu contraseña?
             </Text>
             <TouchableOpacity
               style={{ paddingLeft: 5 }}
@@ -166,8 +166,8 @@ const Login = (formik) => {
                 style={{
                   fontFamily: "NunitoSans_400Regular",
                   color: "#2E2E2E",
-                  textDecorationLine:'underline',
-                  fontWeight:'bold'                  
+                  textDecorationLine: "underline",
+                  fontWeight: "bold",
                 }}
               >
                 Recuperar
@@ -177,16 +177,16 @@ const Login = (formik) => {
 
           <View style={{ marginTop: 50 }}>
             <TouchableOpacity
-            style={[
-              styles.button,
-              { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
-            ]}
+              style={[
+                styles.button,
+                { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+              ]}
               disabled={!(formik.isValid && formik.dirty)}
               onPress={() => {
                 handleSubmit();
               }}
             >
-                <Text style={styles.buttonText}>Entrar</Text>
+              <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
           </View>
 
@@ -194,7 +194,6 @@ const Login = (formik) => {
             style={styles.Logo}
             source={require("../../assets/vlogo.png")}
           />
-
         </View>
       </ScrollView>
     </KeyboardAwareScrollView>
@@ -213,35 +212,35 @@ const styles = StyleSheet.create({
   Logo: {
     height: 50,
     width: 180,
-    marginTop:50,
-    alignSelf:'center',
+    marginTop: 50,
+    alignSelf: "center",
   },
   Label: {
     marginTop: 50,
     fontWeight: "400",
     fontSize: 24,
     lineHeight: 27,
-    marginBottom:-20,
-    zIndex:-1
+    marginBottom: -20,
+    zIndex: -1,
   },
   text: {
-    fontSize:18,
-    marginBottom:8,
+    fontSize: 18,
+    marginBottom: 8,
     fontFamily: "NunitoSans_400Regular",
-    color: '#737373',
+    color: "#737373",
   },
   inputStyle: {
     height: 50,
-    width:322,
+    width: 322,
     borderWidth: 1,
     borderRadius: 5,
     backgroundColor: "white",
     paddingLeft: 30,
   },
-  button:{
-    marginTop:40,
+  button: {
+    marginTop: 40,
     height: 50,
-    width:322,
+    width: 322,
     borderRadius: 5,
     backgroundColor: "#00BFFF",
   },

@@ -11,19 +11,27 @@ const LoginProcess = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email("Email inválido").required("correo electronico es requerido"),
-    password: Yup
-      .string()
-      .matches(/\w*[a-z]\w*/,  "La contraseña debe tener una letra minúscula")
-      .matches(/\w*[A-Z]\w*/,  "La contraseña debe tener una letra mayúscula")
+    email: Yup.string()
+      .email("Email inválido")
+      .required("correo electronico es requerido"),
+    password: Yup.string()
+      .matches(/\w*[a-z]\w*/, "La contraseña debe tener una letra minúscula")
+      .matches(/\w*[A-Z]\w*/, "La contraseña debe tener una letra mayúscula")
       .matches(/\d/, "La contraseña debe tener un número")
-      .matches(/[!@#$%^&*()\-_"=+{};:,<.>]/, "La contraseña debe tener un carácter especial")
+      .matches(
+        /[!@#$%^&*()\-_"=+{};:,<.>]/,
+        "La contraseña debe tener un carácter especial"
+      )
       .min(8, ({ min }) => `La contraseña debe tener al menos 8 caracteres`)
-      .required('se requiere contraseña'),
+      .required("se requiere contraseña"),
   });
 
   return (
-    <Formik initialValues={initialValues} enableReinitialize validationSchema={validationSchema}>
+    <Formik
+      initialValues={initialValues}
+      enableReinitialize
+      validationSchema={validationSchema}
+    >
       {(formik) => <Login {...formik} />}
     </Formik>
   );
