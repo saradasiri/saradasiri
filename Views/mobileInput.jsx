@@ -83,13 +83,12 @@ const MobileInput = (props) => {
             onChangeTextValue={(val) => onChangeTextValue("contact", val)}
           />
           <Text>{phoneError}</Text>
-          <TouchableOpacity style={styles.signIn}>
+          <TouchableOpacity style={styles.signIn} onPress={() => navigation.navigate("verifyMobileOtp")}>
             <Text
               style={[
                 globalStyles.Text_1,
                 { fontFamily: "NunitoSans_400Regular"  },
               ]}
-              onPress={() => navigation.navigate("verifyMobileOtp")}
             >
               Enviar código
             </Text>
@@ -194,8 +193,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   signIn: {
-    height: getHeight(85),
-    width: "80%",
+    height:50,
+    width: 312,
     borderWidth: 3,
     borderRadius: 10,
     alignItems: "center",
@@ -206,8 +205,8 @@ const styles = StyleSheet.create({
     marginTop: getHeight(15),
   },
   Logo: {
-    height: getHeight(70),
-    width: getWidth(500),
+    height: 37,
+    width: 136,
     marginTop: getHeight(80),
     alignSelf: "center",
   },

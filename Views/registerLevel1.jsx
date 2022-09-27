@@ -38,7 +38,7 @@ const RegisterLevel1 = (props) => {
       contentContainerStyle={[
         globalStyles.flex_1,
         { paddingTop:100 },
-      ]}
+      ]} style={{backgroundColor:"#fff"}}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text

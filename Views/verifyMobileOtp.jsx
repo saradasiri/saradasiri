@@ -116,7 +116,7 @@ const VerifyMobile = (props) => {
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={globalStyles.flex_1}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.flex_1} style={{backgroundColor:"#fff"}}>
       <SafeAreaView showsVerticalScrollIndicator={false}>
         <View style={globalStyles.marginTop_100}>
           <View

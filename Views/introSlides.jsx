@@ -5,11 +5,15 @@ import {
   Image,
   SafeAreaView,
   StatusBar,
+  ImageBackground, TouchableOpacity
 } from "react-native";
 import React, { useState } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
+import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
+import { useFonts } from "expo-font";
 
 const slides = [
    {
@@ -37,48 +41,59 @@ const slides = [
 
 const IntroSlides = () => {
   const navigation = useNavigation();
-  const [showApp, setShowApp] = useState();
+  let [fontsLoad, error] = useFonts({
+    NunitoSans_400Regular,
+  });
+
+  if (!fontsLoad) {
+    return null;
+  }
 
   const renderItem = ({ item }) => {
     return (
-      <SafeAreaView
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100%",
-          width: "100%",
-          flex: 1,
-          backgroundColor: `${item.backgroundColor}`,
-        }}
-      >
-        <Image source={item.image} style={item.styles} />
+      <ImageBackground
+      style={{ flex: 1, alignSelf: "stretch", width: null }}
+      source={require("../assets/rect.png")}
+    >
+        <Image source={item.image} style={{alignSelf: "center",}} />
+      <View style={{marginTop:item.key === "three"? -30: 285}}></View>
         {item.title && <Text style={styles.title}>{item.title}</Text>}
         {item.text && <Text style={styles.text}>{item.text}</Text>}
-      </SafeAreaView>
+      </ImageBackground>
     );
   };
   const _renderNextButton = () => {
     return (
-      <View>
-        {/* <AntDesign
-          name="rightcircle"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-        /> */}
-      </View>
+      <View style={styles.skipped}>
+      <Text
+        style={{ color: "white", textAlign: "center", fontSize: 16,fontFamily: "NunitoSans_400Regular" }}
+      >
+       Next
+      </Text>
+    </View>
     );
   };
 
   const _renderDoneButton = () => {
     return (
-      <View style={styles.buttonCircle}>
-        <AntDesign
-          name="check"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-          onPress={() => navigation.navigate("mobileotp")}
-        />
-      </View>
+      <TouchableOpacity
+      style={{
+        backgroundColor: "#8D00FF",
+        width: 312,
+        height: 50,
+        justifyContent: "center",
+        textAlign: "center",
+        borderRadius: 8,
+        alignSelf: "center",
+        marginTop:-80
+      }}
+      onPress={() => navigation.navigate("mobileotp")}
+    >
+        <Text style={{ color: "#fff", fontSize: 16, fontFamily: "NunitoSans_400Regular",
+              alignSelf: "center", }}>
+         Crear mi cuenta
+        </Text>
+    </TouchableOpacity>
     );
   };
 
@@ -86,8 +101,7 @@ const IntroSlides = () => {
     return (
       <View style={styles.skipped}>
         <Text
-          style={{ color: "white", textAlign: "center", fontSize: 16 }}
-          onPress={() => navigation.navigate("mobileotp")}
+          style={{ color: "white", textAlign: "center", fontSize: 16,fontFamily: "NunitoSans_400Regular" }}
         >
           Skip
         </Text>
@@ -100,13 +114,21 @@ const IntroSlides = () => {
       <AppIntroSlider
         dotStyle={{
           backgroundColor: "#bababa",
+          top:-13,
+          width:8,
+          height:8
         }}
         activeDotStyle={{
           backgroundColor: "#8D00FF",
+          top:-13,
+          width:8,
+          height:8
         }}
         data={slides}
         renderItem={renderItem}
-        onDone ={() => navigation.navigate("mobileotp")}
+        renderDoneButton={_renderDoneButton}
+        renderSkipButton={_renderSkipButton}
+        renderNextButton={_renderNextButton}
         showSkipButton="true"
         contentContainerStyle={{
           resizeMode: "contain",
@@ -138,6 +160,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     top:30,
     lineHeight: 35,
+    fontFamily: "NunitoSans_400Regular",
   },
   title: {
     fontSize: 36,
@@ -147,14 +170,10 @@ const styles = StyleSheet.create({
     lineHeight:46,
     textAlign: "center",
     paddingTop: 20,
+    fontFamily: "NunitoSans_400Regular"
   },
   skipped: {
     height: 30,
     width: 70,
-    backgroundColor: "#483D8B",
-    justifyContent: "center",
-    borderRadius: 10,
-    top: -630,
-    left: 15,
   },
 });

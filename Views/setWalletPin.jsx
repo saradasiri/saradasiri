@@ -34,7 +34,7 @@ const SetWalletPin = () => {
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={[globalStyles.flex_1, { paddingTop: 100 }]}
+      contentContainerStyle={[globalStyles.flex_1, { paddingTop: 100 }]} style={{backgroundColor:"#fff"}}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text

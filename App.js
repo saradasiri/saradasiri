@@ -28,7 +28,7 @@ import HomePage from "./views/homePage";
 export default function App() {
   const Stack = createStackNavigator();
   return (
-    <NavigationContainer >
+    <NavigationContainer theme={{ colors: { background: "#270041" } }}>
       <Stack.Navigator initialRouteName="homepage">
       <Stack.Screen
           name="homepage"
@@ -78,6 +78,7 @@ export default function App() {
           name="verifyMobileOtp"
           options={{
             headerShown: false,
+            ...TransitionPresets.SlideFromRightIOS,
             headerStyle: {
               backgroundColor: "#F2F6FF",
             },
@@ -89,6 +90,7 @@ export default function App() {
           name="mobileotp"
           options={{
             headerShown: false,
+            ...TransitionPresets.SlideFromRightIOS,
             headerStyle: {
               backgroundColor: "#F2F6FF",
             },

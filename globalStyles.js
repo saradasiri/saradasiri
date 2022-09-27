@@ -5,28 +5,28 @@ export default StyleSheet.create({
   Text_1: {
     fontSize: getfontSize(15),
     color: "#ffff",
-    fontWeight: "700",
+    fontWeight: "400",
   },
   Text_2: {
     textAlign: "center",
     fontSize: getfontSize(20),
-    fontWeight: "700",
+    fontWeight: "400",
     color: "#8D00FF",
     marginLeft: getWidth(30),
   },
   Text_3: {
     fontSize: getfontSize(15),
     textAlign: "center",
-    fontWeight: "500",
+    fontWeight: "400",
   },
   Text_Private: {
     color: "#2D0052",
-    fontWeight: "500",
+    fontWeight: "400",
     fontSize: getfontSize(15),
   },
   Text_Private_1: {
     color: "#929094",
-    fontWeight: "500",
+    fontWeight: "400",
     fontSize: getfontSize(15),
   },
   BeginText: {
@@ -77,7 +77,7 @@ export default StyleSheet.create({
     fontSize: getfontSize(16),
     color: "black",
     // margin: 15,
-    marginRight: getWidth(500),
+    marginRight: getWidth(400),
     flex: 1,
   },
 });

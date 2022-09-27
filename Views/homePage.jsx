@@ -2,79 +2,83 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  Button,
-  KeyboardAwareScrollView,
+  ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import globalStyles from "../globalStyles";
 import { useNavigation } from "@react-navigation/native";
+import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
+import { useFonts } from "expo-font";
 
 const HomePage = () => {
   const navigation = useNavigation();
+  let [fontsLoad, error] = useFonts({
+    NunitoSans_400Regular,
+  });
+
+  if (!fontsLoad) {
+    return null;
+  }
+
   return (
-    <>
+    <ImageBackground
+      style={{ flex: 1, alignSelf: "stretch", width: null }}
+      source={require("../assets/home.png")}
+    >
       <View
         style={{
           justifyContent: "center",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "#2D0052",
+          alignSelf: "center",
+          top: 615,
         }}
       >
-        <Image
-          style={{ marginLeft: -110, top: 20 }}
-          source={require("../assets/vadihome.png")}
-        />
-        <View
+        <TouchableOpacity
           style={{
+            backgroundColor: "#8D00FF",
+            width: 312,
+            height: 50,
             justifyContent: "center",
             textAlign: "center",
-            alignSelf: "center",
+            borderRadius: 8,
           }}
+          onPress={() => navigation.navigate("introSlides")}
         >
-          <TouchableOpacity
+          <View
             style={{
-              backgroundColor: "#8D00FF",
-              width: 330,
-              height: 50,
-              top: -70,
+              flexDirection: "row",
               justifyContent: "center",
-              textAlign: "center",
-              borderRadius: 8,
+              alignSelf: "center",
             }}
-            onPress={() => navigation.navigate("registerLevel1")}
           >
-            <Text style={{ color: "#fff", fontSize: 20, textAlign: "center" }}>
-              + Iniciar registro
+            <Text style={{ color: "#fff", fontSize: 30 }}>+ </Text>
+            <Text style={{ color: "#fff", fontSize: 16, top: 11,fontFamily: "NunitoSans_400Regular" }}>
+              Iniciar registro
             </Text>
-          </TouchableOpacity>
-                  <TouchableOpacity style={{ justifyContent: "center", top: -40 }}
-                  onPress={() => navigation.navigate("introSlides")}>
-            <Text
-              style={{
-                color: "#fff",
-                justifyContent: "center",
-                alignSelf: "center",
-                fontSize: 20,
-                fontWeight: "bold",
-              }}
-            >
-              Entrar
-            </Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{ justifyContent: "center" }}
+          onPress={() => navigation.navigate("registerLevel1")}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              alignSelf: "center",
+              fontSize: 16,
+              fontWeight: "400",
+              marginTop: 20,
+              fontFamily: "NunitoSans_400Regular"
+            }}
+          >
+            Entrar
+          </Text>
+        </TouchableOpacity>
       </View>
-    </>
+    </ImageBackground>
   );
 };
 
 export default HomePage;
 
-const styles = StyleSheet.create({
-  button: {
-    marginTop: 100,
-    width: 60,
-  },
-});
+const styles = StyleSheet.create({});
