@@ -28,7 +28,7 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName="SetUpPin">
+      <Stack.Navigator initialRouteName="introSlides">
         <Stack.Screen
           name="introSlides"
           options={{

@@ -34,7 +34,7 @@ export default StyleSheet.create({
     textAlign: "center",
     fontFamily: "NunitoSans_400Regular",
     color: "",
-    fontWeight: "700",
+    fontWeight: "400",
   },
   flex_1: {
     width: "100%",
