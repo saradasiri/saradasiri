@@ -23,12 +23,24 @@ import CompleteProfile4 from "./views/completeProfile/completeProfile4/completeP
 import WalletHome from "./views/walletHome/walletHome";
 import RegisterLevel1 from "./views/registerLevel1";
 import SetWalletPin from "./views/setWalletPin";
+import HomePage from "./views/homePage";
 
 export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName="introSlides">
+      <Stack.Navigator initialRouteName="homepage">
+      <Stack.Screen
+          name="homepage"
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#F2F6FF",
+            },
+            headerTitle: "",
+          }}
+          component={HomePage}
+        />
         <Stack.Screen
           name="introSlides"
           options={{

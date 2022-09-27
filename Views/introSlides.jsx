@@ -12,34 +12,25 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const slides = [
-  {
+   {
     key: "one",
-    image: require("../assets/vlogo2.png"),
+    title: "El marketplace de activos digitales",
+    text: "Vadi es unmarketplace donde se unen las startups y pymes latinoamericanas con inversores de todo el mundo",
+    // image: require("../assets/vlogo.png"),
     backgroundColor: "#270041",
-    styles: {
-      width: 260,
-      height: 75,
-    },
   },
   {
     key: "two",
-    title: "El marketplace de activos digitales",
-    text: "Vadi es unmarketplace donde se unen las startups y pymes latinoamericanas con inversores de todo el mundo",
-    image: require("../assets/vlogo.png"),
+    title: "Participacion acionaria",
+    text: "Una infraestructura segura y accesible para emitir, almacenar y operar activos digitales em proyectos de bloackchain",
+    // image: require("../assets/rocket.png"),
     backgroundColor: "#270041",
   },
   {
     key: "three",
-    title: "Participacion acionaria",
-    text: "Una infraestructura segura y accesible para emitir, almacenar y operar activos digitales em proyectos de bloackchain",
-    image: require("../assets/rocket.png"),
-    backgroundColor: "#270041",
-  },
-  {
-    key: "four",
     title: "Capital para emprender",
     text: "Con Vadi puedes lanzar un activo digital para reunir el capital privado necesario para desarrollar tu proyecto",
-    image: require("../assets/rocket.png"),
+    image: require("../assets/cupVadi1.png"),
     backgroundColor: "#270041",
   },
 ];
@@ -109,21 +100,13 @@ const IntroSlides = () => {
       <AppIntroSlider
         dotStyle={{
           backgroundColor: "#bababa",
-          top: -50,
-          width: 30,
-          height: 5,
         }}
         activeDotStyle={{
-          backgroundColor: "#00BFFF",
-          top: -50,
-          width: 30,
-          height: 5,
+          backgroundColor: "#8D00FF",
         }}
         data={slides}
         renderItem={renderItem}
-        renderDoneButton={_renderDoneButton}
-        renderNextButton={_renderNextButton}
-        renderSkipButton={_renderSkipButton}
+        onDone ={() => navigation.navigate("mobileotp")}
         showSkipButton="true"
         contentContainerStyle={{
           resizeMode: "contain",
@@ -150,15 +133,18 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    paddingHorizontal: 30,
-    fontSize: 20,
+    paddingHorizontal: 20,
+    fontSize: 18,
     textAlign: "center",
+    top:30,
     lineHeight: 35,
   },
   title: {
-    fontSize: 40,
+    fontSize: 36,
     color: "white",
     padding: 25,
+    top: 30,
+    lineHeight:46,
     textAlign: "center",
     paddingTop: 20,
   },

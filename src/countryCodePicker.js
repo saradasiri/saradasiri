@@ -9,7 +9,7 @@ const CountryCodePicker = (props) => {
     <View>
       <PhoneInput
         disableArrowIcon={false}
-        placeholder={"    "}
+        placeholder={"     "}
         containerStyle={globalStyles.PhoneInput}
         textInputStyle={styles.textInputStyles}
         textContainerStyle={styles.textInputStyle}
