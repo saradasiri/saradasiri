@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
   container: {
     width: 330,
     marginTop: 20,
-    backgroundColor: "#737373",
+    backgroundColor: "#8D00FF",
     borderRadius: 15,
   },
   iconText:{

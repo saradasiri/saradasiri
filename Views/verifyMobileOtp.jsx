@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   Text,
@@ -26,6 +26,7 @@ import { useFonts } from "expo-font";
 import * as Progress from "react-native-progress";
 import globalStyles from "../globalStyles";
 import { getfontSize, getHeight, getWidth } from "../src/Dimentions/DImentions";
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   title: {
@@ -75,14 +76,14 @@ const CELL_SIZE = 60;
 
 const VerifyMobile = (props) => {
   let route = props.route;
-  let navigation = props.navigation;
+  let navigation = useNavigation();
   const [mobileNumber, setMobileNumber] = useState(
     route.params?.contactNumber ?? ""
   );
   const [countryCode, setCountryCode] = useState(
     route.params?.countryCode ?? ""
   );
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState();
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [propss, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -98,12 +99,20 @@ const VerifyMobile = (props) => {
     return null;
   }
 
+  // useEffect(() => {
+  //   if (value.length === 4) {
+  //     navigation.navigate("registerLevel1");
+  //   }
+  // },[value]);
+
   const pressSubmitAction = () => {
     if (value.length < 4) {
       Alert.alert("Fill in all the 4 digits.");
       return;
     }
-    props.navigation.navigate("UserName");
+    if (value.length === 4) {
+      navigation.navigate("registerLevel1");
+    }
   };
 
   return (
@@ -136,42 +145,43 @@ const VerifyMobile = (props) => {
                     .toString()
                     .slice(mobileNumber.toString().length - 2)}
             </Text>
-            <CodeField
-              ref={ref}
-              {...propss}
-              // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-              value={value}
-              onChangeText={setValue}
-              cellCount={CELL_COUNT}
-              rootStyle={styles.codeFieldRoot}
-              keyboardType="number-pad"
-              textContentType="oneTimeCode"
-              renderCell={({ index, symbol, isFocused }) => {
-                let textChild = null;
+            <View style={{ paddingLeft: 40, paddingRight: 40 }}>
+              <CodeField
+                ref={ref}
+                {...propss}
+                value={value}
+                onChangeText={setValue}
+                cellCount={CELL_COUNT}
+                rootStyle={styles.codeFieldRoot}
+                keyboardType="number-pad"
+                textContentType="oneTimeCode"
+                renderCell={({ index, symbol, isFocused }) => {
+                  let textChild = null;
 
-                if (symbol) {
-                  textChild = (
-                    <MaskSymbol
-                      maskSymbol="*"
-                      isLastFilledCell={isLastFilledCell({ index, value })}
+                  if (symbol) {
+                    textChild = (
+                      <MaskSymbol
+                        maskSymbol="*"
+                        isLastFilledCell={isLastFilledCell({ index, value })}
+                      >
+                        {symbol}
+                      </MaskSymbol>
+                    );
+                  } else if (isFocused) {
+                    textChild = <Cursor />;
+                  }
+                  return (
+                    <Text
+                      key={index}
+                      style={[styles.cell, isFocused && styles.focusCell]}
+                      onLayout={getCellOnLayoutHandler(index)}
                     >
-                      {symbol}
-                    </MaskSymbol>
+                      {textChild || (isFocused ? <Cursor /> : null)}
+                    </Text>
                   );
-                } else if (isFocused) {
-                  textChild = <Cursor />;
-                }
-                return (
-                  <Text
-                    key={index}
-                    style={[styles.cell, isFocused && styles.focusCell]}
-                    onLayout={getCellOnLayoutHandler(index)}
-                  >
-                    {textChild || (isFocused ? <Cursor /> : null)}
-                  </Text>
-                );
-              }}
-            />
+                }}
+              />
+            </View>
             {/* <CodeField
             ref={ref}
             {...props}
@@ -206,10 +216,7 @@ const VerifyMobile = (props) => {
               Volver a enviar
             </Text>
           </TouchableOpacity>
-          <Image
-            style={styles.Logo}
-            source={require("../assets/vlogo.png")}
-          />
+          <Image style={styles.Logo} source={require("../assets/vlogo.png")} />
         </View>
       </SafeAreaView>
     </KeyboardAwareScrollView>

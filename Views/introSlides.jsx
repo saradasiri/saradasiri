@@ -85,7 +85,7 @@ const IntroSlides = () => {
           name="check"
           color="rgba(255, 255, 255, .9)"
           size={24}
-          onPress={() => navigation.navigate("landingPage")}
+          onPress={() => navigation.navigate("mobileotp")}
         />
       </View>
     );
@@ -96,7 +96,7 @@ const IntroSlides = () => {
       <View style={styles.skipped}>
         <Text
           style={{ color: "white", textAlign: "center", fontSize: 16 }}
-          onPress={() => navigation.navigate("landingPage")}
+          onPress={() => navigation.navigate("mobileotp")}
         >
           Skip
         </Text>

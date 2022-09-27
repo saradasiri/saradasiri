@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import {
   View,
   Text,
@@ -17,7 +17,7 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import globalStyles from "../globalStyles";
 
-const MobileVerify = (props) => {
+const RegisterLevel1 = (props) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isError, setError] = useState(false);
@@ -37,14 +37,14 @@ const MobileVerify = (props) => {
     <KeyboardAwareScrollView
       contentContainerStyle={[
         globalStyles.flex_1,
-        { paddingTop:100,  backgroundColor:"#fff" },
+        { paddingTop:100 },
       ]}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text
           style={[
             globalStyles.BeginText,
-            { fontFamily: "NunitoSans_400Regular" , color:"#483D8B"},
+            { fontFamily: "NunitoSans_400Regular" , color:"#2D0052"},
           ]}
         >
           ¡Hola de nuevo!
@@ -56,6 +56,7 @@ const MobileVerify = (props) => {
               fontFamily: "NunitoSans_400Regular",
               textAlign: "center",
               marginTop: getHeight(35),
+              color:"#686873"
             },
           ]}
         >
@@ -87,7 +88,7 @@ const MobileVerify = (props) => {
           }}
         >
           <TouchableOpacity>
-            <Text style={{color:"#483D8B"}}>¿Olvidaste tu contraseña?</Text>
+            <Text style={{color:"#2D0052"}}>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => pressSubmitAction()}>
             <View
@@ -126,7 +127,7 @@ const MobileVerify = (props) => {
   );
 };
 
-export default MobileVerify;
+export default RegisterLevel1;
 
 const styles = StyleSheet.create({
   container: {

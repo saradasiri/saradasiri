@@ -16,8 +16,10 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import globalStyles from "../globalStyles";
 import * as Progress from "react-native-progress";
+import { useNavigation } from "@react-navigation/native";
 
 const MobileInput = (props) => {
+  const navigation = useNavigation()
   const [countryCode, setCountryCode] = useState(+52);
   const [state, setState] = useState({
     contact: "",
@@ -39,17 +41,17 @@ const MobileInput = (props) => {
   };
 
   const submit = () => {
-    if (state.contact === "" || state.contact.length < 10) {
-      console.log("state.contact");
-      console.log(state.contact.length);
-      setPhoneError("*please enter a valid mobile number.");
-    } else if (state.contact.length === 10) {
-      setPhoneError("");
-      props.navigation.navigate("Verify", {
-        contactNumber: state.contact,
-        countryCode: countryCode,
-      });
-    }
+    // if (state.contact === "" || state.contact.length < 10) {
+    //   console.log("state.contact");
+    //   console.log(state.contact.length);
+    //   setPhoneError("*please enter a valid mobile number.");
+    // } else if (state.contact.length === 10) {
+    //   setPhoneError("");
+    //   props.navigation.navigate("Verify", {
+    //     contactNumber: state.contact,
+    //     countryCode: countryCode,
+    //   });
+    // }
   };
 
   return (
@@ -81,12 +83,13 @@ const MobileInput = (props) => {
             onChangeTextValue={(val) => onChangeTextValue("contact", val)}
           />
           <Text>{phoneError}</Text>
-          <TouchableOpacity style={styles.signIn} onPress={() => submit()}>
+          <TouchableOpacity style={styles.signIn}>
             <Text
               style={[
                 globalStyles.Text_1,
-                { fontFamily: "NunitoSans_400Regular" },
+                { fontFamily: "NunitoSans_400Regular"  },
               ]}
+              onPress={() => navigation.navigate("verifyMobileOtp")}
             >
               Enviar código
             </Text>
@@ -106,7 +109,7 @@ const MobileInput = (props) => {
               <Text
                 style={[
                   globalStyles.Text_2,
-                  { fontFamily: "NunitoSans_400Regular" },
+                  { fontFamily: "NunitoSans_400Regular", color:"#2D0052" },
                 ]}
               >
                 Entrar
@@ -153,6 +156,7 @@ const MobileInput = (props) => {
                   globalStyles.Text_Private.color,
                   {
                     fontFamily: "NunitoSans_400Regular",
+                    color:"#2D0052"
                   },
                 ]}
               >
