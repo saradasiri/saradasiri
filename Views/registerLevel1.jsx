@@ -96,7 +96,7 @@ const RegisterLevel1 = (props) => {
       .catch((err) => {
         if (err.message) {
           Toast.show({
-            type: "error",
+            type: "success",
             text1: err.message,
           });
         }

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "new_vadi",
-    "slug": "new_vadi",
+    "name": "vadi_mobile_new",
+    "slug": "vadi_mobile_new",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,12 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode":1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.v1403258.vadimobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"

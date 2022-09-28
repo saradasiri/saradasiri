@@ -10,14 +10,14 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import Checkbox from "expo-checkbox";
+// import Checkbox from "expo-checkbox";
 
 // import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+// import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
 
 const CompleteProfile2 = (formik) => {
@@ -93,7 +93,6 @@ const CompleteProfile2 = (formik) => {
             style={styles.Logo}
             source={require("../../../assets/vlogo.png")}
           />
-          <Text>{values.range === "$0 - $9,999"}</Text>
 
           {values.range === "$0 - $9,999" ? (
             <View style={styles.tab}>
@@ -102,8 +101,9 @@ const CompleteProfile2 = (formik) => {
                   styles.tab1,
                   { marginLeft: 0, backgroundColor: "#D9D9D9" },
                 ]}
-              ></View>
+              >
               <Text>1</Text>
+              </View>
 
               <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
                 <Text>2</Text>
