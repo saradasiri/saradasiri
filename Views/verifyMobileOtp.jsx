@@ -24,8 +24,8 @@ import {
 import { useFonts } from "expo-font";
 
 import * as Progress from "react-native-progress";
-import globalStyles from "../../globalStyles";
-import { getfontSize, getHeight, getWidth } from "../../Dimentions/DImentions";
+import globalStyles from "../globalStyles";
+import { getfontSize, getHeight, getWidth } from "../src/Dimentions/DImentions";
 
 const styles = StyleSheet.create({
   title: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   codeFieldRoot: {
     // height: getHeight(30),
-    marginTop: getHeight(80),
+    marginTop: getHeight(40),
   },
   Logo: {
     height: getHeight(70),
@@ -54,15 +54,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   cell: {
-    width: 50,
-    height: 60,
+    width: 40,
+    height: 40,
     fontSize: getfontSize(20),
     borderWidth: 2,
     borderColor: "#e0e0e0",
     textAlign: "center",
     borderRadius: 8,
     color: "#0c2b77",
-    lineHeight: getHeight(70),
+    // lineHeight: getHeight(70),
   },
 
   focusCell: {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 const CELL_COUNT = 4;
 const CELL_SIZE = 60;
 
-const Verify = (props) => {
+const VerifyMobile = (props) => {
   let route = props.route;
   let navigation = props.navigation;
   const [mobileNumber, setMobileNumber] = useState(
@@ -99,9 +99,9 @@ const Verify = (props) => {
   }
 
   const pressSubmitAction = () => {
-    // if (value.length < 4) {
-    //   Alert.alert("Fill in all the 4 digits.");
-    //   return;
+    if (value.length < 4) {
+      Alert.alert("Fill in all the 4 digits.");
+      return;
     }
     props.navigation.navigate("UserName");
   };
@@ -208,7 +208,7 @@ const Verify = (props) => {
           </TouchableOpacity>
           <Image
             style={styles.Logo}
-            source={require("../../AssetsVadi/assets/vlogo.png")}
+            source={require("../assets/vlogo.png")}
           />
         </View>
       </SafeAreaView>
@@ -216,4 +216,4 @@ const Verify = (props) => {
   );
 };
 
-export default Verify;
+export default VerifyMobile;

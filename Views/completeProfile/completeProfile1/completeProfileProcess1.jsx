@@ -21,6 +21,7 @@ const CompleteProfileProcess1 = (accountLevel) => {
     nationality: "MX",
     phone: "",
     occupation: "",
+    isTokenSubscribed: accountLevel.route.params.isTokenSubscribed,
   };
 
   const validationSchema = Yup.object({

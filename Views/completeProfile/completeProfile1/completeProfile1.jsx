@@ -12,33 +12,57 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
+// import { LinearGradient } from "expo-linear-gradient";
 import React, { useState, useRef, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
-// import Checkbox from "expo-checkbox";
-// import CountryPicker from "react-native-country-picker-modal";
+import CountryPicker from "react-native-country-picker-modal";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import NationalitySelector from "../../../src/nationality/nationalitySelector";
 
 const CompleteProfile1 = (formik) => {
   const pickerRef = useRef();
+
+  function open() {
+    pickerRef.current.focus();
+  }
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [age, setAge] = useState("");
   const [birth, setBirth] = useState("");
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    setBirth(date);
+    const birthDate = new Date(date);
+    const difference = Date.now() - birthDate.getTime();
+    const cal = new Date(difference);
+    const ageCal = Math.abs(cal.getUTCFullYear() - 1970);
+    setAge(ageCal);
+    if (ageCal < 18) {
+      Alert.alert("You must be of legal age to continue.");
+    }
+    if (ageCal < 0) {
+      Alert.alert("Please select a valid Date");
+    }
+    hideDatePicker();
+  };
   const { values, errors, touched } = formik;
   const navigation = useNavigation();
 
-  const [countryBirth, setCountryBirth] = useState("");
-  const [nationality, setNationality] = useState("");
+  const [countryBirth, setCountryBirth] = useState(values.countryBirth);
+  const [nationality, setNationality] = useState(values.nationality);
   const [countryCode, setCountryCode] = useState("52");
 
-  const [occupation, setOccupation] = useState("");
+  // const [occupation, setOccupation] = useState(values.occupation);
 
   useEffect(() => {
     values.countryBirth = countryBirth;
@@ -65,30 +89,6 @@ const CompleteProfile1 = (formik) => {
     return null;
   }
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    setBirth(date);
-    const birthDate = new Date(date);
-    const difference = Date.now() - birthDate.getTime();
-    const cal = new Date(difference);
-    const ageCal = Math.abs(cal.getUTCFullYear() - 1970);
-    setAge(ageCal);
-    if (ageCal < 18) {
-      Alert.alert("You must be of legal age to continue.");
-    }
-    if (ageCal < 0) {
-      Alert.alert("Please select a valid Date");
-    }
-    hideDatePicker();
-  };
-
-  function open() {
-    pickerRef.current.focus();
-  }
-
   const handleFormSubmit = (values) => {
     const profile1 = {
       email: values.email,
@@ -99,8 +99,10 @@ const CompleteProfile1 = (formik) => {
       firstName: values.firstName.trim(),
       secondName: values.secondName,
       name: values.name,
-      birth: birth.toDateString(),
-      dateISO: birth.toISOString(),
+      // birth: birth.toDateString(),
+      birth: "",
+      // dateISO: birth.toISOString(),
+      dateISO: "",
       nationality: nationality,
       countryBirth: values.countryBirth,
       curp: values.curp ? values.curp : "",
@@ -110,21 +112,24 @@ const CompleteProfile1 = (formik) => {
       occupation: values.occupation ? values.occupation : "",
       age: age,
       countryCode: countryCode,
+      isTokenSubscribed: values.isTokenSubscribed,
     };
 
-    if (values.fund < values.lower || values.fund > values.upper) {
-      alert(`Your Investment Range is : \n${values.range}`);
-    }
-    if (values.fund < 100) {
-      alert("Minimum Amount is 100");
-    }
-    if (
-      values.fund >= values.lower &&
-      values.fund >= 100 &&
-      values.fund <= values.upper
-    ) {
-      navigation.navigate("completeProfile2", { ...profile1 });
-    }
+    // if (values.fund < values.lower || values.fund > values.upper) {
+    //   alert(`Your Investment Range is : \n${values.range}`);
+    // }
+    // if (values.fund < 100) {
+    //   alert("Minimum Amount is 100");
+    // }
+    // if (
+    //   values.fund >= values.lower &&
+    //   values.fund >= 100 &&
+    //   values.fund <= values.upper
+    // ) {
+    //   navigation.navigate("completeProfile2",{profile1});
+    // }
+
+    navigation.navigate("completeProfile2", { profile1 });
   };
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
@@ -135,46 +140,51 @@ const CompleteProfile1 = (formik) => {
             style={styles.Logo}
             source={require("../../../assets/vlogo.png")}
           />
+
           {values.range === "$0 - $9,999" ? (
             <View style={styles.tab}>
-              <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={["#33B9AF", "#4E68E1"]}
-                style={[styles.tab1, { marginLeft: 0 }]}
+              <View
+                style={[
+                  styles.tab1,
+                  {
+                    marginLeft: 0,
+                    backgroundColor: "#00BFFF",
+                    borderRadius: 30,
+                  },
+                ]}
               >
-                <Text style={styles.tabText}>1</Text>
-              </LinearGradient>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text style={styles.tabText}>2</Text>
+                <Text>1</Text>
               </View>
 
               <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text style={styles.tabText}>3</Text>
+                <Text>2</Text>
+              </View>
+
+              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
+                <Text>3</Text>
               </View>
             </View>
           ) : (
             <View style={styles.tab}>
-              <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={["#33B9AF", "#4E68E1"]}
-                style={[styles.tab1, { marginLeft: 0 }]}
+              <View
+                style={[
+                  styles.tab1,
+                  { marginLeft: 0, backgroundColor: "#00BFFF" },
+                ]}
               >
-                <Text style={styles.tabText}>1</Text>
-              </LinearGradient>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text style={styles.tabText}>2</Text>
+                <Text>1</Text>
               </View>
 
               <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text style={styles.tabText}>3</Text>
+                <Text>2</Text>
               </View>
 
               <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text style={styles.tabText}>4</Text>
+                <Text>3</Text>
+              </View>
+
+              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
+                <Text>4</Text>
               </View>
             </View>
           )}
@@ -185,17 +195,8 @@ const CompleteProfile1 = (formik) => {
             <View style={styles.dottedline}></View>
           )}
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  top: 15,
-                  color: errors.fund && touched.fund ? "red" : "#33B7B0",
-                  marginTop: 20,
-                },
-              ]}
-            >
+          <View style={{ paddingTop: 25 }}>
+            <Text style={[styles.text, { textAlign: "center", marginLeft: 0 }]}>
               Indicate the amount you are going to fund
             </Text>
             <View>
@@ -212,9 +213,7 @@ const CompleteProfile1 = (formik) => {
                 style={[
                   styles.inputStyle,
                   {
-                    marginTop: 20,
-                    borderColor:
-                      errors.fund && touched.fund ? "red" : "#33B7B0",
+                    borderColor: errors.fund && touched.fund ? "red" : "black",
                   },
                 ]}
               />
@@ -225,21 +224,11 @@ const CompleteProfile1 = (formik) => {
           </View>
 
           <View>
-            <Text style={styles.Label1}>Personal Data</Text>
+            <Text style={styles.Label}>Personal Data</Text>
           </View>
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color:
-                    errors.firstName && touched.firstName ? "red" : "#33B7B0",
-                },
-              ]}
-            >
-              First Name
-            </Text>
+          <View style={{ paddingTop: 20 }}>
+            <Text style={styles.text}>First Name</Text>
             <View>
               <TextInput
                 name="firstName"
@@ -254,7 +243,7 @@ const CompleteProfile1 = (formik) => {
                   styles.inputStyle,
                   {
                     borderColor:
-                      errors.firstName && touched.firstName ? "red" : "#33B7B0",
+                      errors.firstName && touched.firstName ? "red" : "black",
                   },
                 ]}
               />
@@ -264,18 +253,8 @@ const CompleteProfile1 = (formik) => {
             )}
           </View>
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color:
-                    errors.secondName && touched.secondName ? "red" : "#33B7B0",
-                },
-              ]}
-            >
-              Second Name
-            </Text>
+          <View style={{ paddingTop: 25 }}>
+            <Text style={styles.text}>Second Name</Text>
             <View>
               <TextInput
                 name="secondName"
@@ -290,9 +269,7 @@ const CompleteProfile1 = (formik) => {
                   styles.inputStyle,
                   {
                     borderColor:
-                      errors.secondName && touched.secondName
-                        ? "red"
-                        : "#33B7B0",
+                      errors.secondName && touched.secondName ? "red" : "black",
                   },
                 ]}
               />
@@ -302,15 +279,8 @@ const CompleteProfile1 = (formik) => {
             )}
           </View>
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
-              style={[
-                styles.text,
-                { color: errors.name && touched.name ? "red" : "#33B7B0" },
-              ]}
-            >
-              Name(s)
-            </Text>
+          <View style={{ paddingTop: 25 }}>
+            <Text style={styles.text}>Name(s)</Text>
             <View>
               <TextInput
                 name="name"
@@ -322,8 +292,7 @@ const CompleteProfile1 = (formik) => {
                 style={[
                   styles.inputStyle,
                   {
-                    borderColor:
-                      errors.name && touched.name ? "red" : "#33B7B0",
+                    borderColor: errors.name && touched.name ? "red" : "black",
                   },
                 ]}
               />
@@ -333,13 +302,11 @@ const CompleteProfile1 = (formik) => {
             )}
           </View>
 
-          <View style={{ paddingTop: 40 }}>
-            <Text style={[styles.text, { color: "#33B7B0" }]}>
-              Date of Birth
-            </Text>
+          <View style={{ paddingTop: 25 }}>
+            <Text style={styles.text}>Date of Birth</Text>
             <TouchableOpacity
               onPress={showDatePicker}
-              style={styles.boxContainer}
+              style={styles.inputStyle}
               activeOpacity={0.8}
             >
               <Text
@@ -359,21 +326,9 @@ const CompleteProfile1 = (formik) => {
             />
           </View>
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color:
-                    errors.countryBirth && touched.countryBirth
-                      ? "red"
-                      : "#33B7B0",
-                },
-              ]}
-            >
-              Country of Birth
-            </Text>
-            <View style={styles.boxContainer}>
+          <View style={{ paddingTop: 25 }}>
+            <Text style={styles.text}>Country of Birth</Text>
+            <View style={styles.inputStyle}>
               <CountryPicker
                 withFilter
                 countryCode={countryBirth}
@@ -383,10 +338,11 @@ const CompleteProfile1 = (formik) => {
                 withCountryButton={false}
                 withCallingCode
                 onSelect={(country) => {
+                  console.log(country);
                   const { cca2 } = country;
                   setCountryBirth(cca2);
                 }}
-                style={{ fontSize: 24, width: 322 }}
+                style={{ fontSize: 24, width: 322, paddingBottom: 50 }}
               />
             </View>
             {errors.countryBirth && touched.countryBirth && (
@@ -394,21 +350,9 @@ const CompleteProfile1 = (formik) => {
             )}
           </View>
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color:
-                    errors.nationality && touched.nationality
-                      ? "red"
-                      : "#33B7B0",
-                },
-              ]}
-            >
-              Nationality
-            </Text>
-            <View style={styles.boxContainer}>
+          <View style={{ paddingTop: 25 }}>
+            <Text style={styles.text}>Nationality</Text>
+            <View style={styles.inputStyle}>
               <CountryPicker
                 withFilter
                 countryCode={nationality}
@@ -431,17 +375,8 @@ const CompleteProfile1 = (formik) => {
           </View>
 
           {countryBirth === "MX" && nationality === "MX" && (
-            <View style={{ paddingTop: 40 }}>
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    color: errors.curp && touched.curp ? "red" : "#33B7B0",
-                  },
-                ]}
-              >
-                CURP
-              </Text>
+            <View style={{ paddingTop: 25 }}>
+              <Text style={styles.text}>CURP</Text>
               <View>
                 <TextInput
                   name="curp"
@@ -457,7 +392,7 @@ const CompleteProfile1 = (formik) => {
                     styles.inputStyle,
                     {
                       borderColor:
-                        errors.curp && touched.curp ? "red" : "#33B7B0",
+                        errors.curp && touched.curp ? "red" : "black",
                     },
                   ]}
                 />
@@ -469,17 +404,8 @@ const CompleteProfile1 = (formik) => {
           )}
 
           {countryBirth === "MX" && nationality === "MX" ? (
-            <View style={{ paddingTop: 40 }}>
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    color: errors.rfc && touched.rfc ? "red" : "#33B7B0",
-                  },
-                ]}
-              >
-                RFC
-              </Text>
+            <View style={{ paddingTop: 25 }}>
+              <Text style={styles.text}>RFC</Text>
               <View>
                 <TextInput
                   name="rfc"
@@ -494,8 +420,7 @@ const CompleteProfile1 = (formik) => {
                   style={[
                     styles.inputStyle,
                     {
-                      borderColor:
-                        errors.rfc && touched.rfc ? "red" : "#33B7B0",
+                      borderColor: errors.rfc && touched.rfc ? "red" : "black",
                     },
                   ]}
                 />
@@ -507,17 +432,8 @@ const CompleteProfile1 = (formik) => {
           ) : null}
 
           {countryBirth !== "MX" || nationality !== "MX" ? (
-            <View style={{ paddingTop: 40 }}>
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    color: errors.tax && touched.tax ? "red" : "#33B7B0",
-                  },
-                ]}
-              >
-                TAX ID
-              </Text>
+            <View style={{ paddingTop: 25 }}>
+              <Text style={styles.text}>TAX ID</Text>
               <View>
                 <TextInput
                   name="tax"
@@ -532,8 +448,7 @@ const CompleteProfile1 = (formik) => {
                   style={[
                     styles.inputStyle,
                     {
-                      borderColor:
-                        errors.tax && touched.tax ? "red" : "#33B7B0",
+                      borderColor: errors.tax && touched.tax ? "red" : "black",
                     },
                   ]}
                 />
@@ -544,17 +459,8 @@ const CompleteProfile1 = (formik) => {
             </View>
           ) : null}
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color: errors.phone && touched.phone ? "red" : "#33B7B0",
-                },
-              ]}
-            >
-              Phone Number
-            </Text>
+          <View style={{ paddingTop: 25 }}>
+            <Text style={styles.text}>Phone Number </Text>
             <View>
               <TextInput
                 name="phone"
@@ -571,7 +477,7 @@ const CompleteProfile1 = (formik) => {
                   styles.inputStyle,
                   {
                     borderColor:
-                      errors.phone && touched.phone ? "red" : "#33B7B0",
+                      errors.phone && touched.phone ? "red" : "black",
                   },
                 ]}
               />
@@ -585,12 +491,10 @@ const CompleteProfile1 = (formik) => {
             <View>
               <Pressable
                 style={[
-                  styles.boxContainer,
+                  styles.in,
                   {
                     borderColor:
-                      errors.occupation && touched.occupation
-                        ? "red"
-                        : "#33B7B0",
+                      errors.occupation && touched.occupation ? "red" : "black",
                     marginTop: 40,
                     justifyContent: "center",
                     alignItems: "center",
@@ -605,7 +509,7 @@ const CompleteProfile1 = (formik) => {
                       color:
                         errors.occupation && touched.occupation
                           ? "red"
-                          : "#33B7B0",
+                          : "black",
                       top: -10,
                     },
                   ]}
@@ -678,30 +582,18 @@ const CompleteProfile1 = (formik) => {
             </View>
           ) : null}
 
-          <View style={{ marginTop: 40, marginBottom: 50 }}>
-            <TouchableOpacity
-              disabled={!(formik.isValid && formik.dirty && age)}
-              onPress={() => {
-                handleFormSubmit(values);
-              }}
-            >
-              <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={["#4E68E1", "#33B9AF"]}
-                width={322}
-                height={50}
-                style={[
-                  { borderRadius: 100, paddingBottom: 10 },
-                  {
-                    opacity: formik.isValid && formik.dirty && age ? 1 : 0.5,
-                  },
-                ]}
-              >
-                <Text style={styles.buttonText}>Next</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            // disabled={!(formik.isValid && formik.dirty && age)}
+            onPress={() => {
+              handleFormSubmit(values);
+            }}
+            style={[
+              styles.button,
+              { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+            ]}
+          >
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAwareScrollView>
@@ -716,13 +608,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-  },
-  Logo: {
-    margin: 100,
-    height: 32,
-    width: 115,
-    marginBottom: 50,
-    marginTop: 50,
+    alignContent: "center",
   },
   tab: {
     display: "flex",
@@ -746,33 +632,45 @@ const styles = StyleSheet.create({
     left: 49,
     top: -17,
   },
-  Label1: {
-    marginTop: 30,
-    fontStyle: "normal",
-    fontWeight: "700",
-    fontSize: 20,
-    fontFamily: "NunitoSans_400Regular",
+  Logo: {
+    height: 50,
+    width: 180,
+    marginTop: 20,
+    alignSelf: "center",
+    marginBottom: 25,
+  },
+  Label: {
+    marginTop: 20,
+    fontWeight: "400",
+    fontSize: 24,
     lineHeight: 27,
     textAlign: "center",
   },
   text: {
-    position: "absolute",
-    top: 30,
-    left: 15,
-    zIndex: 100,
+    fontSize: 16,
+    marginBottom: 5,
     fontFamily: "NunitoSans_400Regular",
-    backgroundColor: "#F2F6FF",
-    paddingHorizontal: 20,
+    color: "#737373",
+    marginLeft: 15,
   },
   inputStyle: {
-    height: 50,
+    height: 40,
+    width: 300,
     borderWidth: 1,
-    borderColor: "#33B7B0",
-    flexDirection: "row",
-    borderRadius: 10,
-    paddingHorizontal: 5,
-    paddingTop: 5,
+    borderRadius: 5,
+    backgroundColor: "white",
     paddingLeft: 30,
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  button: {
+    marginTop: 40,
+    height: 50,
+    width: 322,
+    borderRadius: 5,
+    backgroundColor: "#00BFFF",
+    marginBottom: 50,
+    alignSelf: "center",
   },
   buttonText: {
     color: "#ffff",
@@ -781,24 +679,17 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     textAlign: "center",
   },
-  checkbox: {
-    borderColor: "#33B7B0",
-    opacity: 0.8,
-    width: 20,
-    borderRadius: 6,
-    height: 20,
-    marginTop: 5,
-  },
   error: {
     color: "red",
     fontFamily: "NunitoSans_400Regular",
     textAlign: "left",
+    marginLeft: 18,
   },
   boxContainer: {
     height: 50,
     width: 322,
     borderWidth: 1,
-    borderColor: "#33B7B0",
+    borderColor: "black",
     flexDirection: "row",
     borderRadius: 10,
     paddingHorizontal: 5,
@@ -807,12 +698,10 @@ const styles = StyleSheet.create({
   },
   datetext: {
     fontSize: 15,
-    padding: 3,
-    marginBottom: 10,
     textAlign: "center",
-    zIndex: 1,
     fontWeight: "600",
     fontFamily: "NunitoSans_400Regular",
+    alignSelf: "flex-start",
   },
 });
 export default CompleteProfile1;
