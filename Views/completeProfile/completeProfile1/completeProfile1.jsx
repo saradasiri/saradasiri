@@ -496,8 +496,7 @@ const CompleteProfile1 = (formik) => {
                     borderColor:
                       errors.occupation && touched.occupation ? "red" : "black",
                     marginTop: 40,
-                    justifyContent: "center",
-                    alignItems: "center",
+                    borderColor:"black"
                   },
                 ]}
                 onPress={open}
@@ -520,19 +519,20 @@ const CompleteProfile1 = (formik) => {
                   style={{
                     width: 300,
                     fontSize: 16,
-                    top: -4,
+                    // top: -4,
                     fontFamily: "NunitoSans_400Regular",
                     color: values.occupation === "" ? "#B9B9B9" : "black",
                     left: 10,
                   }}
                 >
-                  {values.occupation
+                  {/* {values.occupation
                     ? values.occupation
-                    : "--- Select Occupation ---"}
+                    : "--- Select Occupation ---"} */}
                 </Text>
                 <View style={{ marginBottom: 10 }}>
                   <Picker
                     ref={pickerRef}
+                    style={{borderColor:"1px solid black" , top:-30 ,width:300}}
                     selectedValue={values.occupation}
                     onValueChange={formik.handleChange("occupation")}
                     onBlur={formik.handleBlur("occupation")}
@@ -664,7 +664,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    marginTop: 40,
+    marginTop: 10,
     height: 50,
     width: 322,
     borderRadius: 5,

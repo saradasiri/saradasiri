@@ -29,7 +29,7 @@ const HomePage = () => {
         style={{
           justifyContent: "center",
           alignSelf: "center",
-          top: 615,
+          top: 550,
         }}
       >
         <TouchableOpacity

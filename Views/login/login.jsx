@@ -73,12 +73,11 @@ const Login = (formik) => {
           <Toast position="top" topOffset={-10} />
          
           <Text style={styles.Label}>¡Hola de nuevo!</Text>
-
           <View style={{ paddingTop: 70 }}>
             <Text
               style={[
                 styles.text,
-                // { color: errors.email && touched.email ? "red" : "#33B7B0" },
+                 { color: errors.email && touched.email ? "red" : "#33B7B0" },
               ]}
             >
              Correo electrónico
@@ -92,8 +91,7 @@ const Login = (formik) => {
                 style={[
                   styles.inputStyle,
                   {
-                    borderColor:
-                      errors.email && touched.email ? "red" : "#808080",
+                    borderColor:errors.email && touched.email ? "red" : "#808080",
                   },
                 ]}
               />
@@ -116,8 +114,8 @@ const Login = (formik) => {
               style={[
                 styles.text,
                 {
-                  // color:
-                    // errors.password && touched.password ? "red" : "#808080",
+                  color:
+                    errors.password && touched.password ? "red" : "#808080",
                 },
               ]}
             >

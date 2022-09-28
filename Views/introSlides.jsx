@@ -85,12 +85,13 @@ const IntroSlides = () => {
         textAlign: "center",
         borderRadius: 8,
         alignSelf: "center",
-        marginTop:-80
+          marginTop: -80,
+        left:-20
       }}
       onPress={() => navigation.navigate("mobileotp")}
     >
         <Text style={{ color: "#fff", fontSize: 16, fontFamily: "NunitoSans_400Regular",
-              alignSelf: "center", }}>
+              alignSelf: "center"}}>
          Crear mi cuenta
         </Text>
     </TouchableOpacity>
