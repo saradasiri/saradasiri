@@ -77,7 +77,8 @@ export default StyleSheet.create({
     fontSize: getfontSize(16),
     color: "black",
     // margin: 15,
-    marginRight: getWidth(400),
+    // marginRight: getWidth(400),
     flex: 1,
+    width:322, paddingLeft:50
   },
 });
