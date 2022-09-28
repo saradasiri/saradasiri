@@ -163,10 +163,10 @@ const Funding = (formik) => {
     }
     if (values.range === undefined) {
       Alert.alert("Please Create your Profile First.");
-      const login1= {
+      const login1 = {
         email: values.email,
-        isTokenSubscribed : values.isTokenSubscribed
-      }
+        isTokenSubscribed: values.isTokenSubscribed,
+      };
       navigation.navigate("accountLevel", login1);
     }
   };
@@ -180,10 +180,7 @@ const Funding = (formik) => {
           {isSubscribe ? "Subscribed" : "Not Subscribed"}
         </Text>
 
-        <Image
-            style={styles.Logo}
-            source={require("../../assets/vlogo.png")}
-          />
+        <Image style={styles.Logo} source={require("../../assets/vlogo.png")} />
         <Text style={[styles.Label1, { marginTop: 62 }]}>Funding</Text>
         <Text style={styles.Label1}>Deposits and withdrawal</Text>
 
@@ -536,8 +533,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#00BFFF",
     alignSelf: "center",
-    borderBottomRightRadius:0,
-    borderBottomLeftRadius:0,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
   },
   Label3: {
     fontFamily: "NunitoSans_400Regular",

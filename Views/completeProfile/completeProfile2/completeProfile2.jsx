@@ -38,7 +38,6 @@ const CompleteProfile2 = (formik) => {
   }
 
   const handleFormSubmit = (values) => {
-  
     if (values.range === "$0 - $9,999") {
       const profile3 = {
         email: values.email,
@@ -66,10 +65,10 @@ const CompleteProfile2 = (formik) => {
         colony: values.colony,
         municipality: values.municipality,
         state: values.state,
-        countryCode : values.countryCode,
-        frontDoc:"",
-        behindDoc:"",
-        addressDoc:"",
+        countryCode: values.countryCode,
+        frontDoc: "",
+        behindDoc: "",
+        addressDoc: "",
         isTokenSubscribed: values.isTokenSubscribed,
       };
       navigation.navigate("completeProfile4", { ...profile3 });
@@ -98,7 +97,12 @@ const CompleteProfile2 = (formik) => {
 
           {values.range === "$0 - $9,999" ? (
             <View style={styles.tab}>
-              <View style={[styles.tab1, { marginLeft: 0,backgroundColor: "#D9D9D9" }]}></View>
+              <View
+                style={[
+                  styles.tab1,
+                  { marginLeft: 0, backgroundColor: "#D9D9D9" },
+                ]}
+              ></View>
               <Text>1</Text>
 
               <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
@@ -145,12 +149,7 @@ const CompleteProfile2 = (formik) => {
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text
-              style={
-                styles.text}
-            >
-              Street
-            </Text>
+            <Text style={styles.text}>Street</Text>
             <View>
               <TextInput
                 name="street"
@@ -174,16 +173,13 @@ const CompleteProfile2 = (formik) => {
 
           <View style={{ paddingTop: 20, flexDirection: "row" }}>
             <View style={{ flexDirection: "column" }}>
-              <Text
-                style={
-                  styles.text}
-              >
-                No. Exterior
-              </Text>
+              <Text style={styles.text}>No. Exterior</Text>
               <TextInput
                 name="exterior"
                 keyboardType="numeric"
-                onChangeText={(text)=>{formik.handleChange("exterior")(text.replace(/\D/g, ''))}}
+                onChangeText={(text) => {
+                  formik.handleChange("exterior")(text.replace(/\D/g, ""));
+                }}
                 onBlur={formik.handleBlur("exterior")}
                 value={values.exterior}
                 autoCapitalize="none"
@@ -192,7 +188,7 @@ const CompleteProfile2 = (formik) => {
                   {
                     width: 135,
                     marginLeft: 10,
-                    marginRight:15,
+                    marginRight: 15,
                     borderColor:
                       errors.exterior && touched.exterior ? "red" : "black",
                   },
@@ -204,16 +200,13 @@ const CompleteProfile2 = (formik) => {
             </View>
 
             <View style={{ flexDirection: "column" }}>
-              <Text
-                style={
-                  styles.text}
-              >
-                No. Interior
-              </Text>
+              <Text style={styles.text}>No. Interior</Text>
               <TextInput
                 name="inside"
                 keyboardType="numeric"
-                onChangeText={(text)=>{formik.handleChange("inside")(text.replace(/\D/g, ''))}}
+                onChangeText={(text) => {
+                  formik.handleChange("inside")(text.replace(/\D/g, ""));
+                }}
                 onBlur={formik.handleBlur("inside")}
                 value={values.inside}
                 autoCapitalize="none"
@@ -233,17 +226,14 @@ const CompleteProfile2 = (formik) => {
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text
-              style={
-                styles.text}
-            >
-              Postal Code
-            </Text>
+            <Text style={styles.text}>Postal Code</Text>
             <View>
               <TextInput
                 name="postalCode"
                 keyboardType="numeric"
-                onChangeText={(text)=>{formik.handleChange("postalCode")(text.replace(/\D/g, ''))}}
+                onChangeText={(text) => {
+                  formik.handleChange("postalCode")(text.replace(/\D/g, ""));
+                }}
                 onBlur={formik.handleBlur("postalCode")}
                 value={values.postalCode}
                 autoCapitalize="none"
@@ -251,9 +241,7 @@ const CompleteProfile2 = (formik) => {
                   styles.inputStyle,
                   {
                     borderColor:
-                      errors.postalCode && touched.postalCode
-                        ? "red"
-                        : "black",
+                      errors.postalCode && touched.postalCode ? "red" : "black",
                   },
                 ]}
               />
@@ -264,12 +252,7 @@ const CompleteProfile2 = (formik) => {
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text
-              style={
-                styles.text}
-            >
-              Colony
-            </Text>
+            <Text style={styles.text}>Colony</Text>
             <View>
               <TextInput
                 name="colony"
@@ -292,12 +275,7 @@ const CompleteProfile2 = (formik) => {
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text
-              style={
-                styles.text}
-            >
-              Municipality
-            </Text>
+            <Text style={styles.text}>Municipality</Text>
             <View>
               <TextInput
                 name="municipality"
@@ -322,12 +300,7 @@ const CompleteProfile2 = (formik) => {
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text
-              style={
-                styles.text}
-            >
-              State
-            </Text>
+            <Text style={styles.text}>State</Text>
             <View>
               <TextInput
                 name="state"
@@ -355,12 +328,14 @@ const CompleteProfile2 = (formik) => {
               onPress={() => {
                 handleFormSubmit(values);
               }}
-                style={[styles.button,{
-                    opacity: formik.isValid && formik.dirty ? 1 : 0.5,
-                  },
-                ]}
-              >
-                <Text style={styles.buttonText}>Next</Text>
+              style={[
+                styles.button,
+                // {
+                //   opacity: formik.isValid && formik.dirty ? 1 : 0.5,
+                // },
+              ]}
+            >
+              <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -436,7 +411,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 322,
     borderRadius: 5,
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#2D0052",
     marginBottom: 50,
     alignSelf: "center",
   },

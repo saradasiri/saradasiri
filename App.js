@@ -4,7 +4,7 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 // import "react-native-gesture-handler";
-import LoginProcess from "./views/login/loginProcess"
+import LoginProcess from "./views/login/loginProcess";
 import IntroSlides from "./views/introSlides";
 import LandingPage from "./views/landingPage/landingPage";
 import ConfirmEmailProcess from "./views/register/confirmEmail/confirmEmailProcess";
@@ -30,7 +30,7 @@ export default function App() {
   return (
     <NavigationContainer theme={{ colors: { background: "#270041" } }}>
       <Stack.Navigator initialRouteName="homepage">
-      <Stack.Screen
+        <Stack.Screen
           name="homepage"
           options={{
             headerShown: false,
@@ -106,7 +106,7 @@ export default function App() {
           }}
           component={LandingPage}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="login"
           options={{
             headerShown: false,
@@ -114,7 +114,7 @@ export default function App() {
           }}
           component={LoginProcess}
         />
-       
+
         <Stack.Screen
           name="confirmEmail"
           options={{

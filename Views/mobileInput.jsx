@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,8 +10,9 @@ import {
   ScrollView,
 } from "react-native";
 import { getfontSize, getHeight, getWidth } from "../src/Dimentions/DImentions";
+// import PhoneInput from "react-native-phone-input";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import CountryCodePicker from "../src/countryCodePicker"
+import CountryCodePicker from "../src/countryCodePicker";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import globalStyles from "../globalStyles";
@@ -19,11 +20,10 @@ import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 
 const MobileInput = (props) => {
-  const navigation = useNavigation()
-  const [countryCode, setCountryCode] = useState(+52);
+  const navigation = useNavigation();
+  const [countryCode, setCountryCode] = useState(+91);
   const [state, setState] = useState({
     contact: "",
-    countryCode: countryCode,
   });
   const [phoneError, setPhoneError] = useState("");
 
@@ -41,13 +41,14 @@ const MobileInput = (props) => {
   };
 
   const submit = () => {
-    // if (state.contact === "" || state.contact.length < 10) {
+    // const isValid = phoneInput.current.isValidNumber();
+    // if (!isValid) {
     //   console.log("state.contact");
     //   console.log(state.contact.length);
     //   setPhoneError("*please enter a valid mobile number.");
-    // } else if (state.contact.length === 10) {
+    // } else {
     //   setPhoneError("");
-    //   props.navigation.navigate("Verify", {
+    //   props.navigation.navigate("verifyMobileOtp", {
     //     contactNumber: state.contact,
     //     countryCode: countryCode,
     //   });
@@ -55,7 +56,10 @@ const MobileInput = (props) => {
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={globalStyles.flex_1} style={{backgroundColor:"#fff"}}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={globalStyles.flex_1}
+      style={{ backgroundColor: "#fff" }}
+    >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -69,7 +73,10 @@ const MobileInput = (props) => {
           </View>
           <View style={styles.beginContainer}>
             <Text
-              style={[globalStyles.BeginText, { marginBottom: getHeight(50)  , color:"#2D0052"}]}
+              style={[
+                globalStyles.BeginText,
+                { marginBottom: getHeight(50), color: "#2D0052" },
+              ]}
             >
               {"Iniciemos tu" + "\n" + "registro vadi"}
             </Text>
@@ -80,14 +87,18 @@ const MobileInput = (props) => {
               setCountryCode(country.callingCode[0])
             }
             // Value={val => state.contact(val)}
+            contact={state.contact}
             onChangeTextValue={(val) => onChangeTextValue("contact", val)}
           />
           <Text>{phoneError}</Text>
-          <TouchableOpacity style={styles.signIn} onPress={() => navigation.navigate("verifyMobileOtp")}>
+          <TouchableOpacity
+            style={styles.signIn}
+            onPress={() => navigation.navigate("verifyMobileOtp")}
+          >
             <Text
               style={[
                 globalStyles.Text_1,
-                { fontFamily: "NunitoSans_400Regular"  },
+                { fontFamily: "NunitoSans_400Regular" },
               ]}
             >
               Enviar código
@@ -108,7 +119,7 @@ const MobileInput = (props) => {
               <Text
                 style={[
                   globalStyles.Text_2,
-                  { fontFamily: "NunitoSans_400Regular", color:"#2D0052" },
+                  { fontFamily: "NunitoSans_400Regular", color: "#2D0052" },
                 ]}
               >
                 Entrar
@@ -155,7 +166,7 @@ const MobileInput = (props) => {
                   globalStyles.Text_Private.color,
                   {
                     fontFamily: "NunitoSans_400Regular",
-                    color:"#2D0052"
+                    color: "#2D0052",
                   },
                 ]}
               >
@@ -163,10 +174,7 @@ const MobileInput = (props) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <Image
-            style={styles.Logo}
-            source={require("../assets/vlogo.png")}
-          />
+          <Image style={styles.Logo} source={require("../assets/vlogo.png")} />
         </View>
       </ScrollView>
     </KeyboardAwareScrollView>
@@ -193,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   signIn: {
-    height:50,
+    height: 50,
     width: 312,
     borderWidth: 3,
     borderRadius: 10,

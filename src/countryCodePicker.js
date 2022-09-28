@@ -4,7 +4,8 @@ import { getHeight, getWidth } from "./Dimentions/DImentions";
 import PhoneInput from "react-native-phone-number-input";
 import globalStyles from "../globalStyles";
 const CountryCodePicker = (props) => {
-  const { onChangeTextValue, OnChangeCountryCode, Value, layout } = props;
+  const { onChangeTextValue, OnChangeCountryCode, Value, layout, contact } =
+    props;
   return (
     <View>
       <PhoneInput
@@ -17,14 +18,14 @@ const CountryCodePicker = (props) => {
         countryPickerButtonStyle={styles.countryImages}
         layout={layout}
         onChangeCountry={OnChangeCountryCode}
-        onChangeText={onChangeTextValue}
-        value={Value}
+        onChangeText={(value) => onChangeTextValue(value)}
+        value={contact}
         keyboardType={"numeric"}
         textInputProps={{
           maxLength: 10,
         }}
         codeTextStyle={styles.codeTextStyle}
-        defaultCode={"MX"}
+        defaultCode={"IN"}
         autoFocus={true}
         // renderDropdownImage={renderDropdownImage}
       />

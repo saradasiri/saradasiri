@@ -127,8 +127,8 @@ const CompleteProfile1 = (formik) => {
     // ) {
     //   navigation.navigate("completeProfile2",{profile1});
     // }
-    
-    navigation.navigate("completeProfile2",{profile1});
+
+    navigation.navigate("completeProfile2", { profile1 });
   };
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
@@ -146,7 +146,11 @@ const CompleteProfile1 = (formik) => {
               <View
                 style={[
                   styles.tab1,
-                  { marginLeft: 0, backgroundColor: "#00BFFF", borderRadius:30 },
+                  {
+                    marginLeft: 0,
+                    backgroundColor: "#00BFFF",
+                    borderRadius: 30,
+                  },
                 ]}
               >
                 <Text>1</Text>
@@ -334,9 +338,9 @@ const CompleteProfile1 = (formik) => {
                 withCountryButton={false}
                 withCallingCode
                 onSelect={(country) => {
-                  console.log(country)
+                  console.log(country);
                   const { cca2 } = country;
-                   setCountryBirth(cca2);
+                  setCountryBirth(cca2);
                 }}
                 style={{ fontSize: 24, width: 322, paddingBottom: 50 }}
               />
@@ -585,7 +589,7 @@ const CompleteProfile1 = (formik) => {
             }}
             style={[
               styles.button,
-              { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+              // { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
             ]}
           >
             <Text style={styles.buttonText}>Next</Text>
@@ -664,7 +668,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 322,
     borderRadius: 5,
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#2D0052",
     marginBottom: 50,
     alignSelf: "center",
   },

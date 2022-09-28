@@ -33,9 +33,12 @@ const CompleteProfile3 = (formik) => {
   const [isAddressModalVisible, setIsAddressModalVisible] =
     React.useState(false);
 
-  const frontDocModal = () =>setIsFrontModalVisible(() => !isFrontModalVisible);
-  const behindDocModal = () =>setIsBehindModalVisible(() => !isBehindModalVisible);
-  const addressDocModal = () =>setIsAddressModalVisible(() => !isAddressModalVisible);
+  const frontDocModal = () =>
+    setIsFrontModalVisible(() => !isFrontModalVisible);
+  const behindDocModal = () =>
+    setIsBehindModalVisible(() => !isBehindModalVisible);
+  const addressDocModal = () =>
+    setIsAddressModalVisible(() => !isAddressModalVisible);
 
   const pickFrontDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
@@ -53,8 +56,8 @@ const CompleteProfile3 = (formik) => {
   useEffect(() => {
     frontDoc.name ? setFrontDoc("") : null;
     behindDoc.name ? setBehindDoc("") : null;
-    addressDoc.name? setAddressDoc("") : null;
-  },[values.range, values.nationality])
+    addressDoc.name ? setAddressDoc("") : null;
+  }, [values.range, values.nationality]);
 
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -96,7 +99,7 @@ const CompleteProfile3 = (formik) => {
       behindDoc: behindDoc.name ? behindDoc : "",
       documentNo: values.documentNo,
       addressDoc: addressDoc.name ? addressDoc : "",
-      countryCode : values.countryCode,
+      countryCode: values.countryCode,
       isTokenSubscribed: values.isTokenSubscribed,
     };
     navigation.navigate("completeProfile4", profile3);
@@ -111,28 +114,28 @@ const CompleteProfile3 = (formik) => {
             style={styles.Logo}
             source={require("../../../assets/vlogo.png")}
           />
-            <View style={styles.tab}>
-              <View
-                style={[
-                  styles.tab1,
-                  { marginLeft: 0, backgroundColor: "#D9D9D9" },
-                ]}
-              >
-                <Text>1</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>2</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
-                <Text>3</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>4</Text>
-              </View>
+          <View style={styles.tab}>
+            <View
+              style={[
+                styles.tab1,
+                { marginLeft: 0, backgroundColor: "#D9D9D9" },
+              ]}
+            >
+              <Text>1</Text>
             </View>
+
+            <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
+              <Text>2</Text>
+            </View>
+
+            <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
+              <Text>3</Text>
+            </View>
+
+            <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
+              <Text>4</Text>
+            </View>
+          </View>
 
           <View style={styles.dottedline}></View>
 
@@ -142,7 +145,8 @@ const CompleteProfile3 = (formik) => {
 
           <View style={{ marginTop: 40 }}>
             <View
-              style={[styles.button,
+              style={[
+                styles.button,
                 {
                   borderTopLeftRadius: 15,
                   borderTopRightRadius: 15,
@@ -197,7 +201,7 @@ const CompleteProfile3 = (formik) => {
                 <TouchableOpacity onPress={pickFrontDocument}>
                   <View
                     style={[
-                      { borderRadius: 100, marginTop:5 },
+                      { borderRadius: 100, marginTop: 5 },
                       {
                         opacity: 1,
                       },
@@ -210,11 +214,9 @@ const CompleteProfile3 = (formik) => {
                   isVisible={isFrontModalVisible}
                   style={styles.modalContainer}
                 >
-                  <Image style={styles.image} source={{uri: frontDoc.uri}} />
+                  <Image style={styles.image} source={{ uri: frontDoc.uri }} />
                   <Pressable style={styles.modalButton} onPress={frontDocModal}>
-                    <View
-                      style={[{ borderRadius: 100 }]}
-                    >
+                    <View style={[{ borderRadius: 100 }]}>
                       <Text style={styles.buttonText}>Close</Text>
                     </View>
                   </Pressable>
@@ -280,9 +282,7 @@ const CompleteProfile3 = (formik) => {
                     <View
                       style={[
                         { borderRadius: 100 },
-                        {width:80, height:42,
-                          opacity: 1,
-                        },
+                        { width: 80, height: 42, opacity: 1 },
                       ]}
                     >
                       <Text style={styles.uploadText}>Upload</Text>
@@ -292,19 +292,21 @@ const CompleteProfile3 = (formik) => {
                     isVisible={isBehindModalVisible}
                     style={styles.modalContainer}
                   >
-                    <Image style={styles.image} source={{uri: behindDoc.uri}} />
+                    <Image
+                      style={styles.image}
+                      source={{ uri: behindDoc.uri }}
+                    />
                     <Pressable
                       style={styles.modalButton}
                       onPress={behindDocModal}
                     >
                       <View
-                        style={[{ borderRadius: 100, width:250,height:50 }]}
+                        style={[{ borderRadius: 100, width: 250, height: 50 }]}
                       >
                         <Text style={styles.buttonText}>Close</Text>
                       </View>
                     </Pressable>
                   </Modal>
-                  
                 </View>
               </View>
             </View>
@@ -323,7 +325,9 @@ const CompleteProfile3 = (formik) => {
                 name="documentno"
                 placeholder="Document No"
                 keyboardType="numeric"
-                onChangeText={(text)=>{formik.handleChange("documentNo")(text.replace(/\D/g, ''))}}
+                onChangeText={(text) => {
+                  formik.handleChange("documentNo")(text.replace(/\D/g, ""));
+                }}
                 onBlur={formik.handleBlur("documentNo")}
                 value={values.documentNo}
                 autoCapitalize="none"
@@ -341,16 +345,16 @@ const CompleteProfile3 = (formik) => {
             </View>
           </View>
 
-          {values.range === "$10,000 - $59,999" ? (
-            null
-          ) : (
+          {values.range === "$10,000 - $59,999" ? null : (
             <View style={{ marginTop: 40 }}>
               <View
-                style={[styles.button,
+                style={[
+                  styles.button,
                   {
                     borderTopLeftRadius: 15,
                     borderTopRightRadius: 15,
-                    width:322, height:50
+                    width: 322,
+                    height: 50,
                   },
                 ]}
               >
@@ -405,7 +409,10 @@ const CompleteProfile3 = (formik) => {
                       style={[
                         { borderRadius: 100 },
                         {
-                          opacity: 1, width:80, height:42, marginTop:5
+                          opacity: 1,
+                          width: 80,
+                          height: 42,
+                          marginTop: 5,
                         },
                       ]}
                     >
@@ -416,13 +423,16 @@ const CompleteProfile3 = (formik) => {
                     isVisible={isAddressModalVisible}
                     style={styles.modalContainer}
                   >
-                    <Image style={styles.image} source={{uri: addressDoc.uri}} />
+                    <Image
+                      style={styles.image}
+                      source={{ uri: addressDoc.uri }}
+                    />
                     <Pressable
                       style={styles.modalButton}
                       onPress={addressDocModal}
                     >
                       <View
-                        style={[{ borderRadius: 100 ,width:250,height:50}]}
+                        style={[{ borderRadius: 100, width: 250, height: 50 }]}
                       >
                         <Text style={styles.buttonText}>Close</Text>
                       </View>
@@ -454,31 +464,32 @@ const CompleteProfile3 = (formik) => {
               }}
             >
               <View
-                style={[styles.button,
-                  {  width:322, height:50,
-                    marginTop: 40,
-                    marginBottom: 50, },
-                  {
-                    opacity:
-                      (values.range === "$10,000 - $59,999" &&
-                        values.documentNo &&
-                        frontDoc.name &&
-                        behindDoc.name) ||
-                      (values.range === "$10,000 - $59,999" &&
-                        values.documentNo &&
-                        frontDoc.name &&
-                        values.nationality !== "MX") ||
-                      (values.documentNo &&
-                        frontDoc.name &&
-                        behindDoc.name &&
-                        addressDoc.name) ||
-                      (values.nationality !== "MX" &&
-                        values.documentNo &&
-                        frontDoc.name &&
-                        addressDoc.name)
-                        ? 1
-                        : 0.5,
-                  },
+                style={[
+                  styles.button,
+                  // {  width:322, height:50,
+                  //   marginTop: 40,
+                  //   marginBottom: 50, },
+                  // {
+                  //   opacity:
+                  //     (values.range === "$10,000 - $59,999" &&
+                  //       values.documentNo &&
+                  //       frontDoc.name &&
+                  //       behindDoc.name) ||
+                  //     (values.range === "$10,000 - $59,999" &&
+                  //       values.documentNo &&
+                  //       frontDoc.name &&
+                  //       values.nationality !== "MX") ||
+                  //     (values.documentNo &&
+                  //       frontDoc.name &&
+                  //       behindDoc.name &&
+                  //       addressDoc.name) ||
+                  //     (values.nationality !== "MX" &&
+                  //       values.documentNo &&
+                  //       frontDoc.name &&
+                  //       addressDoc.name)
+                  //       ? 1
+                  //       : 0.5,
+                  // },
                 ]}
               >
                 <Text style={styles.buttonText}>Next</Text>
@@ -540,10 +551,10 @@ const styles = StyleSheet.create({
     height: 50,
     width: 322,
     borderRadius: 5,
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#2D0052",
     alignSelf: "center",
-    borderBottomRightRadius:0,
-    borderBottomLeftRadius:0,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
   },
   text: {
     fontSize: 16,
@@ -596,8 +607,9 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 5,
     backgroundColor: "#00BFFF",
-    textAlign:'center',
-    paddingTop:5, color:'white'
+    textAlign: "center",
+    paddingTop: 5,
+    color: "white",
   },
   container: {
     flex: 1,

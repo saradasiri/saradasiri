@@ -106,17 +106,20 @@ const VerifyMobile = (props) => {
   // },[value]);
 
   const pressSubmitAction = () => {
-    if (value.length < 4) {
-      Alert.alert("Fill in all the 4 digits.");
-      return;
-    }
-    if (value.length === 4) {
-      navigation.navigate("registerLevel1");
-    }
+    // if (value.length < 4) {
+    //   Alert.alert("Fill in all the 4 digits.");
+    //   return;
+    // }
+    // if (value.length === 4) {
+    navigation.navigate("accountLevel");
+    // }
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={globalStyles.flex_1} style={{backgroundColor:"#fff"}}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={globalStyles.flex_1}
+      style={{ backgroundColor: "#fff" }}
+    >
       <SafeAreaView showsVerticalScrollIndicator={false}>
         <View style={globalStyles.marginTop_100}>
           <View

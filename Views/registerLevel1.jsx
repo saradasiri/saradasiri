@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -35,16 +35,14 @@ const RegisterLevel1 = (props) => {
   }
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={[
-        globalStyles.flex_1,
-        { paddingTop:100 },
-      ]} style={{backgroundColor:"#fff"}}
+      contentContainerStyle={[globalStyles.flex_1, { paddingTop: 100 }]}
+      style={{ backgroundColor: "#fff" }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text
           style={[
             globalStyles.BeginText,
-            { fontFamily: "NunitoSans_400Regular" , color:"#2D0052"},
+            { fontFamily: "NunitoSans_400Regular", color: "#2D0052" },
           ]}
         >
           ¡Hola de nuevo!
@@ -56,7 +54,7 @@ const RegisterLevel1 = (props) => {
               fontFamily: "NunitoSans_400Regular",
               textAlign: "center",
               marginTop: getHeight(35),
-              color:"#686873"
+              color: "#686873",
             },
           ]}
         >
@@ -88,7 +86,7 @@ const RegisterLevel1 = (props) => {
           }}
         >
           <TouchableOpacity>
-            <Text style={{color:"#2D0052"}}>¿Olvidaste tu contraseña?</Text>
+            <Text style={{ color: "#2D0052" }}>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => pressSubmitAction()}>
             <View

@@ -53,7 +53,7 @@ const CompleteProfile4 = (profile3) => {
     return null;
   }
 
-  const docUpload =() =>{
+  const docUpload = () => {
     if (profile3.route.params.frontDoc.name) {
       const file = {
         uri: profile3.route.params.frontDoc.uri,
@@ -118,7 +118,7 @@ const CompleteProfile4 = (profile3) => {
         Accept: "application/json",
         "Content-Type": "multipart/form-data",
       };
-      
+
       axios
         .post(
           `https://apiforvadi.herokuapp.com/api/profile/file/upload/idAddress/${profile3.route.params.email}`,
@@ -132,14 +132,13 @@ const CompleteProfile4 = (profile3) => {
           // console.log("error raised", error);
         });
     }
-    const login={
-    isTokenSubscribed: profile3.route.params.isTokenSubscribed,
-    email: profile3.route.params.email,
-    }
+    const login = {
+      isTokenSubscribed: profile3.route.params.isTokenSubscribed,
+      email: profile3.route.params.email,
+    };
 
     navigation.navigate("funding", login);
-  }
-
+  };
 
   const handleFormSubmit = () => {
     const profile4 = {
@@ -181,11 +180,11 @@ const CompleteProfile4 = (profile3) => {
       isProfileCompleted: true,
     };
 
-    const login={
+    const login = {
       isTokenSubscribed: "true",
       email: "vikashchandra458@gmail.com",
-      }
-      navigation.navigate("funding", login);
+    };
+    navigation.navigate("walletHome", login);
 
     // console.log(profile4);
     // axios
@@ -224,7 +223,12 @@ const CompleteProfile4 = (profile3) => {
 
           {profile3.route.params.range === "$0 - $9,999" ? (
             <View style={styles.tab}>
-              <View style={[styles.tab1, { marginLeft: 0,backgroundColor: "#D9D9D9" }]}></View>
+              <View
+                style={[
+                  styles.tab1,
+                  { marginLeft: 0, backgroundColor: "#D9D9D9" },
+                ]}
+              ></View>
               <Text>1</Text>
 
               <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
@@ -788,7 +792,8 @@ const CompleteProfile4 = (profile3) => {
           <View style={{ marginBottom: 50, left: 9 }}>
             <TouchableOpacity
               // disabled={!(isAccepted && isNatural && isGeo)}
-              onPress={() => {handleFormSubmit()
+              onPress={() => {
+                handleFormSubmit();
                 // isAccepted && isNatural && isGeo
                 //   ? handleFormSubmit()
                 //   : Alert.alert(
@@ -796,8 +801,7 @@ const CompleteProfile4 = (profile3) => {
                 //     );
               }}
             >
-              <View style={styles.button}
-              >
+              <View style={styles.button}>
                 <Text style={styles.buttonText}>Confirm</Text>
               </View>
             </TouchableOpacity>
@@ -857,10 +861,10 @@ const styles = StyleSheet.create({
     height: 50,
     width: 322,
     borderRadius: 5,
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#2D0052",
     alignSelf: "center",
-    borderBottomRightRadius:0,
-    borderBottomLeftRadius:0,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
   },
   totalText: {
     display: "flex",
