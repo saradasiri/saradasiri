@@ -16,7 +16,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+// import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
 import CountryPicker from "react-native-country-picker-modal";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -128,7 +128,7 @@ const CompleteProfile1 = (formik) => {
     //   navigation.navigate("completeProfile2",{profile1});
     // }
 
-    navigation.navigate("completeProfile2", { profile1 });
+    navigation.navigate("completeProfile2", { ...profile1 });
   };
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
@@ -338,7 +338,6 @@ const CompleteProfile1 = (formik) => {
                 withCountryButton={false}
                 withCallingCode
                 onSelect={(country) => {
-                  console.log(country);
                   const { cca2 } = country;
                   setCountryBirth(cca2);
                 }}
@@ -362,9 +361,9 @@ const CompleteProfile1 = (formik) => {
                 withCountryButton={false}
                 withCallingCode
                 onSelect={(country) => {
-                  const { cca2, countryCode } = country;
+                  const { cca2, callingCode } = country;
                   setNationality(cca2);
-                  setCountryCode(countryCode[0]);
+                  setCountryCode(callingCode);
                 }}
                 style={{ fontSize: 24, width: 322 }}
               />
@@ -488,51 +487,24 @@ const CompleteProfile1 = (formik) => {
           </View>
 
           {values.range === "$60,000 - $1,20,000" ? (
-            <View>
+            
+            <View style={{marginTop: 25,}}>
+              
+              <Text style={styles.text}>Occupation</Text>
               <Pressable
                 style={[
-                  styles.in,
+                  styles.inputStyle,
                   {
                     borderColor:
-                      errors.occupation && touched.occupation ? "red" : "black",
-                    marginTop: 40,
-                    borderColor:"black"
+                      errors.occupation && touched.occupation
+                        ? "red"
+                        : "black",
                   },
                 ]}
                 onPress={open}
               >
-                <Text
-                  style={[
-                    styles.text,
-                    {
-                      color:
-                        errors.occupation && touched.occupation
-                          ? "red"
-                          : "black",
-                      top: -10,
-                    },
-                  ]}
-                >
-                  Occupation
-                </Text>
-                <Text
-                  style={{
-                    width: 300,
-                    fontSize: 16,
-                    // top: -4,
-                    fontFamily: "NunitoSans_400Regular",
-                    color: values.occupation === "" ? "#B9B9B9" : "black",
-                    left: 10,
-                  }}
-                >
-                  {/* {values.occupation
-                    ? values.occupation
-                    : "--- Select Occupation ---"} */}
-                </Text>
-                <View style={{ marginBottom: 10 }}>
                   <Picker
                     ref={pickerRef}
-                    style={{borderColor:"1px solid black" , top:-30 ,width:300}}
                     selectedValue={values.occupation}
                     onValueChange={formik.handleChange("occupation")}
                     onBlur={formik.handleBlur("occupation")}
@@ -574,7 +546,6 @@ const CompleteProfile1 = (formik) => {
                     />
                     <Picker.Item label="Other" value="Other" />
                   </Picker>
-                </View>
               </Pressable>
               {errors.occupation && touched.occupation && (
                 <Text style={styles.error}>{errors.occupation}</Text>
@@ -605,10 +576,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     backgroundColor: "#F2F6FF",
-    alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
     alignContent: "center",
+    alignItems: "center",
   },
   tab: {
     display: "flex",
@@ -664,7 +635,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    marginTop: 10,
+    marginTop: 40,
     height: 50,
     width: 322,
     borderRadius: 5,

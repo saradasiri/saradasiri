@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
-import { AntDesign } from "@expo/vector-icons";
+// import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
