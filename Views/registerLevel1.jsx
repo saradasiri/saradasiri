@@ -17,14 +17,15 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import globalStyles from "../globalStyles";
 
-const RegisterLevel1 = (props) => {
+const RegisterLevel1 = (formik) => {
+  const {values, touched, errors} = formik
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isError, setError] = useState(false);
 
-  const pressSubmitAction = () => {
-    props.navigation.navigate("SetUpPin");
-  };
+  // const pressSubmitAction = () => {
+  //   props.navigation.navigate("SetUpPin");
+  // };
 
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -62,12 +63,30 @@ const RegisterLevel1 = (props) => {
         </Text>
         <View style={styles.container}>
           <View style={globalStyles.PhoneInput}>
-            <TextInput
-              style={globalStyles.inputText}
-              placeholder="Usuario"
-              value={userName}
-              onChangeText={(text) => setUserName(text)}
-            />
+          <TextInput
+                name="email"
+                onChangeText={formik.handleChange("email")}
+                onBlur={formik.handleBlur("email")}
+                value={values.email}
+                style={[
+                  styles.inputStyle,
+                  {
+                    borderColor:errors.email && touched.email ? "red" : "#808080",
+                  },
+                ]}
+              />
+            </View>
+            {errors.email && touched.email && (
+              <Text
+                style={{
+                  color: "red",
+                  fontFamily: "NunitoSans_400Regular",
+                  textAlign: "left",
+                }}
+              >
+                {errors.email}
+              </Text>
+            )}
           </View>
           <View style={[globalStyles.PhoneInput, { marginTop: getHeight(30) }]}>
             <TextInput
@@ -77,7 +96,6 @@ const RegisterLevel1 = (props) => {
               onChangeText={(text) => setPassword(text)}
             />
           </View>
-        </View>
         <View
           style={{
             flexDirection: "row",

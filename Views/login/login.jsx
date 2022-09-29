@@ -72,16 +72,16 @@ const Login = (formik) => {
           <StatusBar style="auto" />
           <Toast position="top" topOffset={-10} />
          
-          <Text style={styles.Label}>¡Hola de nuevo!</Text>
-          <View style={{ paddingTop: 70 }}>
-            <Text
+          <Text style={styles.Label}>¡Hola de n</Text>
+           <View style={{ paddingTop: 70 }}>
+          {/*  <Text
               style={[
                 styles.text,
                  { color: errors.email && touched.email ? "red" : "#33B7B0" },
               ]}
             >
              Correo electrónico
-            </Text>
+            </Text> */}
             <View>
               <TextInput
                 name="email"
@@ -110,7 +110,7 @@ const Login = (formik) => {
           </View>
 
           <View style={{ paddingTop: 40 }}>
-            <Text
+            {/* <Text
               style={[
                 styles.text,
                 {
@@ -120,7 +120,7 @@ const Login = (formik) => {
               ]}
             >
               Contraseña
-            </Text>
+            </Text> */}
             <View>
               <TextInput
                 name="password"
