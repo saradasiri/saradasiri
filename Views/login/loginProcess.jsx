@@ -3,7 +3,6 @@ import React from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import Login from "./login";
-import RegisterLevel1 from "../registerLevel1";
 
 const LoginProcess = () => {
   const initialValues = {
@@ -25,7 +24,7 @@ const LoginProcess = () => {
 
   return (
     <Formik initialValues={initialValues} enableReinitialize validationSchema={validationSchema}>
-      {(formik) => <RegisterLevel1 {...formik} />}
+      {(formik) => <Login {...formik} />}
     </Formik>
   );
 };
