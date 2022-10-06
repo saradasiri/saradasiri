@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
 import { getHeight, getfontSize, getWidth } from "./src/Dimentions/DImentions";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default StyleSheet.create({
   Text_1: {
@@ -45,13 +49,13 @@ export default StyleSheet.create({
     // marginTop: getHeight(100),
   },
   marginTop_100: {
-    marginTop: getHeight(100),
+    marginTop: hp("20%"),
   },
   marginTop_30: {
     marginTop: getHeight(30),
   },
   MarginBottom_100: {
-    marginBottom: getHeight(100),
+    marginBottom: hp("20%"),
   },
   MarginBottom_30: {
     marginBottom: getHeight(30),
@@ -63,22 +67,15 @@ export default StyleSheet.create({
   },
   PhoneInput: {
     height: getHeight(85),
-    width: "90%",
+    width: wp("90%"),
     borderColor: "#e0e0e0",
     borderWidth: 1,
     borderRadius: 10,
-    alignItems: "center",
-    alignSelf: "center",
-    padding: 0,
     backgroundColor: "white",
     marginTop: getHeight(15),
   },
   inputText: {
-    fontSize: getfontSize(16),
-    color: "black",
-    // margin: 15,
-    // marginRight: getWidth(400),
-    flex: 1,
-    width:322, paddingLeft:50
+    fontSize: hp("2%"),
+    padding: 20,
   },
 });

@@ -80,9 +80,12 @@ const RegisterLevel1 = (props) => {
       email: values.user,
       password: values.password,
     };
+    console.log(obj.email, obj.password);
     axios
       .post(API_PATHS.LOGIN, obj)
+
       .then((res) => {
+        console.log("res", res);
         if (res.data.message) {
           Toast.show({
             type: "success",
@@ -94,6 +97,7 @@ const RegisterLevel1 = (props) => {
         }
       })
       .catch((err) => {
+        console.log("err", err);
         if (err.message) {
           Toast.show({
             type: "success",
@@ -189,6 +193,7 @@ const RegisterLevel1 = (props) => {
                     placeholder="Contraseña"
                     onChangeText={handleChange("password")}
                     onBlur={handleBlur("password")}
+                    secureTextEntry={true}
                     value={values.password}
                     isInvalid={touched.password && errors.password}
                   />

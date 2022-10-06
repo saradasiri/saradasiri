@@ -27,6 +27,13 @@ import * as Progress from "react-native-progress";
 import globalStyles from "../globalStyles";
 import { getfontSize, getHeight, getWidth } from "../src/Dimentions/DImentions";
 import { useNavigation } from "@react-navigation/native";
+import { API_PATHS } from "../src/constants/apiPaths";
+import Toast from "react-native-toast-message";
+import axios from "axios";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   title: {
@@ -55,19 +62,24 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   cell: {
-    width: 40,
-    height: 40,
+    textAlign: "center",
+    // width: wp("13%"),
+    // height: hp("7%"),
+    paddingHorizontal: wp("6%"),
+    paddingTop: hp("2%"),
+    paddingBottom: hp("1%"),
     fontSize: getfontSize(20),
     borderWidth: 2,
     borderColor: "#e0e0e0",
-    textAlign: "center",
     borderRadius: 8,
     color: "#0c2b77",
-    // lineHeight: getHeight(70),
+    // lineHeight: getHeight(20),
   },
 
   focusCell: {
     borderColor: "#0c2b77",
+    textAlign: "center",
+    fontSize: hp("2.5%"),
   },
 });
 
@@ -77,13 +89,11 @@ const CELL_SIZE = 60;
 const VerifyMobile = (props) => {
   let route = props.route;
   let navigation = useNavigation();
-  const [mobileNumber, setMobileNumber] = useState(
-    route.params?.contactNumber ?? ""
-  );
+  const [mobileNumber, setMobileNumber] = useState(route.params?.contact);
   const [countryCode, setCountryCode] = useState(
     route.params?.countryCode ?? ""
   );
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [propss, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -104,16 +114,46 @@ const VerifyMobile = (props) => {
   //     navigation.navigate("registerLevel1");
   //   }
   // },[value]);
-
   const pressSubmitAction = () => {
-    // if (value.length < 4) {
-    //   Alert.alert("Fill in all the 4 digits.");
-    //   return;
-    // }
-    // if (value.length === 4) {
-    navigation.navigate("accountLevel");
-    // }
+    const obj = {
+      mobile: Number(mobileNumber),
+      otp: Number(value),
+    };
+    console.log(obj);
+    axios
+      .post(API_PATHS.VERIFY_OTP, obj)
+      .then((res) => {
+        if (res.data.message) {
+          Toast.show({
+            type: "info",
+            text1: res.data.message,
+          });
+          if (value.length < 4) {
+            Alert.alert("Fill in all the 4 digits.");
+          } else if (res.data.code) {
+            navigation.navigate("accountLevel");
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.message) {
+          Toast.show({
+            type: "info",
+            text1: err.message,
+          });
+        }
+      });
   };
+
+  // const pressSubmitAction = () => {
+  //   // if (value.length < 4) {
+  //   //   Alert.alert("Fill in all the 4 digits.");
+  //   //   return;
+  //   // }
+  //   // if (value.length === 4) {
+  //   navigation.navigate("accountLevel");
+  //   // }
+  // };
 
   return (
     <KeyboardAwareScrollView
@@ -121,34 +161,41 @@ const VerifyMobile = (props) => {
       style={{ backgroundColor: "#fff" }}
     >
       <SafeAreaView showsVerticalScrollIndicator={false}>
-        <View style={globalStyles.marginTop_100}>
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: getHeight(20),
-            }}
-          >
-            <Progress.Bar
-              progress={0.4}
-              width={80}
-              color={"#8D00FF"}
-              borderColor={"#c5dafb"}
-              backgroundColor={"#d2e2fb"}
-            />
-          </View>
-          <View>
-            <Text style={styles.title}>Ingresa el código</Text>
-            <Text style={styles.sendText}>
-              {mobileNumber &&
-                "Lo hemos enviado a " +
-                  // mobileNumber.toString().slice(0, 2) +
-                  "*****" +
-                  mobileNumber
-                    .toString()
-                    .slice(mobileNumber.toString().length - 2)}
-            </Text>
-            <View style={{ paddingLeft: 40, paddingRight: 40 }}>
+        <View style={globalStyles.MarginBottom_100}>
+          <View style={globalStyles.marginTop_100}>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: getHeight(20),
+              }}
+            >
+              <Progress.Bar
+                progress={0.4}
+                width={80}
+                color={"#8D00FF"}
+                borderColor={"#c5dafb"}
+                backgroundColor={"#d2e2fb"}
+              />
+            </View>
+            <View>
+              <Text style={styles.title}>Ingresa el código</Text>
+              <Text style={styles.sendText}>
+                {mobileNumber &&
+                  "Lo hemos enviado a " +
+                    // mobileNumber.toString().slice(0, 2) +
+                    "*****" +
+                    mobileNumber
+                      .toString()
+                      .slice(mobileNumber.toString().length - 2)}
+              </Text>
+            </View>
+            <View
+              style={{
+                paddingLeft: 40,
+                paddingRight: 40,
+              }}
+            >
               <CodeField
                 ref={ref}
                 {...propss}
