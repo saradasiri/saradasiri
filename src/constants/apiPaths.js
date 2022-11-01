@@ -7,4 +7,6 @@ export const API_PATHS = {
   CREATE_PROFILE: `https://apiforvadi.herokuapp.com/api/profile/create/`,
   FETCH_PROFILE: `https://apiforvadi.herokuapp.com/api/profile/get-by-email`,
   VALIDATE_PASSWORD: `https://apiforvadi.herokuapp.com/api/investor/validate-password/`,
+  SEND_OTP: `https://apiforvadi.herokuapp.com/api/sendOTP`,
+  VERIFY_OTP: `https://apiforvadi.herokuapp.com/api/verifySmsOTP`,
 };

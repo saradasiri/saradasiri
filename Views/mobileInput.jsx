@@ -18,6 +18,10 @@ import { useFonts } from "expo-font";
 import globalStyles from "../globalStyles";
 import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
+// import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
+import { API_PATHS } from "../src/constants/apiPaths";
+import Toast from "react-native-toast-message";
+import axios from "axios";
 
 const MobileInput = (props) => {
   const navigation = useNavigation();
@@ -40,20 +44,53 @@ const MobileInput = (props) => {
     key === "contact" && value.length === 10 ? Keyboard.dismiss() : null;
   };
 
-  const submit = () => {
-    // const isValid = phoneInput.current.isValidNumber();
-    // if (!isValid) {
-    //   console.log("state.contact");
-    //   console.log(state.contact.length);
-    //   setPhoneError("*please enter a valid mobile number.");
-    // } else {
-    //   setPhoneError("");
-    //   props.navigation.navigate("verifyMobileOtp", {
-    //     contactNumber: state.contact,
-    //     countryCode: countryCode,
-    //   });
-    // }
+  const pressSubmitAction = () => {
+    const obj = {
+      mobile: Number(state.contact),
+    };
+    axios
+      .post(API_PATHS.SEND_OTP, obj)
+      .then((res) => {
+        if (res.data.message) {
+          // console.log("res", res);
+          Toast.show({
+            type: "success",
+            text1: res.data.message,
+          });
+          if (res.data.code === 200) {
+            setPhoneError("");
+            props.navigation.navigate("verifyMobileOtp", {
+              contact: state.contact,
+            });
+          } else {
+            setPhoneError("*please enter a valid mobile number.");
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.message) {
+          Toast.show({
+            type: "success",
+            text1: err.message,
+          });
+        }
+      });
   };
+
+  // const submit = () => {
+  //   const isValid = phoneInput.current.isValidNumber();
+  //   if (!isValid) {
+  //     console.log("state.contact");
+  //     console.log(state.contact.length);
+  //     setPhoneError("*please enter a valid mobile number.");
+  //   } else {
+  //     setPhoneError("");
+  //     props.navigation.navigate("verifyMobileOtp", {
+  //       contactNumber: state.contact,
+  //       countryCode: countryCode,
+  //     });
+  //   }
+  // };
 
   return (
     <KeyboardAwareScrollView
@@ -61,6 +98,7 @@ const MobileInput = (props) => {
       style={{ backgroundColor: "#fff" }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Toast position="top" topOffset={-10} />
         <View style={styles.container}>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Progress.Bar

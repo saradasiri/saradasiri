@@ -5,7 +5,8 @@ import {
   Image,
   SafeAreaView,
   StatusBar,
-  ImageBackground, TouchableOpacity
+  ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
@@ -14,9 +15,14 @@ import { useNavigation } from "@react-navigation/native";
 
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { getHeight } from "../src/Dimentions/DImentions";
 
 const slides = [
-   {
+  {
     key: "one",
     title: "El marketplace de activos digitales",
     text: "Vadi es unmarketplace donde se unen las startups y pymes latinoamericanas con inversores de todo el mundo",
@@ -51,50 +57,73 @@ const IntroSlides = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <ImageBackground
-      style={{ flex: 1, alignSelf: "stretch", width: null }}
-      source={require("../assets/rect.png")}
-    >
-        <Image source={item.image} style={{alignSelf: "center", width:350 ,height:350 ,marginTop:30}} />
-      {/* <View style={{marginTop:item.key === "three"? -30: 285}}></View> */}
-        {item.title && <Text style={styles.title}>{item.title}</Text>}
-        {item.text && <Text style={styles.text}>{item.text}</Text>}
-      </ImageBackground>
+      // <ImageBackground
+      //   style={{ flex: 1, alignSelf: "stretch", width: null }}
+      //   source={require("../assets/rect.png")}
+      //
+      <View style={{ flex: 1 }}>
+        <Image
+          source={item.image}
+          style={{
+            alignSelf: "center", width:350 ,height:350 ,marginTop:30
+            height: hp("30%"),
+            width: wp("70%"),
+            marginTop: hp("4%"),
+          }}
+        />
+      {/*   <View style={{ marginBottom: hp("0.9%"), padding: 10 }}> */}
+          {item.title && <Text style={styles.title}>{item.title}</Text>}
+          {item.text && <Text style={styles.text}>{item.text}</Text>}
+        </View>
+      </View>
+      // </ImageBackground>
     );
   };
   const _renderNextButton = () => {
     return (
       <View style={styles.skipped}>
-      <Text
-        style={{ color: "white", textAlign: "center", fontSize: 16,fontFamily: "NunitoSans_400Regular" }}
-      >
-       Next
-      </Text>
-    </View>
+        <Text
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontSize: 16,
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Next
+        </Text>
+      </View>
     );
   };
 
   const _renderDoneButton = () => {
     return (
       <TouchableOpacity
-      style={{
-        backgroundColor: "#8D00FF",
-        width: 312,
-        height: 50,
-        justifyContent: "center",
-        textAlign: "center",
-        borderRadius: 8,
-        alignSelf: "center",
-          marginTop: -80,
-        left:-20
-      }}
-      onPress={() => navigation.navigate("mobileotp")}
-    >
-        <Text style={{ color: "#fff", fontSize: 16, fontFamily: "NunitoSans_400Regular",
-              alignSelf: "center"}}>
-         Crear mi cuenta
+        style={{
+          backgroundColor: "#8D00FF",
+          height: hp("8%"),
+          width: wp("90%"),
+          justifyContent: "center",
+          alignContent: "center",
+          textAlign: "center",
+          borderRadius: 8,
+          alignSelf: "center",
+          marginTop: getHeight(-100),
+          left: wp("1%"),
+        }}
+        onPress={() => navigation.navigate("mobileotp")}
+      >
+        <Text
+          style={{
+            color: "#fff",
+            fontSize: 16,
+            fontFamily: "NunitoSans_400Regular",
+            alignSelf: "center",
+          }}
+        >
+          Crear mi cuenta
         </Text>
-    </TouchableOpacity>
+      </TouchableOpacity>
     );
   };
 
@@ -102,7 +131,12 @@ const IntroSlides = () => {
     return (
       <View style={styles.skipped}>
         <Text
-          style={{ color: "white", textAlign: "center", fontSize: 16,fontFamily: "NunitoSans_400Regular" }}
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontSize: 16,
+            fontFamily: "NunitoSans_400Regular",
+          }}
         >
           Skip
         </Text>
@@ -115,15 +149,15 @@ const IntroSlides = () => {
       <AppIntroSlider
         dotStyle={{
           backgroundColor: "#bababa",
-          top:-13,
-          width:8,
-          height:8
+          top: -13,
+          width: 8,
+          height: 8,
         }}
         activeDotStyle={{
           backgroundColor: "#8D00FF",
-          top:-13,
-          width:8,
-          height:8
+          top: -13,
+          width: 8,
+          height: 8,
         }}
         data={slides}
         renderItem={renderItem}
@@ -157,20 +191,20 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     paddingHorizontal: 20,
-    fontSize: 18,
+    fontSize: hp("2.5%"),
     textAlign: "center",
-    top:10,
+    top:30,
     lineHeight: 35,
     fontFamily: "NunitoSans_400Regular",
   },
   title: {
-    fontSize: 30,
+    fontSize: 36,
     color: "white",
     padding: 25,
-    top: 10,
+    top: 30,
     lineHeight:46,
     textAlign: "center",
-    paddingTop: 5,
+    paddingTop: 20,
     fontFamily: "NunitoSans_400Regular"
   },
   skipped: {
