@@ -29,7 +29,7 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer theme={{ colors: { background: "#270041" } }}>
-      <Stack.Navigator initialRouteName="homepage">
+      <Stack.Navigator initialRouteName="confirmEmail">
         <Stack.Screen
           name="homepage"
           options={{
@@ -109,8 +109,12 @@ export default function App() {
         <Stack.Screen
           name="login"
           options={{
-            headerShown: false,
-            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "white",
+            },
+            ...TransitionPresets.ModalSlideFromBottomIOS,
+            headerTitle: "",
           }}
           component={LoginProcess}
         />
@@ -120,7 +124,7 @@ export default function App() {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: "#F2F6FF",
+              backgroundColor: "white",
             },
             ...TransitionPresets.ModalSlideFromBottomIOS,
             headerTitle: "",
@@ -132,7 +136,7 @@ export default function App() {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: "#F2F6FF",
+              backgroundColor: "white",
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
@@ -144,7 +148,7 @@ export default function App() {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: "#F2F6FF",
+              backgroundColor: "white",
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",

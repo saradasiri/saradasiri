@@ -5,7 +5,7 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
-  ScrollView,
+  ScrollView,Image
 } from "react-native";
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -133,22 +133,22 @@ const ConfirmEmail = (formik) => {
 
             <View style={{ flexDirection: "column", marginTop: -5 }}>
               <View style={styles.privacy}>
-                <Text>Acepto el </Text>
+                <Text style={{ color:'#2D0052' }}>Acepto el </Text>
                 <TouchableOpacity
                 // onPress={termsDocModal}
                 >
-                  <Text style={[styles.agreementText, { color: "#000000" }]}>
+                  <Text style={[styles.agreementText, { color: "#2D0052" }]}>
                     Aviso de Privacidad
                   </Text>
                 </TouchableOpacity>
-                <Text> y la </Text>
+                <Text style={{ color:'#2D0052' }}> y la </Text>
               </View>
 
               <View style={styles.privacy}>
                 <TouchableOpacity
                 // onPress={termsDocModal}
                 >
-                  <Text style={[styles.agreementText, { color: "#000000" }]}>
+                  <Text style={[styles.agreementText, { color: "#2D0052" }]}>
                     Jurisdicción Aplicable
                   </Text>
                 </TouchableOpacity>
@@ -163,18 +163,18 @@ const ConfirmEmail = (formik) => {
               onValueChange={setIsAccepted}
               color={isPrivacyChecked ? "#33B7B0" : undefined}
             />
-            <View style={{ flexDirection: "column", top: -5, left: 15 }}>
-              <Text>Acepto que Vadi realice la consulta de mis</Text>
-              <Text>datos para corroborar mi información.</Text>
+            <View style={{ flexDirection: "column", top: -5, left: 15,}}>
+              <Text style={{ color:'#2D0052' }}>Acepto que Vadi realice la consulta de mis</Text>
+              <Text style={{ color:'#2D0052' }}>datos para corroborar mi información.</Text>
               <TouchableOpacity>
-                <Text style={[styles.agreementText, { color: "#000000" }]}>
+                <Text style={[styles.agreementText, { color: "#2D0052" }]}>
                 ¿Mi información está segura?
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          <View style={{ marginTop: 50 }}>
+          <View style={{  }}>
             <TouchableOpacity
               style={[
                 styles.button,
@@ -203,6 +203,11 @@ const ConfirmEmail = (formik) => {
               <Text style={styles.buttonText}>Siguiente</Text>
             </TouchableOpacity>
           </View>
+
+          <Image
+            style={styles.Logo}
+            source={require("../../../assets/vlogo.png")}
+          />
         </View>
       </ScrollView>
     </KeyboardAwareScrollView>
@@ -213,7 +218,7 @@ const styles = StyleSheet.create({
   MainContainer: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#F2F6FF",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 5,
     fontFamily: "NunitoSans_400Regular",
-    color: "#737373",
+    color: "#2D0052",
   },
   inputStyle: {
     height: 50,
@@ -236,18 +241,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     paddingLeft: 30,
+    borderColor: "rgba(18, 3, 58, 0.1)",
   },
   button: {
     marginTop: 40,
-    height: 50,
-    width: 322,
-    borderRadius: 5,
-    backgroundColor: "#00BFFF",
+    height: 42,
+    width: 312,
+    borderRadius: 8,
+    backgroundColor: "#8D00FF",
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontFamily: "NunitoSans_400Regular",
-    fontSize: 20,
+    fontSize: 16,
     paddingTop: 10,
     paddingBottom: 10,
     textAlign: "center",
@@ -261,10 +267,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   checkbox: {
-    borderColor: "#33B7B0",
+    borderColor: "rgba(18, 3, 58, 0.1)",
     opacity: 0.8,
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     borderRadius: 5,
   },
 
@@ -272,6 +278,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     fontFamily: "NunitoSans_400Regular",
     paddingLeft: 15,
+  },
+  Logo: {
+    height: 50,
+    width: 180,
+    marginTop:50,
+    alignSelf:'center',
   },
 });
 export default ConfirmEmail;

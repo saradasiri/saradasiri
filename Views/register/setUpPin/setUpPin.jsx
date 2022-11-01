@@ -28,8 +28,7 @@ const VerifyOTP = (email) => {
   }
 
   const handleSubmit = () => {
-    alert("ok");
-    //   navigation.navigate("setUpPin")
+      navigation.navigate("login")
   };
 
   return (
@@ -42,7 +41,7 @@ const VerifyOTP = (email) => {
           <Text
             style={[
               styles.Label,
-              { fontSize: 20, marginTop: 20, color: "#737373" },
+              { fontSize: 20, marginTop: 20, color: "#2D0052" },
             ]}
           >
             Configura tu PIN móvil
@@ -50,14 +49,14 @@ const VerifyOTP = (email) => {
           <Text
             style={[
               styles.Label,
-              { fontSize: 15, marginTop: 10, color: "#737373" },
+              { fontSize: 15, marginTop: 10, color: "#2D0052" },
             ]}
           >
             Este PIN móvil te permite acceder y confirmar operaciones en la app.
           </Text>
         </View>
 
-        <View style={{ marginTop: 50 }}>
+        <View style={{ marginTop: 250 }}>
           <TouchableOpacity
             style={[styles.button, { opacity: 1 }]}
             // disabled={!otpInput}
@@ -90,19 +89,20 @@ const styles = StyleSheet.create({
   Label: {
     marginTop: 40,
     fontWeight: "400",
-    fontSize: 30,
+    fontSize: 30,color: "#2D0052"
   },
   button: {
-    marginTop: 213,
-    height: 50,
-    width: 322,
-    borderRadius: 5,
-    backgroundColor: "#00BFFF",
+    marginTop: 40,
+    height: 42,
+    width: 312,
+    borderRadius: 8,
+    backgroundColor: "#8D00FF",
+    
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontFamily: "NunitoSans_400Regular",
-    fontSize: 20,
+    fontSize: 16,
     paddingTop: 10,
     paddingBottom: 10,
     textAlign: "center",

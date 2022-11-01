@@ -72,12 +72,12 @@ const Login = (formik) => {
           <StatusBar style="auto" />
           <Toast position="top" topOffset={-10} />
          
-          <Text style={styles.Label}>¡Hola de nuevo!</Text>
+          <Text style={[styles.Label,{color:'#2D0052'}]}>¡Hola de nuevo!</Text>
           <View style={{ paddingTop: 70 }}>
             <Text
               style={[
                 styles.text,
-                 { color: errors.email && touched.email ? "red" : "#33B7B0" },
+                 { color: errors.email && touched.email ? "red" : "#2D0052" },
               ]}
             >
              Correo electrónico
@@ -115,7 +115,7 @@ const Login = (formik) => {
                 styles.text,
                 {
                   color:
-                    errors.password && touched.password ? "red" : "#808080",
+                    errors.password && touched.password ? "red" : "#2D0052",
                 },
               ]}
             >
@@ -125,7 +125,7 @@ const Login = (formik) => {
               <TextInput
                 name="password"
                 secureTextEntry={true}
-                placeholder="*****************"
+                // placeholder="*****************"
                 onChangeText={formik.handleChange("password")}
                 onBlur={formik.handleBlur("password")}
                 value={values.password}
@@ -153,7 +153,7 @@ const Login = (formik) => {
           </View>
 
           <View style={styles.signup}>
-            <Text style={{ fontFamily: "NunitoSans_400Regular" }}>
+            <Text style={{ fontFamily: "NunitoSans_400Regular", color:'#2D0052' }}>
             ¿Olvidaste tu contraseña?
             </Text>
             <TouchableOpacity
@@ -163,7 +163,7 @@ const Login = (formik) => {
               <Text
                 style={{
                   fontFamily: "NunitoSans_400Regular",
-                  color: "#2E2E2E",
+                  color: "#2D0052",
                   textDecorationLine:'underline',
                   fontWeight:'bold'                  
                 }}
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   MainContainer: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#F2F6FF",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 27,
     marginBottom:-20,
-    zIndex:-1
+    zIndex:-1,
   },
   text: {
     fontSize:18,
@@ -236,12 +236,20 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingLeft: 30,
   },
-  button:{
-    marginTop:40,
-    height: 50,
-    width:322,
-    borderRadius: 5,
-    backgroundColor: "#00BFFF",
+  button: {
+    marginTop: 40,
+    height: 42,
+    width: 312,
+    borderRadius: 8,
+    backgroundColor: "#8D00FF",
+  },
+  buttonText: {
+    color: "white",
+    fontFamily: "NunitoSans_400Regular",
+    fontSize: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    textAlign: "center",
   },
   resetPassword: {
     fontStyle: "normal",
@@ -249,14 +257,6 @@ const styles = StyleSheet.create({
     marginTop: -14,
     color: "#7A869A",
     alignSelf: "flex-end",
-  },
-  buttonText: {
-    color: "black",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
   },
   signup: {
     marginTop: 15,

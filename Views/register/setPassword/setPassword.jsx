@@ -5,7 +5,7 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
-  ScrollView,
+  ScrollView,Image
 } from "react-native";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -46,7 +46,7 @@ const SetPassword = (formik) => {
                 // { color: errors.password && touched.password ? "red" : "#33B7B0" },
               ]}
             >
-              Correo electrónico
+              Elige una contraseña
             </Text>
             <View>
               <TextInput
@@ -167,6 +167,10 @@ const SetPassword = (formik) => {
             </TouchableOpacity>
           </View>
         </View>
+        <Image
+            style={styles.Logo}
+            source={require("../../../assets/vlogo.png")}
+          />
       </ScrollView>
     </KeyboardAwareScrollView>
   );
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
   MainContainer: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#F2F6FF",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
@@ -190,7 +194,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 5,
     fontFamily: "NunitoSans_400Regular",
-    color: "#737373",
+    color: "#2D0052",
   },
   inputStyle: {
     height: 50,
@@ -199,18 +203,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     paddingLeft: 30,
+    borderColor: "rgba(18, 3, 58, 0.1)", marginTop:20
   },
   button: {
     marginTop: 40,
-    height: 50,
-    width: 322,
-    borderRadius: 5,
-    backgroundColor: "#00BFFF",
+    height: 42,
+    width: 312,
+    borderRadius: 8,
+    backgroundColor: "#8D00FF",
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontFamily: "NunitoSans_400Regular",
-    fontSize: 20,
+    fontSize: 16,
     paddingTop: 10,
     paddingBottom: 10,
     textAlign: "center",
@@ -235,6 +240,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     fontFamily: "NunitoSans_400Regular",
     paddingLeft: 15,
+  },
+  Logo: {
+    height: 50,
+    width: 180,
+    marginTop:50,
+    alignSelf:'center',
   },
 });
 export default SetPassword;
