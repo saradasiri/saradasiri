@@ -26,21 +26,21 @@ const slides = [
     key: "one",
     title: "El marketplace de activos digitales",
     text: "Vadi es unmarketplace donde se unen las startups y pymes latinoamericanas con inversores de todo el mundo",
-    // image: require("../assets/vlogo.png"),
+    image: require("../assets/coin2.png"),
     backgroundColor: "#270041",
   },
   {
     key: "two",
     title: "Participacion acionaria",
     text: "Una infraestructura segura y accesible para emitir, almacenar y operar activos digitales em proyectos de bloackchain",
-    // image: require("../assets/rocket.png"),
+    image: require("../assets/tree.png"),
     backgroundColor: "#270041",
   },
   {
     key: "three",
     title: "Capital para emprender",
     text: "Con Vadi puedes lanzar un activo digital para reunir el capital privado necesario para desarrollar tu proyecto",
-    image: require("../assets/cupVadi1.png"),
+    image: require("../assets/cup.png"),
     backgroundColor: "#270041",
   },
 ];
@@ -65,13 +65,13 @@ const IntroSlides = () => {
         <Image
           source={item.image}
           style={{
-            alignSelf: "center",
+            alignSelf: "center", width:350 ,height:350 ,marginTop:30
             height: hp("30%"),
             width: wp("70%"),
             marginTop: hp("4%"),
           }}
         />
-        <View style={{ marginBottom: hp("0.9%"), padding: 10 }}>
+      {/*   <View style={{ marginBottom: hp("0.9%"), padding: 10 }}> */}
           {item.title && <Text style={styles.title}>{item.title}</Text>}
           {item.text && <Text style={styles.text}>{item.text}</Text>}
         </View>
@@ -193,19 +193,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: hp("2.5%"),
     textAlign: "center",
-    top: 30,
-    lineHeight: 30,
+    top:30,
+    lineHeight: 35,
     fontFamily: "NunitoSans_400Regular",
   },
   title: {
-    fontSize: hp("5%"),
+    fontSize: 36,
     color: "white",
-    padding: 15,
+    padding: 25,
     top: 30,
-    lineHeight: 46,
+    lineHeight:46,
     textAlign: "center",
     paddingTop: 20,
-    fontFamily: "NunitoSans_400Regular",
+    fontFamily: "NunitoSans_400Regular"
   },
   skipped: {
     height: 30,
