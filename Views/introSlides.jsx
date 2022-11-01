@@ -20,21 +20,21 @@ const slides = [
     key: "one",
     title: "El marketplace de activos digitales",
     text: "Vadi es unmarketplace donde se unen las startups y pymes latinoamericanas con inversores de todo el mundo",
-    // image: require("../assets/vlogo.png"),
+    image: require("../assets/coin2.png"),
     backgroundColor: "#270041",
   },
   {
     key: "two",
     title: "Participacion acionaria",
     text: "Una infraestructura segura y accesible para emitir, almacenar y operar activos digitales em proyectos de bloackchain",
-    // image: require("../assets/rocket.png"),
+    image: require("../assets/tree.png"),
     backgroundColor: "#270041",
   },
   {
     key: "three",
     title: "Capital para emprender",
     text: "Con Vadi puedes lanzar un activo digital para reunir el capital privado necesario para desarrollar tu proyecto",
-    image: require("../assets/cupVadi1.png"),
+    image: require("../assets/cup.png"),
     backgroundColor: "#270041",
   },
 ];
@@ -55,8 +55,8 @@ const IntroSlides = () => {
       style={{ flex: 1, alignSelf: "stretch", width: null }}
       source={require("../assets/rect.png")}
     >
-        <Image source={item.image} style={{alignSelf: "center",}} />
-      <View style={{marginTop:item.key === "three"? -30: 285}}></View>
+        <Image source={item.image} style={{alignSelf: "center", width:350 ,height:350 ,marginTop:30}} />
+      {/* <View style={{marginTop:item.key === "three"? -30: 285}}></View> */}
         {item.title && <Text style={styles.title}>{item.title}</Text>}
         {item.text && <Text style={styles.text}>{item.text}</Text>}
       </ImageBackground>
@@ -159,18 +159,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 18,
     textAlign: "center",
-    top:30,
+    top:10,
     lineHeight: 35,
     fontFamily: "NunitoSans_400Regular",
   },
   title: {
-    fontSize: 36,
+    fontSize: 30,
     color: "white",
     padding: 25,
-    top: 30,
+    top: 10,
     lineHeight:46,
     textAlign: "center",
-    paddingTop: 20,
+    paddingTop: 5,
     fontFamily: "NunitoSans_400Regular"
   },
   skipped: {
