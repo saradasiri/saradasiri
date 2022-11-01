@@ -59,7 +59,7 @@ const HomePage = () => {
 
         <TouchableOpacity
           style={{ justifyContent: "center" }}
-          onPress={() => navigation.navigate("registerLevel1")}
+          onPress={() => navigation.navigate("login")}
         >
           <Text
             style={{

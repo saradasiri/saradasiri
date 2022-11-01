@@ -65,7 +65,7 @@ const IntroSlides = () => {
         <Image
           source={item.image}
           style={{
-            alignSelf: "center", width:350 ,height:350 ,marginTop:30
+            alignSelf: "center", width:350 ,height:350 ,marginTop:30,
             height: hp("30%"),
             width: wp("70%"),
             marginTop: hp("4%"),
@@ -75,7 +75,6 @@ const IntroSlides = () => {
           {item.title && <Text style={styles.title}>{item.title}</Text>}
           {item.text && <Text style={styles.text}>{item.text}</Text>}
         </View>
-      </View>
       // </ImageBackground>
     );
   };
@@ -111,7 +110,7 @@ const IntroSlides = () => {
           marginTop: getHeight(-100),
           left: wp("1%"),
         }}
-        onPress={() => navigation.navigate("mobileotp")}
+        onPress={() => navigation.navigate("confirmEmail")}
       >
         <Text
           style={{

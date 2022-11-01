@@ -29,7 +29,7 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer theme={{ colors: { background: "#270041" } }}>
-      <Stack.Navigator initialRouteName="confirmEmail">
+      <Stack.Navigator initialRouteName="homepage">
         <Stack.Screen
           name="homepage"
           options={{
