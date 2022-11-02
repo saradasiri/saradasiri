@@ -122,22 +122,7 @@ const Login = (formik) => {
               Contraseña
             </Text>
             <View>
-              <TextInput
-                name="password"
-                secureTextEntry={true}
-                // placeholder="*****************"
-                onChangeText={formik.handleChange("password")}
-                onBlur={formik.handleBlur("password")}
-                value={values.password}
-                autoCapitalize="none"
-                style={[
-                  styles.inputStyle,
-                  {
-                    borderColor:
-                      errors.password && touched.password ? "red" : "#808080",
-                  },
-                ]}
-              />
+            
             </View>
             {errors.password && touched.password && (
               <Text

@@ -28,8 +28,8 @@ import HomePage from "./views/homePage";
 export default function App() {
   const Stack = createStackNavigator();
   return (
-    <NavigationContainer theme={{ colors: { background: "#270041" } }}>
-      <Stack.Navigator initialRouteName="homepage">
+    <NavigationContainer >
+      <Stack.Navigator initialRouteName="walletHome">
         <Stack.Screen
           name="homepage"
           options={{
@@ -244,10 +244,7 @@ export default function App() {
         <Stack.Screen
           name="walletHome"
           options={{
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: "#270041",
-            },
+            headerShown: false,           
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
           }}

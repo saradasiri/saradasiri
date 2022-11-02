@@ -65,10 +65,10 @@ const IntroSlides = () => {
         <Image
           source={item.image}
           style={{
-            alignSelf: "center", width:350 ,height:350 ,marginTop:30,
-            height: hp("30%"),
-            width: wp("70%"),
-            marginTop: hp("4%"),
+            alignSelf: "center",
+            height: hp("50%"),
+            width: wp("100%"),
+            marginTop: hp("1%"),
           }}
         />
       {/*   <View style={{ marginBottom: hp("0.9%"), padding: 10 }}> */}
