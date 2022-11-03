@@ -26,12 +26,13 @@ import SetWalletPin from "./views/setWalletPin";
 import HomePage from "./views/homePage";
 import RegisterSuccess from "./views/registerSuccess";
 import BalancePage from "./views/walletHome/balancePage";
+import BalancePage1 from "./views/walletHome/balancePage1";
 
 export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="homepage">
+      <Stack.Navigator initialRouteName="balancePage1">
         <Stack.Screen
           name="homepage"
           options={{
@@ -42,6 +43,17 @@ export default function App() {
             headerTitle: "",
           }}
           component={HomePage}
+        />
+        <Stack.Screen
+          name="balancePage1"
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#F2F6FF",
+            },
+            headerTitle: "",
+          }}
+          component={BalancePage1}
         />
         <Stack.Screen
           name="balancePage"
