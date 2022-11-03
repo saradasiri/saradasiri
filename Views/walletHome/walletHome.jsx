@@ -228,7 +228,7 @@ const WalletHome = (email) => {
               </Pressable>
             </View>
           </View>
-          <View style={{ padding: 20 }}>
+          <View style={{ padding: 20,paddingBottom:100 }}>
             {CoinData.map((item, idx) => {
               return (
                 <Listitem

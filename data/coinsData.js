@@ -49,3 +49,24 @@ export const CoinData = [
     change: "-1.09%",
   },
 ];
+
+export const Recommendations = [
+  {
+    image: require("../assets/blockbit.png"),
+    title: "Blockbit",
+    symbol: "B C K L",
+    price: "$359.74 mxn",
+    change: "+3.02%",
+    text: "Recién listada en Vadi, se perfila como una de las empresas con mejor oferta para inversionistas.",
+    buttons: ["Tecnología", "México"],
+  },
+  {
+    image: require("../assets/LogoAzul.png"),
+    title: "Miel de Abeja",
+    price: "$88.74 mxn",
+    symbol: "M A B",
+    change: "+3.02%",
+    text: "Inicia su expansión de venta de miel en Argentina y Japón.",
+    buttons: ["Alimentos", "Chile"],
+  },
+];
