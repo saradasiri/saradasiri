@@ -15,40 +15,49 @@ function Footer() {
       <View style={{ marginLeft: 0 }}>
         <TouchableOpacity>
           <Image
-            style={[styles.image, { alignSelf: "center" }]}
-            source={require("../../assets/wallet.png")}
+            style={[styles.image, { alignSelf: "center", width:28, height:22 }]}
+            source={require("../../assets/homeButton.png")}
           />
-          <Text style={{ marginTop: 5, color: "#7A869A" }}>Wallet</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginLeft: 50 }}>
+      <View style={{ marginLeft: 40 }}>
         <TouchableOpacity >
           <Image
-            style={[styles.image, { alignSelf: "center" }]}
+            style={[styles.image, { alignSelf: "center", width:25, height:22 }]}
+            source={require("../../assets/exchange.png")}
+          />
+          {/* <Text style={{ marginTop: 5, color: "#7A869A" }}>Crypto</Text> */}
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ marginLeft: 40 }}>
+        <TouchableOpacity onPress={() => {}}>
+          <Image
+            style={[styles.image, { alignSelf: "center", width:64, height:64  }]}
+            source={require("../../assets/plus.png")}
+          />
+          {/* <Text style={{ marginTop: 5, color: "#7A869A" }}>Activity</Text> */}
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ marginLeft: 40 }}>
+        <TouchableOpacity onPress={() => {}}>
+          <Image
+            style={[styles.image, { alignSelf: "center", width:25, height:22  }]}
             source={require("../../assets/graph.png")}
           />
-          <Text style={{ marginTop: 5, color: "#7A869A" }}>Crypto</Text>
+          {/* <Text style={{ marginTop: 5, color: "#7A869A" }}>Profile</Text> */}
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginLeft: 50 }}>
+      <View style={{ marginLeft: 40 }}>
         <TouchableOpacity onPress={() => {}}>
           <Image
-            style={[styles.image, { alignSelf: "center" }]}
-            source={require("../../assets/activity.png")}
+            style={[styles.image, { alignSelf: "center", width:28, height:22 }]}
+            source={require("../../assets/wallet.png")}
           />
-          <Text style={{ marginTop: 5, color: "#7A869A" }}>Activity</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ marginLeft: 50 }}>
-        <TouchableOpacity onPress={() => {}}>
-          <Image
-            style={[styles.image, { alignSelf: "center" }]}
-            source={require("../../assets/profile.png")}
-          />
-          <Text style={{ marginTop: 5, color: "#7A869A" }}>Profile</Text>
+          {/* <Text style={{ marginTop: 5, color: "#7A869A" }}>Profile</Text> */}
         </TouchableOpacity>
       </View>
     </View>
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 2,
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "#2D0052",
+    backgroundColor: "white",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -68,8 +77,8 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   image: {
-    width: 35,
-    height: 35,
+    // width: 35,
+    // height: 35,
   },
 });
 export default Footer;
