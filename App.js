@@ -24,12 +24,13 @@ import WalletHome from "./views/walletHome/walletHome";
 import RegisterLevel1 from "./views/registerLevel1";
 import SetWalletPin from "./views/setWalletPin";
 import HomePage from "./views/homePage";
+import RegisterSuccess from "./views/registerSuccess";
 
 export default function App() {
   const Stack = createStackNavigator();
   return (
-    <NavigationContainer >
-      <Stack.Navigator initialRouteName="walletHome">
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="registerSuccess">
         <Stack.Screen
           name="homepage"
           options={{
@@ -42,9 +43,19 @@ export default function App() {
           component={HomePage}
         />
         <Stack.Screen
-          name="introSlides"
+          name="registerSuccess"
           options={{
             headerShown: false,
+            headerStyle: {
+              backgroundColor: "#F2F6FF",
+            },
+            headerTitle: "",
+          }}
+          component={RegisterSuccess}
+        />
+        <Stack.Screen
+          name="introSlides"
+          options={{
             headerStyle: {
               backgroundColor: "#F2F6FF",
             },
@@ -244,7 +255,7 @@ export default function App() {
         <Stack.Screen
           name="walletHome"
           options={{
-            headerShown: false,           
+            headerShown: false,
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
           }}

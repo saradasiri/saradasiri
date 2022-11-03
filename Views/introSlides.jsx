@@ -57,18 +57,14 @@ const IntroSlides = () => {
 
   const renderItem = ({ item }) => {
     return (
-      // <ImageBackground
-      //   style={{ flex: 1, alignSelf: "stretch", width: null }}
-      //   source={require("../assets/rect.png")}
-      //
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 ,backgroundColor:item.backgroundColor }}>
         <Image
           source={item.image}
           style={{
             alignSelf: "center",
             height: hp("50%"),
-            width: wp("100%"),
-            marginTop: hp("1%"),
+            width: wp("80%"),
+            // marginTop: hp("1%"),
           }}
         />
       {/*   <View style={{ marginBottom: hp("0.9%"), padding: 10 }}> */}
@@ -192,15 +188,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: hp("2.5%"),
     textAlign: "center",
-    top:30,
-    lineHeight: 35,
+    top:0,
+    lineHeight: 25,
     fontFamily: "NunitoSans_400Regular",
   },
   title: {
     fontSize: 36,
     color: "white",
     padding: 25,
-    top: 30,
+    top: 0,
     lineHeight:46,
     textAlign: "center",
     paddingTop: 20,
