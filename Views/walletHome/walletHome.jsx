@@ -41,205 +41,210 @@ const WalletHome = (email) => {
     //   navigation.navigate("setUpPin")
   };
 
-  return (<>
-    <KeyboardAwareScrollView style={styles.MainContainer}>
-      <ScrollView contentContainerStyle={styles.MainContainer}>
-        {/* <StatusBar style="auto" /> */}
+  return (
+    <>
+      <KeyboardAwareScrollView style={styles.MainContainer}>
+        <ScrollView contentContainerStyle={styles.MainContainer}>
+          {/* <StatusBar style="auto" /> */}
 
-        <View
-          style={{
-            display: "flex",
-            flex: 1,
-            backgroundColor: "#270041",
-            width: "100%",
-            top: 0,
-            height: 300,
-            borderBottomRightRadius: 80,
-            borderBottomLeftRadius: 80,
-          }}
-        >
           <View
             style={{
-              flexDirection: "row",
-              paddingHorizontal: 30,
-              justifyContent: "space-between",
-              top: 50,
-              paddingBottom: 10,
-              marginLeft: 15,
-              borderRadius: 10,
+              display: "flex",
+              flex: 1,
+              backgroundColor: "#270041",
+              width: "100%",
+              top: 0,
+              height: 300,
+              borderBottomRightRadius: 80,
+              borderBottomLeftRadius: 80,
             }}
           >
-            <Image
-              source={{ uri: image1 }}
+            <View
               style={{
-                width: 40,
-                height: 40,
+                flexDirection: "row",
+                paddingHorizontal: 30,
+                justifyContent: "space-between",
+                top: 50,
+                paddingBottom: 10,
+                marginLeft: 15,
                 borderRadius: 10,
               }}
-            />
-            <MaterialCommunityIcons
-              name="code-brackets"
-              size={34}
-              color="white"
-            />
+            >
+              <Image
+                source={{ uri: image1 }}
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                }}
+              />
+              <MaterialCommunityIcons
+                name="code-brackets"
+                size={34}
+                color="white"
+              />
+            </View>
+            <Text
+              style={{
+                color: "#fff",
+                marginTop: 10,
+                justifyContent: "center",
+                textAlign: "center",
+                top: 50,
+                fontSize: 24,
+              }}
+            >
+              ¡Hola Hermenegildo!
+            </Text>
+            <Text
+              style={{
+                color: "#fff",
+                marginTop: 10,
+                justifyContent: "center",
+                textAlign: "center",
+                top: 50,
+                fontSize: 18,
+              }}
+            >
+              ¿Qué quieres hacer hoy?
+            </Text>
+            <View
+              style={{
+                marginTop: 70,
+                paddingLeft: 30,
+                marginHorizontal: 50,
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+              <LinearGradient
+                start={[0, 0.5]}
+                end={[1, 0.5]}
+                colors={[
+                  "#46F2FB",
+                  "#62F2F2",
+                  "#5DFF3F",
+                  "#5DFF3F",
+                  "#8D00FF",
+                  "#8D00FF",
+                ]}
+                style={{ borderRadius: 5 }}
+              >
+                <Pressable style={styles.circleGradient}>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      fontSize: 16,
+                      paddingTop: 10,
+                    }}
+                  >
+                    Depositar
+                  </Text>
+                </Pressable>
+              </LinearGradient>
+              <LinearGradient
+                start={[0, 0.5]}
+                end={[1, 0.5]}
+                colors={[
+                  "#46F2FB",
+                  "#62F2F2",
+                  "#5DFF3F",
+                  "#5DFF3F",
+                  "#8D00FF",
+                  "#8D00FF",
+                ]}
+                style={{ borderRadius: 5 }}
+              >
+                <Pressable style={styles.circleGradient}>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      fontSize: 16,
+                      paddingTop: 10,
+                    }}
+                  >
+                    Comprar
+                  </Text>
+                </Pressable>
+              </LinearGradient>
+            </View>
           </View>
-          <Text
-            style={{
-              color: "#fff",
-              marginTop: 10,
-              justifyContent: "center",
-              textAlign: "center",
-              top: 50,
-              fontSize: 24,
-            }}
-          >
-            ¡Hola Hermenegildo!
-          </Text>
-          <Text
-            style={{
-              color: "#fff",
-              marginTop: 10,
-              justifyContent: "center",
-              textAlign: "center",
-              top: 50,
-              fontSize: 18,
-            }}
-          >
-            ¿Qué quieres hacer hoy?
-          </Text>
           <View
             style={{
-              marginTop: 70,
-              paddingLeft: 30,
-              marginHorizontal: 50,
-              justifyContent: "space-between",
-              flexDirection: "row",
+              top: -40,
+              width: "100%",
+              justifyContent: "center",
+              textAlign: "center",
+              marginLeft: 5,
             }}
           >
-            <LinearGradient
-              start={[0, 0.5]}
-              end={[1, 0.5]}
-              colors={[
-                "#46F2FB",
-                "#62F2F2",
-                "#5DFF3F",
-                "#5DFF3F",
-                "#8D00FF",
-                "#8D00FF",
-              ]}
-              style={{ borderRadius: 5 }}
-            >
-              <Pressable style={styles.circleGradient}>
-                <Text
-                  style={{
-                    color: "#fff",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    fontSize: 16,
-                    paddingTop: 10,
-                  }}
-                >
-                  Depositar
-                </Text>
-              </Pressable>
-            </LinearGradient>
-            <LinearGradient
-              start={[0, 0.5]}
-              end={[1, 0.5]}
-              colors={[
-                "#46F2FB",
-                "#62F2F2",
-                "#5DFF3F",
-                "#5DFF3F",
-                "#8D00FF",
-                "#8D00FF",
-              ]}
-              style={{ borderRadius: 5 }}
-            >
-              <Pressable style={styles.circleGradient}>
-                <Text
-                  style={{
-                    color: "#fff",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    fontSize: 16,
-                    paddingTop: 10,
-                  }}
-                >
-                  Comprar
-                </Text>
-              </Pressable>
-            </LinearGradient>
+            <PriceAlert
+              title="Desbloquea todas las funciones de Vadi."
+              content="  Valida tu identidad para que puedas ver todas las funciones del
+          marketplace."
+            />
           </View>
-        </View>
-        <View
-          style={{
-            top: -40,
-            width: "100%",
-            justifyContent: "center",
-            textAlign: "center",
-            marginLeft: 5,
-          }}
-        >
-          <PriceAlert />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingHorizontal: 25,
-          }}
-        >
-          <Text
+          <View
             style={{
-              color: "#2D0052",
-              fontSize: 16,
-              lineHeight: 26,
-              fontWeight: "800",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 25,
             }}
           >
-            Tokens para invertir
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <Pressable
+            <Text
               style={{
-                backgroundColor: "#8D00FF",
-                marginRight: 10,
-                padding: 8,
-                borderRadius: 5,
+                color: "#2D0052",
+                fontSize: 16,
+                lineHeight: 26,
+                fontWeight: "800",
               }}
             >
-              <Text style={{ color: "#FFF" }}>Hot</Text>
-            </Pressable>
-            <Pressable
-              style={{
-                backgroundColor: "rgba(141, 0, 255, 0.5)",
-                marginRight: 10,
-                padding: 8,
-                borderRadius: 5,
-              }}
-            >
-              <Text style={{ color: "#fff" }}>Precio</Text>
-            </Pressable>
+              Tokens para invertir
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Pressable
+                style={{
+                  backgroundColor: "#8D00FF",
+                  marginRight: 10,
+                  padding: 8,
+                  borderRadius: 5,
+                }}
+              >
+                <Text style={{ color: "#FFF" }}>Hot</Text>
+              </Pressable>
+              <Pressable
+                style={{
+                  backgroundColor: "rgba(141, 0, 255, 0.5)",
+                  marginRight: 10,
+                  padding: 8,
+                  borderRadius: 5,
+                }}
+              >
+                <Text style={{ color: "#fff" }}>Precio</Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
-        <View style={{ padding: 20 }}>
-          {CoinData.map((item, idx) => {
-            return (
-              <Listitem
-                price={item.price}
-                change={item.change}
-                image={item.image}
-                title={item.title}
-                symbol={item.symbol}
-              />
-            );
-          })}
-        </View>
-      </ScrollView>
-        
-    </KeyboardAwareScrollView>
-    <Footer/></>
+          <View style={{ padding: 20 }}>
+            {CoinData.map((item, idx) => {
+              return (
+                <Listitem
+                  price={item.price}
+                  change={item.change}
+                  image={item.image}
+                  title={item.title}
+                  symbol={item.symbol}
+                />
+              );
+            })}
+          </View>
+        </ScrollView>
+      </KeyboardAwareScrollView>
+      <Footer />
+    </>
   );
 };
 

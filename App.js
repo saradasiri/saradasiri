@@ -25,12 +25,13 @@ import RegisterLevel1 from "./views/registerLevel1";
 import SetWalletPin from "./views/setWalletPin";
 import HomePage from "./views/homePage";
 import RegisterSuccess from "./views/registerSuccess";
+import BalancePage from "./views/walletHome/balancePage";
 
 export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="registerSuccess">
+      <Stack.Navigator initialRouteName="balancePage">
         <Stack.Screen
           name="homepage"
           options={{
@@ -41,6 +42,15 @@ export default function App() {
             headerTitle: "",
           }}
           component={HomePage}
+        />
+        <Stack.Screen
+          name="balancePage"
+          options={{
+            headerShown: false,
+
+            headerTitle: "",
+          }}
+          component={BalancePage}
         />
         <Stack.Screen
           name="registerSuccess"

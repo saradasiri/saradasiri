@@ -1,8 +1,8 @@
-import React from 'react'
-import {Text ,View, TouchableOpacity,Image ,StyleSheet} from "react-native"
-import { MaterialIcons } from '@expo/vector-icons';
+import React from "react";
+import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const PriceAlert = ({customContainerStyle})  => {
+const PriceAlert = ({ customContainerStyle, title, content }) => {
   return (
     <TouchableOpacity
       style={{
@@ -26,35 +26,40 @@ const PriceAlert = ({customContainerStyle})  => {
           style={{
             fontSize: 18,
             fontWeight: "bold",
-                      color: "#fff",
-                      marginTop: -10,
-            marginBottom:10,
-                      textAlign: "center",
-            
+            color: "#fff",
+            marginTop: -10,
+            marginBottom: 10,
+            textAlign: "center",
           }}
         >
-          Desbloquea todas las funciones de Vadi.
+          {title}
         </Text>
-        <Text style={{ marginTop:5,justifyContent:"center",textAlign:"center",color:"#fff",lineHeight:25}}>
-          Valida tu identidad para que puedas ver todas las funciones del
-          marketplace.
+        <Text
+          style={{
+            marginTop: 5,
+            justifyContent: "center",
+            textAlign: "center",
+            color: "#fff",
+            lineHeight: 25,
+          }}
+        >
+          {content}
         </Text>
       </View>
-     
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
-    shadow : {
-        shadowColor : "#000",
-        shadowOffset : {
-            width : 0,
-            height : 4
-        },
-        shadowOpacity :0.30,
-        shadowRadius : 4.65,
-        elevation :8
-    }
-})
-export default PriceAlert
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+});
+export default PriceAlert;
