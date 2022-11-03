@@ -44,25 +44,26 @@ const Login = (formik) => {
       email: values.email,
       password: values.password,
     };
-    axios
-      .post(API_PATHS.LOGIN, obj)
-      .then((res) => {
-        if (res.data.message) {
-          Toast.show({
-            type: "info",
-            text1: res.data.message,
-          });
-          setUserEmail(values.email);
-        }
-      })
-      .catch((err) => {
-        if (err.message) {
-          Toast.show({
-            type: "info",
-            text1: err.message,
-          });
-        }
-      });
+    navigation.navigate("walletHome")
+    // axios
+    //   .post(API_PATHS.LOGIN, obj)
+    //   .then((res) => {
+    //     if (res.data.message) {
+    //       Toast.show({
+    //         type: "info",
+    //         text1: res.data.message,
+    //       });
+    //       setUserEmail(values.email);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     if (err.message) {
+    //       Toast.show({
+    //         type: "info",
+    //         text1: err.message,
+    //       });
+    //     }
+    //   });
   };
 
   return (
@@ -122,6 +123,20 @@ const Login = (formik) => {
               Contraseña
             </Text>
             <View>
+              <TextInput
+                name="password"
+                onChangeText={formik.handleChange("password")}
+                onBlur={formik.handleBlur("password")}
+                value={values.password}
+                style={[
+                  styles.inputStyle,
+                  {
+                    borderColor:errors.password && touched.password ? "red" : "#808080",
+                  },
+                ]}
+              />
+            </View>
+            <View>
             
             </View>
             {errors.password && touched.password && (
@@ -162,9 +177,9 @@ const Login = (formik) => {
             <TouchableOpacity
             style={[
               styles.button,
-              { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+              // { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
             ]}
-              disabled={!(formik.isValid && formik.dirty)}
+              // disabled={!(formik.isValid && formik.dirty)}
               onPress={() => {
                 handleSubmit();
               }}

@@ -31,7 +31,7 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="balancePage">
+      <Stack.Navigator initialRouteName="homepage">
         <Stack.Screen
           name="homepage"
           options={{
@@ -66,6 +66,7 @@ export default function App() {
         <Stack.Screen
           name="introSlides"
           options={{
+            headerShown: false,
             headerStyle: {
               backgroundColor: "#F2F6FF",
             },

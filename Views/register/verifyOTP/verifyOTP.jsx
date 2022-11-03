@@ -30,7 +30,7 @@ const VerifyOTP = (email) => {
 
   const handleSubmit = () => {
     // alert("OTP : " + otpInput);
-    navigation.navigate("setUpPin")
+    navigation.navigate("registerSuccess")
   };
 
   return (
