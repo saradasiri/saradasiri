@@ -9,7 +9,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import {CoinData, coinData} from "../../data/coinsData"
+import {CoinData} from "../../data/coinsData"
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
@@ -41,7 +41,7 @@ const WalletHome = (email) => {
     //   navigation.navigate("setUpPin")
   };
 
-  return (
+  return (<>
     <KeyboardAwareScrollView style={styles.MainContainer}>
       <ScrollView contentContainerStyle={styles.MainContainer}>
         {/* <StatusBar style="auto" /> */}
@@ -237,10 +237,9 @@ const WalletHome = (email) => {
           })}
         </View>
       </ScrollView>
-      <View style={{paddingTop:20}}>
-        <Footer />
-      </View>
+        
     </KeyboardAwareScrollView>
+    <Footer/></>
   );
 };
 
