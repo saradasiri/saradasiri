@@ -32,7 +32,7 @@ function Footer() {
       </View>
 
       <View style={{ marginLeft: 40 }}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => {navigation.navigate("balancePage")}}>
           <Image
             style={[styles.image, { alignSelf: "center", width:64, height:64  }]}
             source={require("../../assets/plus.png")}

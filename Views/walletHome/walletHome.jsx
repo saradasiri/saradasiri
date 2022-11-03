@@ -111,8 +111,8 @@ const WalletHome = (email) => {
             <View
               style={{
                 marginTop: 70,
-                paddingLeft: 30,
-                marginHorizontal: 50,
+                // paddingLeft: 30,
+                marginHorizontal: 65,
                 justifyContent: "space-between",
                 flexDirection: "row",
               }}
@@ -179,7 +179,7 @@ const WalletHome = (email) => {
               width: "100%",
               justifyContent: "center",
               textAlign: "center",
-              marginLeft: 5,
+              // marginLeft: 5,
             }}
           >
             <PriceAlert
