@@ -6,62 +6,72 @@ import {
   Image,
   Pressable,
   FlatList,
-  TouchableOpacity,
+  TouchableOpacity,StatusBar
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import PriceAlert from "../../src/priceAlert";
 import BlockAlert from "../../src/blockAlert";
 import { CoinData, Recommendations } from "../../data/coinsData";
 import Footer from "../../src/footer/footer";
+import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
+import { useFonts } from "expo-font";
 
-const BalancePage = () => {
-  const image1 =
-    "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
-  const renderItem = ({ item, index }) => {
-    return (
-      <TouchableOpacity
-        style={{
-          width: 150,
-          paddingVertical: 20,
-          paddingHorizontal: 20,
-          marginLeft: index == 0 ? 1 : 0,
-          borderRadius: 15,
-          marginRight: 20,
-          backgroundColor: "#fff",
-        }}
-        // onPress={() => navigation.navigate("CryptoDetail", { currency: item })}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <View>
-            <Image
-              source={item.image}
-              resizeMode="cover"
-              style={{ marginTop: 5, width: 25, height: 25 }}
-            />
-          </View>
-          <View style={{ marginLeft: 14 }}>
-            <Text style={{ fontWeight: "700" }}>{item.title}</Text>
-            <Text>{item.symbol}</Text>
-          </View>
+const renderItem = ({ item, index }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        width: 150,
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+        marginLeft: index == 0 ? 1 : 0,
+        borderRadius: 15,
+        marginRight: 20,
+        backgroundColor: "#fff",
+      }}
+      // onPress={() => navigation.navigate("CryptoDetail", { currency: item })}
+    >
+      <View style={{ flexDirection: "row" }}>
+        <View>
+          <Image
+            source={item.image}
+            resizeMode="cover"
+            style={{ marginTop: 5, width: 25, height: 25 }}
+          />
         </View>
+        <View style={{ marginLeft: 14 }}>
+          <Text style={{ fontWeight: "700" }}>{item.title}</Text>
+          <Text>{item.symbol}</Text>
+        </View>
+      </View>
 
-        <View style={{ marginTop: 12 }}>
-          <Text style={{ fontWeight: "bold" }}>
-            {item.amount} <Text style={{}}>{item.price}</Text>
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
+      <View style={{ marginTop: 12 }}>
+        <Text style={{ fontWeight: "bold" }}>
+          {item.amount} <Text style={{}}>{item.price}</Text>
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export default function BalancePage  () {
+  let [fontsLoad, error] = useFonts({
+    NunitoSans_400Regular,
+  });
+
+  if (!fontsLoad) {
+    return null;
+  }
+  // const image1 =
+  //   "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
+  
 
   return (
     <>
-      <KeyboardAwareScrollView>
-        <ScrollView>
+     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+      <StatusBar style="auto"/>
           <View
             style={{
               display: "flex",
@@ -81,23 +91,16 @@ const BalancePage = () => {
                 justifyContent: "space-between",
                 top: 50,
                 paddingBottom: 10,
-                marginLeft: 15,
                 borderRadius: 10,
               }}
-            >
-              <Image
-                source={{ uri: image1 }}
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 10,
-                }}
-              />
-              <MaterialCommunityIcons
-                name="code-brackets"
-                size={34}
-                color="white"
-              />
+            ><Image
+            style={{ width: 40, height: 40 }}
+            source={require("../../assets/image.png")}
+          />
+          <Image
+            style={{ width: 30, height: 30 }}
+            source={require("../../assets/scan.png")}
+          />
             </View>
             <Text
               style={{
@@ -107,7 +110,7 @@ const BalancePage = () => {
                 textAlign: "center",
                 top: 50,
                 fontSize: 24,
-                fontWeight: "700",
+                fontWeight: "700",alignSelf:'center'
               }}
             >
               Balance Total
@@ -119,7 +122,7 @@ const BalancePage = () => {
                 justifyContent: "center",
                 textAlign: "center",
                 top: 50,
-                fontSize: 18,
+                fontSize: 18,alignSelf:'center'
               }}
             >
               $0.00 mxn
@@ -127,9 +130,6 @@ const BalancePage = () => {
             <View
               style={{
                 marginTop: 70,
-                paddingLeft: 30,
-                marginHorizontal: 50,
-                justifyContent: "space-between",
                 alignSelf: "center",
               }}
             >
@@ -144,7 +144,7 @@ const BalancePage = () => {
                   "#8D00FF",
                   "#8D00FF",
                 ]}
-                style={{ borderRadius: 5 }}
+                style={{ borderRadius: 5, padding :1.5 }}
               >
                 <Pressable style={styles.circleGradient}>
                   <Text
@@ -191,7 +191,7 @@ const BalancePage = () => {
           </View>
           <View style={{ padding: 20 }}>
             {Recommendations.map((item, idx) => {
-              return (
+              return (<>
                 <BlockAlert
                   price={item.price}
                   change={item.change}
@@ -201,6 +201,7 @@ const BalancePage = () => {
                   text={item.text}
                   buttons={item.buttons}
                 />
+                </>
               );
             })}
           </View>
@@ -211,6 +212,7 @@ const BalancePage = () => {
                 fontSize: 16,
                 lineHeight: 26,
                 fontWeight: "800",
+                fontFamily: "NunitoSans_400Regular",
               }}
             >
               Compra tu primer criptomoneda
@@ -232,19 +234,33 @@ const BalancePage = () => {
               showsVerticalScrollIndicator={false}
             />
           </View>
-          <View style={{ padding: 30 ,paddingBottom:100 }}>
-            <Text style={{ alignSelf: "center", color: "#2D0052" }}>
-              ¿Ya tienes criptos? Depositar ahora
+          <View style={{ flexDirection:'row', marginTop: 15,alignSelf: "center",marginBottom:120}}>
+            <Text style={{ alignSelf: "center", color: "#2D0052",
+                fontFamily: "NunitoSans_400Regular", }}>
+              ¿Ya tienes criptos? 
             </Text>
+          <TouchableOpacity
+            style={{ paddingLeft: 5 }}
+            // onPress={() => navigation.navigate("register")}
+          >
+            <Text
+              style={{
+                fontFamily: "NunitoSans_400Regular",
+                color: "#2D0052",
+                textDecorationLine: "underline",
+                fontWeight: "bold",
+              }}
+            >
+              Depositar ahora
+            </Text>
+          </TouchableOpacity>
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-      <Footer />
+      <Footer active={"wallet"}/>
     </>
   );
 };
-
-export default BalancePage;
 const styles = StyleSheet.create({
   MainContainer: {
     width: "100%",

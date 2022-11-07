@@ -96,17 +96,16 @@ const IntroSlides = () => {
       <TouchableOpacity
         style={{
           backgroundColor: "#8D00FF",
-          height: hp("8%"),
-          width: wp("90%"),
+          height: 50,
+          width: 312,
           justifyContent: "center",
           alignContent: "center",
           textAlign: "center",
           borderRadius: 8,
           alignSelf: "center",
-          marginTop: getHeight(-100),
-          left: wp("1%"),
+          marginTop: getHeight(-95),
         }}
-        onPress={() => navigation.navigate("confirmEmail")}
+        onPress={() => navigation.navigate("joinVadi")}
       >
         <Text
           style={{

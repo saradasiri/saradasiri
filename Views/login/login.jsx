@@ -44,7 +44,7 @@ const Login = (formik) => {
       email: values.email,
       password: values.password,
     };
-    navigation.navigate("walletHome")
+    navigation.navigate("walletHome");
     // axios
     //   .post(API_PATHS.LOGIN, obj)
     //   .then((res) => {
@@ -69,131 +69,114 @@ const Login = (formik) => {
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <StatusBar style="auto" />
-          <Toast position="top" topOffset={-10} />
-         
-          <Text style={[styles.Label,{color:'#2D0052'}]}>¡Hola de nuevo!</Text>
-          <View style={{ paddingTop: 70 }}>
-            <Text
-              style={[
-                styles.text,
-                 { color: errors.email && touched.email ? "red" : "#2D0052" },
-              ]}
-            >
-             Correo electrónico
-            </Text>
-            <View>
-              <TextInput
-                name="email"
-                onChangeText={formik.handleChange("email")}
-                onBlur={formik.handleBlur("email")}
-                value={values.email}
-                style={[
-                  styles.inputStyle,
-                  {
-                    borderColor:errors.email && touched.email ? "red" : "#808080",
-                  },
-                ]}
-              />
-            </View>
-            {errors.email && touched.email && (
-              <Text
-                style={{
-                  color: "red",
-                  fontFamily: "NunitoSans_400Regular",
-                  textAlign: "left",
-                }}
-              >
-                {errors.email}
-              </Text>
-            )}
-          </View>
+        <StatusBar style="auto" />
+        <Toast position="top" topOffset={-10} />
 
-          <View style={{ paddingTop: 40 }}>
-            <Text
+        <Text style={styles.Label}>¡Hola de nuevo!</Text>
+        <View style={{ paddingTop: 20 }}>
+          <Text
+            style={[
+              styles.text,
+              { color: errors.email && touched.email ? "red" : "#2D0052" },
+            ]}
+          >
+            Correo electrónico
+          </Text>
+          <View>
+            <TextInput
+              name="email"
+              onChangeText={formik.handleChange("email")}
+              onBlur={formik.handleBlur("email")}
+              value={values.email}
               style={[
-                styles.text,
+                styles.inputStyle,
                 {
-                  color:
-                    errors.password && touched.password ? "red" : "#2D0052",
+                  borderColor:
+                    errors.email && touched.email
+                      ? "red"
+                      : "rgba(18, 3, 58, 0.1)",
                 },
               ]}
-            >
-              Contraseña
-            </Text>
-            <View>
-              <TextInput
-                name="password"
-                onChangeText={formik.handleChange("password")}
-                onBlur={formik.handleBlur("password")}
-                value={values.password}
-                style={[
-                  styles.inputStyle,
-                  {
-                    borderColor:errors.password && touched.password ? "red" : "#808080",
-                  },
-                ]}
-              />
-            </View>
-            <View>
-            
-            </View>
-            {errors.password && touched.password && (
-              <Text
-                style={{
-                  color: "red",
-                  fontFamily: "NunitoSans_400Regular",
-                  textAlign: "left",
-                }}
-              >
-                {errors.password}
-              </Text>
-            )}
+            />
           </View>
+          {errors.email && touched.email && (
+            <Text style={styles.error}>{errors.email}</Text>
+          )}
+        </View>
 
-          <View style={styles.signup}>
-            <Text style={{ fontFamily: "NunitoSans_400Regular", color:'#2D0052' }}>
+        <View style={{ paddingTop: 40 }}>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: errors.password && touched.password ? "red" : "#2D0052",
+              },
+            ]}
+          >
+            Contraseña
+          </Text>
+          <View>
+            <TextInput
+              name="password"
+              onChangeText={formik.handleChange("password")}
+              onBlur={formik.handleBlur("password")}
+              value={values.password}
+              style={[
+                styles.inputStyle,
+                {
+                  borderColor:
+                    errors.password && touched.password
+                      ? "red"
+                      : "rgba(18, 3, 58, 0.1)",
+                },
+              ]}
+            />
+          </View>
+          <View></View>
+          {errors.password && touched.password && (
+            <Text style={styles.error}>{errors.password}</Text>
+          )}
+        </View>
+
+        <View style={styles.signup}>
+          <Text
+            style={{ fontFamily: "NunitoSans_400Regular", color: "#2D0052" }}
+          >
             ¿Olvidaste tu contraseña?
-            </Text>
-            <TouchableOpacity
-              style={{ paddingLeft: 5 }}
-              // onPress={() => navigation.navigate("register")}
+          </Text>
+          <TouchableOpacity
+            style={{ paddingLeft: 5 }}
+            // onPress={() => navigation.navigate("register")}
+          >
+            <Text
+              style={{
+                fontFamily: "NunitoSans_400Regular",
+                color: "#2D0052",
+                textDecorationLine: "underline",
+                fontWeight: "bold",
+              }}
             >
-              <Text
-                style={{
-                  fontFamily: "NunitoSans_400Regular",
-                  color: "#2D0052",
-                  textDecorationLine:'underline',
-                  fontWeight:'bold'                  
-                }}
-              >
-                Recuperar
-              </Text>
-            </TouchableOpacity>
-          </View>
+              Recuperar
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-          <View style={{ marginTop: 50 }}>
-            <TouchableOpacity
+        <View style={{ marginTop: 50 }}>
+          <TouchableOpacity
             style={[
               styles.button,
               // { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
             ]}
-              // disabled={!(formik.isValid && formik.dirty)}
-              onPress={() => {
-                handleSubmit();
-              }}
-            >
-                <Text style={styles.buttonText}>Entrar</Text>
-            </TouchableOpacity>
-          </View>
-
-          <Image
-            style={styles.Logo}
-            source={require("../../assets/vlogo.png")}
-          />
-
+            // disabled={!(formik.isValid && formik.dirty)}
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
+            <Text style={styles.buttonText}>Entrar</Text>
+          </TouchableOpacity>
         </View>
+
+        <Image style={styles.Logo} source={require("../../assets/vlogo.png")} />
       </ScrollView>
     </KeyboardAwareScrollView>
   );
@@ -211,37 +194,43 @@ const styles = StyleSheet.create({
   Logo: {
     height: 50,
     width: 180,
-    marginTop:50,
-    alignSelf:'center',
+    marginTop: 50,
+    alignSelf: "center",
   },
   Label: {
-    marginTop: 50,
+    marginTop: 40,
     fontWeight: "400",
-    fontSize: 24,
-    lineHeight: 27,
-    marginBottom:-20,
-    zIndex:-1,
+    fontSize: 30,
+    fontFamily: "NunitoSans_400Regular",
+    color: "#2D0052",
   },
   text: {
-    fontSize:18,
-    marginBottom:8,
+    fontSize: 18,
+    marginBottom: 8,
     fontFamily: "NunitoSans_400Regular",
-    color: '#737373',
+    color: "#737373",
+    fontWeight:'500'
+  },
+  error: {
+    color: "red",
+    fontFamily: "NunitoSans_400Regular",
+    textAlign: "left",
   },
   inputStyle: {
     height: 50,
-    width:322,
+    width: 322,
     borderWidth: 1,
     borderRadius: 5,
     backgroundColor: "white",
     paddingLeft: 30,
   },
   button: {
-    marginTop: 40,
+    marginTop: 90,
     height: 42,
     width: 312,
     borderRadius: 8,
     backgroundColor: "#8D00FF",
+    alignSelf: "center",
   },
   buttonText: {
     color: "white",

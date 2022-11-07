@@ -15,9 +15,10 @@ import { useFonts } from "expo-font";
 // import AppLoading from "expo-app-loading";
 import OTPTextView from "react-native-otp-textinput";
 import { useNavigation } from "@react-navigation/native";
-
-const VerifyOTP = (email) => {
+import * as Progress from "react-native-progress";
+const VerifyOTP = () => {
   const [otpInput, setOtpInput] = useState("");
+  const [email, setEmail] = useState("");
   const navigation = useNavigation();
 
   let [fontsLoad, error] = useFonts({
@@ -30,53 +31,72 @@ const VerifyOTP = (email) => {
 
   const handleSubmit = () => {
     // alert("OTP : " + otpInput);
-    navigation.navigate("registerSuccess")
+    navigation.navigate("registerSuccess");
   };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <StatusBar style="auto" />
-
-          <Text style={styles.Label}>Confirma tu correo</Text>
-          <Text
-            style={[
-              styles.Label,
-              { fontSize: 20, marginTop: 20, color: "#2D0052" },
-            ]}
-          >
-            Ingresa el código que enviamos a:
-          </Text>
-          <Text
-            style={[
-              styles.Label,
-              { fontSize: 16, marginTop: 20, textAlign: "center" },
-            ]}
-          ></Text>
-
-          <View style={styles.container}>
-            <OTPTextView
-              handleTextChange={(text) => setOtpInput(text)}
-              containerStyle={styles.textInputContainer}
-              textInputStyle={styles.roundedTextInput}
-              inputCount={6}
-              keyboardType="numeric"
-            />
-          </View>
-          <Text
-            style={[
-              styles.Label,
-              { fontSize: 15, textAlign: "center", marginTop: -10, color:'#2D0052' },
-            ]}
-          >
-            No olvides revisar tu bandeja de no deseados
-          </Text>
+        <StatusBar style="auto" />
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: -10,
+          }}
+        >
+          <Progress.Bar
+            progress={0.75}
+            width={90}
+            color={"#8D00FF"}
+            borderColor={"#c5dafb"}
+            backgroundColor={"#d2e2fb"}
+          />
         </View>
+        <Text style={styles.Label}>Confirma tu correo</Text>
+        <Text
+          style={[
+            styles.Label,
+            { fontSize: 20, marginTop: 20, color: "#2D0052" },
+          ]}
+        >
+          Ingresa el código que enviamos a:
+        </Text>
+        <Text
+          style={[
+            styles.Label,
+            { fontSize: 16, marginTop: 20, textAlign: "center", color:'#8D00FF' },
+          ]}
+        >
+          {email ? email : "carmen@aureacode.com"}
+        </Text>
+
+        <View style={styles.container}>
+          <OTPTextView
+            handleTextChange={(text) => setOtpInput(text)}
+            containerStyle={styles.textInputContainer}
+            textInputStyle={styles.roundedTextInput}
+            inputCount={6}
+            keyboardType="numeric"
+          />
+        </View>
+        <Text
+          style={[
+            styles.Label,
+            {
+              fontSize: 15,
+              textAlign: "center",
+              marginTop: -10,
+              color: "#2D0052",
+            },
+          ]}
+        >
+          No olvides revisar tu bandeja de no deseados
+        </Text>
 
         <View style={{ marginTop: 150 }}>
           <TouchableOpacity
-            style={[styles.button, { opacity: otpInput.length>5 ? 1 : 0.5 }]}
+            style={[styles.button, { opacity: otpInput.length > 5 ? 1 : 0.5 }]}
             // disabled={!(otpInput.length>5)}
             onPress={() => {
               handleSubmit();
@@ -108,13 +128,15 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontWeight: "400",
     fontSize: 30,
+    fontFamily: "NunitoSans_400Regular",
   },
   button: {
-    marginTop: 40,
+    marginTop: 45,
     height: 42,
     width: 312,
     borderRadius: 8,
     backgroundColor: "#8D00FF",
+    alignSelf: "center",
   },
   buttonText: {
     color: "white",
@@ -127,8 +149,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F2F6FF",
     padding: 5,
+    marginTop: 20,
   },
   textInputContainer: {
     marginBottom: 20,

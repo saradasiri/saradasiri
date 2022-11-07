@@ -14,7 +14,7 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 // import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
-
+import * as Progress from "react-native-progress";
 const VerifyOTP = (email) => {
   const [otpInput, setOtpInput] = useState("");
   const navigation = useNavigation();
@@ -28,15 +28,28 @@ const VerifyOTP = (email) => {
   }
 
   const handleSubmit = () => {
-      navigation.navigate("login")
+    navigation.navigate("login");
   };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
           <StatusBar style="auto" />
-
+          <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: -10,
+          }}
+        >
+          <Progress.Bar
+            progress={1}
+            width={90}
+            color={"#8D00FF"}
+            borderColor={"#c5dafb"}
+            backgroundColor={"#d2e2fb"}
+          />
+        </View>
           <Text style={styles.Label}>Mayor seguridad</Text>
           <Text
             style={[
@@ -54,7 +67,6 @@ const VerifyOTP = (email) => {
           >
             Este PIN móvil te permite acceder y confirmar operaciones en la app.
           </Text>
-        </View>
 
         <View style={{ marginTop: 250 }}>
           <TouchableOpacity
@@ -89,15 +101,17 @@ const styles = StyleSheet.create({
   Label: {
     marginTop: 40,
     fontWeight: "400",
-    fontSize: 30,color: "#2D0052"
+    fontSize: 30,
+    color: "#2D0052",
+    fontFamily: "NunitoSans_400Regular",
   },
   button: {
-    marginTop: 40,
+    marginTop: 55,
     height: 42,
     width: 312,
     borderRadius: 8,
     backgroundColor: "#8D00FF",
-    
+    alignSelf: "center",
   },
   buttonText: {
     color: "white",

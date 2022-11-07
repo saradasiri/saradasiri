@@ -66,32 +66,30 @@ const WalletHome = (email) => {
                 justifyContent: "space-between",
                 top: 50,
                 paddingBottom: 10,
-                marginLeft: 15,
+                // marginLeft: 15,
                 borderRadius: 10,
               }}
             >
               <Image
-                source={{ uri: image1 }}
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 10,
-                }}
+                style={{ width: 40, height: 40 }}
+                source={require("../../assets/image.png")}
               />
-              <MaterialCommunityIcons
-                name="code-brackets"
-                size={34}
-                color="white"
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require("../../assets/scan.png")}
               />
             </View>
             <Text
               style={{
                 color: "#fff",
                 marginTop: 10,
-                justifyContent: "center",
+                // justifyContent: "center",
                 textAlign: "center",
                 top: 50,
                 fontSize: 24,
+                fontFamily: "NunitoSans_400Regular",
+                marginLeft: 15,
+                fontWeight: "700",
               }}
             >
               ¡Hola Hermenegildo!
@@ -104,6 +102,9 @@ const WalletHome = (email) => {
                 textAlign: "center",
                 top: 50,
                 fontSize: 18,
+                fontFamily: "NunitoSans_400Regular",
+                fontWeight: "700",
+                marginLeft: 15,
               }}
             >
               ¿Qué quieres hacer hoy?
@@ -121,14 +122,14 @@ const WalletHome = (email) => {
                 start={[0, 0.5]}
                 end={[1, 0.5]}
                 colors={[
+                  "#5d0047",
+                  "#4A8151",
+                  "#5AEF67",
+                  "#47C901",
+                  "#48e1e1",
                   "#46F2FB",
-                  "#62F2F2",
-                  "#5DFF3F",
-                  "#5DFF3F",
-                  "#8D00FF",
-                  "#8D00FF",
                 ]}
-                style={{ borderRadius: 5 }}
+                style={{ borderRadius: 5, padding: 1.5 }}
               >
                 <Pressable style={styles.circleGradient}>
                   <Text
@@ -138,6 +139,8 @@ const WalletHome = (email) => {
                       textAlign: "center",
                       fontSize: 16,
                       paddingTop: 10,
+                      fontFamily: "NunitoSans_400Regular",
+                      fontWeight: "700",
                     }}
                   >
                     Depositar
@@ -155,7 +158,7 @@ const WalletHome = (email) => {
                   "#8D00FF",
                   "#8D00FF",
                 ]}
-                style={{ borderRadius: 5 }}
+                style={{ borderRadius: 5, padding: 1.5 }}
               >
                 <Pressable style={styles.circleGradient}>
                   <Text
@@ -165,6 +168,8 @@ const WalletHome = (email) => {
                       textAlign: "center",
                       fontSize: 16,
                       paddingTop: 10,
+                      fontFamily: "NunitoSans_400Regular",
+                      fontWeight: "700",
                     }}
                   >
                     Comprar
@@ -200,7 +205,8 @@ const WalletHome = (email) => {
                 color: "#2D0052",
                 fontSize: 16,
                 lineHeight: 26,
-                fontWeight: "800",
+                fontFamily: "NunitoSans_400Regular",
+                fontWeight: "700",
               }}
             >
               Tokens para invertir
@@ -211,26 +217,43 @@ const WalletHome = (email) => {
                   backgroundColor: "#8D00FF",
                   marginRight: 10,
                   padding: 8,
-                  borderRadius: 5,
+                  borderRadius: 12,
                 }}
               >
-                <Text style={{ color: "#FFF" }}>Hot</Text>
+                <Text
+                  style={{
+                    color: "#FFF",
+                    fontFamily: "NunitoSans_400Regular",
+                    fontWeight: "500",
+                  }}
+                >
+                  Hot
+                </Text>
               </Pressable>
               <Pressable
                 style={{
-                  backgroundColor: "rgba(141, 0, 255, 0.5)",
+                  backgroundColor: "#DFD4F9",
                   marginRight: 10,
                   padding: 8,
-                  borderRadius: 5,
+                  borderRadius: 12,
                 }}
               >
-                <Text style={{ color: "#fff" }}>Precio</Text>
+                <Text
+                  style={{
+                    fontFamily: "NunitoSans_400Regular",
+                    fontWeight: "500",
+                    color: "#8D00FF",
+                  }}
+                >
+                  Precio
+                </Text>
               </Pressable>
             </View>
           </View>
-          <View style={{ padding: 20,paddingBottom:100 }}>
+          
+          <View style={{ padding: 20, paddingBottom: 100 }}>
             {CoinData.map((item, idx) => {
-              return (
+              return (<>
                 <Listitem
                   price={item.price}
                   change={item.change}
@@ -238,12 +261,13 @@ const WalletHome = (email) => {
                   title={item.title}
                   symbol={item.symbol}
                 />
+                </>
               );
             })}
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-      <Footer />
+      <Footer active={"home"}/>
     </>
   );
 };

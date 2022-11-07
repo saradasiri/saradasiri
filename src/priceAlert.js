@@ -1,17 +1,26 @@
 import React from "react";
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
+import { useFonts } from "expo-font";
 
 const PriceAlert = ({ customContainerStyle, title, content }) => {
+  let [fontsLoad, error] = useFonts({
+    NunitoSans_400Regular,
+  });
+
+  if (!fontsLoad) {
+    return null;
+  }
   return (
     <TouchableOpacity
       style={{
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 5,
+        marginTop: 15,
         backgroundColor: "#8D00FF",
         marginHorizontal: 40,
-        paddingVertical: 50,
+        paddingVertical: 30,
         paddingHorizontal: 10,
         // backgroundColor :"#fff",
         ...customContainerStyle,
@@ -21,7 +30,7 @@ const PriceAlert = ({ customContainerStyle, title, content }) => {
       }}
     >
       {/* <Image source={require("../assets/bar-chart.png")}/> */}
-      <View style={{ marginLeft: 10, borderRadius: 20 }}>
+      <View style={{ borderRadius: 20 }}>
         <Text
           style={{
             fontSize: 18,
@@ -30,6 +39,10 @@ const PriceAlert = ({ customContainerStyle, title, content }) => {
             marginTop: -10,
             marginBottom: 10,
             textAlign: "center",
+            lineHeight: 28,
+            fontFamily: "NunitoSans_400Regular",
+            width: 200,
+            alignSelf: "center",
           }}
         >
           {title}
@@ -37,10 +50,12 @@ const PriceAlert = ({ customContainerStyle, title, content }) => {
         <Text
           style={{
             marginTop: 5,
-            justifyContent: "center",
             textAlign: "center",
             color: "#fff",
             lineHeight: 25,
+            fontWeight: "500",
+            fontFamily: "NunitoSans_400Regular",
+            width: 270,
           }}
         >
           {content}

@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import { HalfPieChart } from "half-pie-chart";
+// import { MaterialCommunityIcons } from "@expo/vector-icons";
+// import { LinearGradient } from "expo-linear-gradient";
+// import { HalfPieChart } from "half-pie-chart";
 
-const BalancePage1 = () => {
+const WalletPage = () => {
   const image1 =
     "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
   return (
@@ -43,18 +43,13 @@ const BalancePage1 = () => {
             }}
           >
             <Image
-              source={{ uri: image1 }}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 10,
-              }}
-            />
-            <MaterialCommunityIcons
-              name="code-brackets"
-              size={34}
-              color="white"
-            />
+                style={{ width: 40, height: 40 }}
+                source={require("../../assets/image.png")}
+              />
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require("../../assets/scan.png")}
+              />
           </View>
           <Text
             style={{
@@ -108,7 +103,7 @@ const BalancePage1 = () => {
   );
 };
 
-export default BalancePage1;
+export default WalletPage;
 
 const styles = StyleSheet.create({
   shadow: {
