@@ -59,7 +59,7 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="walletHome">
+      <Stack.Navigator initialRouteName="homepage">
         <Stack.Screen
           name="homepage"
           options={{

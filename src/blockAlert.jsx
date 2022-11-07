@@ -13,7 +13,7 @@ const BlockAlert = ({ image, change, title, symbol, price, text, buttons }) => {
   if (!fontsLoad) {
     return null;
   }
-  const priceChange = change < 0 ? "#34C759" : "#FF3B30";
+  const priceChange =  change.includes("-") ?  "#FF3B30" :"#34C759";
   return (
     <TouchableOpacity
       style={{
