@@ -32,7 +32,7 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="balancePage1">
+      <Stack.Navigator initialRouteName="homepage">
         <Stack.Screen
           name="homepage"
           options={{
