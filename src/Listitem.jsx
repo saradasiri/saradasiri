@@ -2,9 +2,18 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
+import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
+import { useFonts } from "expo-font";
 
 const Listitem = ({ image, change, title, symbol, price }) => {
-  const priceChange = change < 0 ? "#34C759" : "#FF3B30";
+  let [fontsLoad, error] = useFonts({
+    NunitoSans_400Regular,
+  });
+
+  if (!fontsLoad) {
+    return null;
+  }
+  const priceChange = change.includes("-") ?  "#FF3B30" :"#34C759";
   return (
     <TouchableOpacity
       style={{
@@ -33,10 +42,10 @@ const Listitem = ({ image, change, title, symbol, price }) => {
               source={require("../assets/vect.png")}
               width={25}
               height={25}
-              style={{marginTop:10}}
+              style={{marginTop:10, marginRight:10}}
             />
             <Text
-              style={[styles.title, { color: "#2D0052", fontWeight: "600" }]}
+              style={[styles.title, { color: "#2D0052", fontWeight: "600",top:10  }]}
             >
               {" "}
               {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -69,14 +78,16 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   title: {
-    fontSize: 18,
+    fontSize: 14,
     color: "#2D0052",
     fontWeight: "700",
+    fontFamily: "NunitoSans_400Regular",
   },
   subtitle: {
     fontSize: 14,
     color: "#8D00FF",
     marginTop: 4,
+    fontFamily: "NunitoSans_400Regular",
   },
   rightWrapper: {
     alignItems: "flex-end",

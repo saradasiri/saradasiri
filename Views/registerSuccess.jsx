@@ -73,7 +73,6 @@ const RegisterSuccess = () => {
           style={{
             backgroundColor: "#fff",
             marginTop: 30,
-            width: "30%",
             alignSelf: "center",
             borderRadius: 250,
           }}
@@ -83,12 +82,9 @@ const RegisterSuccess = () => {
               handleSubmit();
             }}
           >
-            <Ionicons
-              name="md-enter-outline"
-              size={50}
-              color="#8D00FF"
-              style={{ alignSelf: "center" }}
-            />
+            <Image
+          source={require("../assets/next.png")}
+        />
           </TouchableOpacity>
         </View>
       </View>

@@ -5,15 +5,15 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
-  ScrollView,Image
+  ScrollView,
+  Image,
 } from "react-native";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-// import AppLoading from "expo-app-loading";
-// import Checkbox from "expo-checkbox";
 import { useNavigation } from "@react-navigation/native";
+import * as Progress from "react-native-progress";
 
 const SetPassword = (formik) => {
   const navigation = useNavigation();
@@ -28,149 +28,151 @@ const SetPassword = (formik) => {
   }
   const handleSubmit = () => {
     // alert("Password : " + values.password)
-    navigation.navigate("verifyOTP")
+    navigation.navigate("verifyOTP");
   };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <StatusBar style="auto" />
+        <StatusBar style="auto" />
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: -10,
+          }}
+        >
+          <Progress.Bar
+            progress={0.5}
+            width={90}
+            color={"#8D00FF"}
+            borderColor={"#c5dafb"}
+            backgroundColor={"#d2e2fb"}
+          />
+        </View>
+        <Text style={styles.Label}>Protege tu cuenta</Text>
 
-          <Text style={styles.Label}>Protege tu cuenta</Text>
+        <View style={{ paddingTop: 20 }}>
+          <Text  style={[
+              styles.text,
+              { color: errors.password && touched.password ? "red" : "#2D0052" },
+            ]}
+          >Elige una contraseña</Text>
+          <TextInput
+            name="password"
+            onChangeText={formik.handleChange("password")}
+            onBlur={formik.handleBlur("password")}
+            value={values.password}
+            style={[
+              styles.inputStyle,
+              {
+                borderColor:
+                  errors.password && touched.password
+                    ? "red"
+                    : "rgba(18, 3, 58, 0.1)",
+              },
+            ]}
+          />
+          {errors.password === "se requiere contraseña" && touched.password && (
+            <Text style={styles.error}>{errors.password}</Text>
+          )}
+        </View>
 
-          <View style={{ paddingTop: 30 }}>
-            <Text
-              style={[
-                styles.text,
-                // { color: errors.password && touched.password ? "red" : "#33B7B0" },
-              ]}
-            >
-              Elige una contraseña
-            </Text>
-            <View>
-              <TextInput
-                name="password"
-                onChangeText={formik.handleChange("password")}
-                onBlur={formik.handleBlur("password")}
-                value={values.password}
-                style={[
-                  styles.inputStyle,
-                  {
-                    borderColor: "#808080",
-                  },
-                ]}
-              />
-            </View>
-            {errors.password === "se requiere contraseña" && touched.password && (
-              <Text
-                style={{
-                  color: "red",
-                  fontFamily: "NunitoSans_400Regular",
-                  textAlign: "left",
-                }}
-              >
-                {errors.password}
-              </Text>
-            )}
-          </View>
+        <Text
+          style={{
+            textAlign: "center",
+            marginTop: 30,
+            marginBottom: 20,
+            fontWeight: "400",
+            fontSize: 20,
+          }}
+        >
+          Sigue esta guía:
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            color: values.password.length > 7 ? "green" : "red",
+            fontSize: values.password.length > 7 ? 16 : 14,
+          }}
+        >
+          Mínimo 8 caracteres
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            color:
+              values.password.replace(/[^A-Z]/g, "").length > 0
+                ? "green"
+                : "red",
+            fontSize:
+              values.password.replace(/[^A-Z]/g, "").length > 0 ? 16 : 14,
+          }}
+        >
+          Una mayúscula
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            color:
+              values.password.replace(/[^a-z]/g, "").length > 0
+                ? "green"
+                : "red",
+            fontSize:
+              values.password.replace(/[^a-z]/g, "").length > 0 ? 16 : 14,
+          }}
+        >
+          Una minúscula
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            color:
+              values.password.replace(/[^0-9]/g, "").length > 0
+                ? "green"
+                : "red",
+            fontSize:
+              values.password.replace(/[^0-9]/g, "").length > 0 ? 16 : 14,
+          }}
+        >
+          Un número
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            color:
+              values.password.replace(/[^!@#$%^&*()\-_"=+{};:,<.>]/g, "")
+                .length > 0
+                ? "green"
+                : "red",
+            fontSize:
+              values.password.replace(/[^!@#$%^&*()\-_"=+{};:,<.>]/g, "")
+                .length > 0
+                ? 16
+                : 14,
+          }}
+        >
+          Un símbolo
+        </Text>
 
-          <Text
-            style={{
-              textAlign: "center",
-              marginTop: 30,
-              marginBottom: 20,
-              fontWeight: "400",
-              fontSize: 20,
+        <View style={{ marginTop: 50 }}>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+            ]}
+            // disabled={!(formik.isValid && formik.dirty)}
+            onPress={() => {
+              handleSubmit();
             }}
           >
-            Sigue esta guía:
-          </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              color: values.password.length > 7 ? "green" : "red",
-              fontSize: values.password.length > 7 ? 16 : 14,
-            }}
-          >
-            Mínimo 8 caracteres
-          </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              color:
-                values.password.replace(/[^A-Z]/g, "").length > 0
-                  ? "green"
-                  : "red",
-              fontSize:
-                values.password.replace(/[^A-Z]/g, "").length > 0 ? 16 : 14,
-            }}
-          >
-            Una mayúscula
-          </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              color:
-                values.password.replace(/[^a-z]/g, "").length > 0
-                  ? "green"
-                  : "red",
-              fontSize:
-                values.password.replace(/[^a-z]/g, "").length > 0 ? 16 : 14,
-            }}
-          >
-            Una minúscula
-          </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              color:
-                values.password.replace(/[^0-9]/g, "").length > 0
-                  ? "green"
-                  : "red",
-              fontSize:
-                values.password.replace(/[^0-9]/g, "").length > 0 ? 16 : 14,
-            }}
-          >
-            Un número
-          </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              color:
-                values.password.replace(/[^!@#$%^&*()\-_"=+{};:,<.>]/g, "")
-                  .length > 0
-                  ? "green"
-                  : "red",
-              fontSize:
-                values.password.replace(/[^!@#$%^&*()\-_"=+{};:,<.>]/g, "")
-                  .length > 0
-                  ? 16
-                  : 14,
-            }}
-          >
-            Un símbolo
-          </Text>
-
-          <View style={{ marginTop: 50 }}>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
-              ]}
-              // disabled={!(formik.isValid && formik.dirty)}
-              onPress={() => {
-                handleSubmit();
-              }}
-            >
-              <Text style={styles.buttonText}>Siguiente</Text>
-            </TouchableOpacity>
-          </View>
+            <Text style={styles.buttonText}>Siguiente</Text>
+          </TouchableOpacity>
         </View>
         <Image
-            style={styles.Logo}
-            source={require("../../../assets/vlogo.png")}
-          />
+          style={styles.Logo}
+          source={require("../../../assets/vlogo.png")}
+        />
       </ScrollView>
     </KeyboardAwareScrollView>
   );
@@ -189,12 +191,18 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontWeight: "400",
     fontSize: 30,
+    fontFamily: "NunitoSans_400Regular",
   },
   text: {
     fontSize: 18,
     marginBottom: 5,
     fontFamily: "NunitoSans_400Regular",
     color: "#2D0052",
+  },
+  error: {
+    color: "red",
+    fontFamily: "NunitoSans_400Regular",
+    textAlign: "left",
   },
   inputStyle: {
     height: 50,
@@ -203,14 +211,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     paddingLeft: 30,
-    borderColor: "rgba(18, 3, 58, 0.1)", marginTop:20
+    borderColor: "rgba(18, 3, 58, 0.1)",
+    alignSelf: "center",
   },
   button: {
-    marginTop: 40,
+    marginTop: 80,
     height: 42,
     width: 312,
     borderRadius: 8,
     backgroundColor: "#8D00FF",
+    alignSelf: "center",
   },
   buttonText: {
     color: "white",
@@ -220,32 +230,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     textAlign: "center",
   },
-  agreementText: {
-    textDecorationLine: "underline",
-    fontWeight: "bold",
-  },
-  agreement: {
-    marginTop: 25,
-    flexDirection: "row",
-  },
-  checkbox: {
-    borderColor: "#33B7B0",
-    opacity: 0.8,
-    width: 20,
-    height: 20,
-    borderRadius: 5,
-  },
-
-  privacy: {
-    flexDirection: "row",
-    fontFamily: "NunitoSans_400Regular",
-    paddingLeft: 15,
-  },
   Logo: {
     height: 50,
     width: 180,
-    marginTop:50,
-    alignSelf:'center',
+    marginTop: 50,
+    alignSelf: "center",
   },
 });
 export default SetPassword;
