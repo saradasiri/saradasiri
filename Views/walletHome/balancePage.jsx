@@ -30,6 +30,7 @@ const renderItem = ({ item, index }) => {
         marginRight: 20,
         backgroundColor: "#fff",
       }}
+      key={index}
       // onPress={() => navigation.navigate("CryptoDetail", { currency: item })}
     >
       <View style={{ flexDirection: "row" }}>
@@ -108,7 +109,7 @@ export default function BalancePage  () {
                 marginTop: 10,
                 justifyContent: "center",
                 textAlign: "center",
-                top: 50,
+                top: 30,
                 fontSize: 24,
                 fontWeight: "700",alignSelf:'center'
               }}

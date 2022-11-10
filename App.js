@@ -24,42 +24,15 @@ import WalletHome from "./views/walletHome/walletHome";
 import RegisterLevel1 from "./views/registerLevel1";
 import SetWalletPin from "./views/setWalletPin";
 import HomePage from "./views/homePage";
-import JoinVadi from "./views/joinVadi";
 import RegisterSuccess from "./views/registerSuccess";
 import BalancePage from "./views/walletHome/balancePage";
-import WalletPage from "./views/walletHome/walletPage";
-import { Text } from "react-native";
-import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
-import { useFonts } from "expo-font";
-function BellMenu() {
-  let [fontsLoad, error] = useFonts({
-    NunitoSans_400Regular,
-  });
-
-  if (!fontsLoad) {
-    return null;
-  }
-  return (
-    <>
-      <Text
-        style={{
-          fontSize: 14,
-          left: -270,
-          color: "#8D00FF",
-          fontFamily: "NunitoSans_400Regular",
-        }}
-      >
-        Volver
-      </Text>
-    </>
-  );
-}
+import BalancePage1 from "./views/walletHome/balancePage1";
 
 export default function App() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="homepage">
+      <Stack.Navigator initialRouteName="balancePage1">
         <Stack.Screen
           name="homepage"
           options={{
@@ -72,7 +45,7 @@ export default function App() {
           component={HomePage}
         />
         <Stack.Screen
-          name="walletPage"
+          name="balancePage1"
           options={{
             headerShown: false,
             headerStyle: {
@@ -80,13 +53,13 @@ export default function App() {
             },
             headerTitle: "",
           }}
-          component={WalletPage}
+          component={BalancePage1}
         />
         <Stack.Screen
           name="balancePage"
           options={{
             headerShown: false,
-            ...TransitionPresets.SlideFromRightIOS,
+
             headerTitle: "",
           }}
           component={BalancePage}
@@ -113,7 +86,7 @@ export default function App() {
           }}
           component={IntroSlides}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="registerLevel1"
           options={{
             headerShown: false,
@@ -166,7 +139,7 @@ export default function App() {
             ...TransitionPresets.SlideFromRightIOS,
           }}
           component={LandingPage}
-        /> */}
+        />
         <Stack.Screen
           name="login"
           options={{
@@ -176,21 +149,10 @@ export default function App() {
             },
             ...TransitionPresets.ModalSlideFromBottomIOS,
             headerTitle: "",
-            headerRight: (props) => <BellMenu {...props} />,
           }}
           component={LoginProcess}
         />
-        <Stack.Screen
-          name="joinVadi"
-          options={{
-            headerShown: false,
-            headerStyle: {
-              backgroundColor: "#F2F6FF",
-            },
-            headerTitle: "",
-          }}
-          component={JoinVadi}
-        />
+
         <Stack.Screen
           name="confirmEmail"
           options={{
@@ -200,7 +162,6 @@ export default function App() {
             },
             ...TransitionPresets.ModalSlideFromBottomIOS,
             headerTitle: "",
-            headerRight: (props) => <BellMenu {...props} />,
           }}
           component={ConfirmEmailProcess}
         />
@@ -213,7 +174,6 @@ export default function App() {
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
-            headerRight: (props) => <BellMenu {...props} />,
           }}
           component={SetPasswordProcess}
         />
@@ -226,7 +186,6 @@ export default function App() {
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
-            headerRight: (props) => <BellMenu {...props} />,
           }}
           component={VerifyOTP}
         />
@@ -239,11 +198,10 @@ export default function App() {
             },
             ...TransitionPresets.SlideFromRightIOS,
             headerTitle: "",
-            headerRight: (props) => <BellMenu {...props} />,
           }}
           component={SetUpPin}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="accountLevel"
           options={{
             headerShown: true,
@@ -315,7 +273,7 @@ export default function App() {
             headerTitle: "",
           }}
           component={FundingProcess}
-        /> */}
+        />
 
         <Stack.Screen
           name="walletHome"
