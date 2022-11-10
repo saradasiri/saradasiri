@@ -27,6 +27,7 @@ import HomePage from "./views/homePage";
 import JoinVadi from "./views/joinVadi";
 import RegisterSuccess from "./views/registerSuccess";
 import BalancePage from "./views/walletHome/balancePage";
+import BalancePage1 from "./views/walletHome/balancePage1";
 import WalletPage from "./views/walletHome/walletPage";
 import { Text } from "react-native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
@@ -90,6 +91,15 @@ export default function App() {
             headerTitle: "",
           }}
           component={BalancePage}
+        />
+        <Stack.Screen
+          name="balancePage1"
+          options={{
+            headerShown: false,
+            ...TransitionPresets.SlideFromRightIOS,
+            headerTitle: "",
+          }}
+          component={BalancePage1}
         />
         <Stack.Screen
           name="registerSuccess"

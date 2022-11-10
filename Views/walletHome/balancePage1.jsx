@@ -13,6 +13,7 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CoinData, Recommendations } from "../../data/coinsData";
 import Footer from "../../src/footer/footer";
+import { useFonts } from "expo-font";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -41,6 +42,14 @@ const BalancePage1 = () => {
   ]);
   const image1 =
     "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
+
+  let [fontsLoad, error] = useFonts({
+    NunitoSans_400Regular,
+  });
+
+  if (!fontsLoad) {
+    return null;
+  }
   return (
     <>
       <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
@@ -93,6 +102,7 @@ const BalancePage1 = () => {
                 top: 50,
                 fontSize: 24,
                 fontWeight: "700",
+                fontFamily: "NunitoSans_400Regular",
               }}
             >
               Balance Total
@@ -105,6 +115,7 @@ const BalancePage1 = () => {
                 textAlign: "center",
                 top: 50,
                 fontSize: 18,
+                fontFamily: "NunitoSans_400Regular",
               }}
             >
               $456,895.37 mxn
@@ -135,25 +146,27 @@ const BalancePage1 = () => {
                   style={{
                     color: "#2D0052",
                     fontSize: 16,
-                    marginLeft: wp(12),
                     lineHeight: 26,
                     fontWeight: "800",
+                    textAlign: "center",
+                    fontFamily: "NunitoSans_400Regular",
                   }}
                 >
                   Balance combinado
                 </Text>
                 <Image
-                  style={{ width: wp(65), height: hp(20) }}
+                  style={{ width: wp(70), height: hp(20) }}
                   source={require("../../assets/Diagram.png")}
                 />
-                <View style={{ marginLeft: wp(15), bottom: hp(5) }}>
+                <View style={{ bottom: hp(5) }}>
                   <Text
                     style={{
                       color: "#2D0052",
                       fontSize: hp(2.5),
-                      marginLeft: wp(3),
                       lineHeight: 26,
                       fontWeight: "600",
+                      textAlign: "center",
+                      fontFamily: "NunitoSans_400Regular",
                     }}
                   >
                     $345,987.00
@@ -164,6 +177,8 @@ const BalancePage1 = () => {
                       fontSize: hp(2.4),
                       lineHeight: 26,
                       fontWeight: "600",
+                      textAlign: "center",
+                      fontFamily: "NunitoSans_400Regular",
                     }}
                   >
                     {" "}
@@ -178,9 +193,10 @@ const BalancePage1 = () => {
                 fontSize: 16,
                 right: 15,
                 lineHeight: 26,
-                fontWeight: "800",
+                fontWeight: "700",
                 paddingLeft: 30,
                 bottom: hp(-2),
+                fontFamily: "NunitoSans_400Regular",
               }}
             >
               Tus inversiones
@@ -216,17 +232,30 @@ const BalancePage1 = () => {
                 <View style={{ flexDirection: "row" }}>
                   <View></View>
                   <View style={{}}>
-                    <Text style={{ fontSize: hp(2.3), fontWeight: "500" }}>
+                    <Text
+                      style={{
+                        fontSize: hp(2.3),
+                        fontWeight: "700",
+                        fontFamily: "NunitoSans_400Regular",
+                      }}
+                    >
                       BlockbitLab
                     </Text>
                   </View>
                 </View>
 
-                <View style={{ marginTop: 10 }}>
-                  <Text style={{ fontWeight: "bold", color: "#8D00FF" }}>
+                <View style={{ marginTop: 10, width:120 }}>
+                  <Text
+                    style={{
+                      fontWeight: "700",
+                      color: "#8D00FF",
+                      fontFamily: "NunitoSans_400Regular",
+                    }}
+                  >
                     BCKL
                   </Text>
-                  <Text style={{}}>$23,359.74 mxn</Text>
+                  <Text style={{
+                        fontFamily: "NunitoSans_400Regular",}}>$23,359.74 mxn</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -260,18 +289,24 @@ const BalancePage1 = () => {
                 ></LinearGradient>
                 <View style={{ flexDirection: "row" }}>
                   <View></View>
-                  <View style={{}}>
-                    <Text style={{ fontSize: hp(2.2), fontWeight: "500" }}>
+                  <View style={{ }}>
+                    <Text
+                      style={{
+                        fontSize: hp(2.2),
+                        fontWeight: "700",
+                        fontFamily: "NunitoSans_400Regular",
+                      }}
+                    >
                       Meishy
                     </Text>
                   </View>
                 </View>
 
                 <View style={{ marginTop: 10 }}>
-                  <Text style={{ color: "#8D00FF", fontWeight: "600" }}>
+                  <Text style={{ color: "#8D00FF", fontWeight: "700",fontFamily: "NunitoSans_400Regular" }}>
                     MSH
                   </Text>
-                  <Text style={{}}>$125,698.00 mxn</Text>
+                  <Text style={{fontFamily: "NunitoSans_400Regular",width:180}}>$125,698.00 mxn</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -299,6 +334,7 @@ const BalancePage1 = () => {
                   margin: 20,
                   right: 15,
                   margintop: hp(10),
+                  fontFamily: "NunitoSans_400Regular",
                 }}
               >
                 Tus criptomonedas

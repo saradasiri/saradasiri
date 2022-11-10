@@ -40,6 +40,7 @@ const VerifyOTP = (email) => {
             justifyContent: "center",
             alignItems: "center",
             marginBottom: -10,
+            marginTop:10
           }}
         >
           <Progress.Bar
