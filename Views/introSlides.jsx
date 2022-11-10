@@ -45,7 +45,7 @@ const slides = [
   },
 ];
 
-const IntroSlides = () => {
+const IntroSlides = (props) => {
   const navigation = useNavigation();
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -57,7 +57,7 @@ const IntroSlides = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <View style={{ flex: 1 ,backgroundColor:item.backgroundColor }}>
+      <View style={{ flex: 1, backgroundColor: item.backgroundColor }}>
         <Image
           source={item.image}
           style={{
@@ -67,10 +67,10 @@ const IntroSlides = () => {
             // marginTop: hp("1%"),
           }}
         />
-      {/*   <View style={{ marginBottom: hp("0.9%"), padding: 10 }}> */}
-          {item.title && <Text style={styles.title}>{item.title}</Text>}
-          {item.text && <Text style={styles.text}>{item.text}</Text>}
-        </View>
+        {/*   <View style={{ marginBottom: hp("0.9%"), padding: 10 }}> */}
+        {item.title && <Text style={styles.title}>{item.title}</Text>}
+        {item.text && <Text style={styles.text}>{item.text}</Text>}
+      </View>
       // </ImageBackground>
     );
   };
@@ -105,7 +105,7 @@ const IntroSlides = () => {
           alignSelf: "center",
           marginTop: getHeight(-95),
         }}
-        onPress={() => navigation.navigate("joinVadi")}
+        onPress={() => props.navigation.navigate("confirmEmail")}
       >
         <Text
           style={{
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: hp("2.5%"),
     textAlign: "center",
-    top:0,
+    top: 0,
     lineHeight: 25,
     fontFamily: "NunitoSans_400Regular",
   },
@@ -196,10 +196,10 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 25,
     top: 0,
-    lineHeight:46,
+    lineHeight: 46,
     textAlign: "center",
     paddingTop: 20,
-    fontFamily: "NunitoSans_400Regular"
+    fontFamily: "NunitoSans_400Regular",
   },
   skipped: {
     height: 30,

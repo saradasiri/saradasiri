@@ -9,19 +9,28 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { CoinData, Recommendations } from "../../data/coinsData";
+import Footer from "../../src/footer/footer";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { LinearGradient } from "expo-linear-gradient";
-import { HalfPieChart } from "half-pie-chart";
-
+import Listitem from "../../src/Listitem";
+// import { LinearGradient } from "expo-linear-gradient";
+// import { HalfPieChart } from "half-pie-chart";
 
 const BalancePage1 = () => {
   const [right, setRight] = useState([
-        {
-          value: 20,
-          displayValue: "20 $",
-          text: "Collected",
-          color: "#4cb38e",
-    }])
+    {
+      value: 20,
+      displayValue: "20 $",
+      text: "Collected",
+      color: "#4cb38e",
+    },
+  ]);
   const [left, setLeft] = useState([
     {
       value: 10,
@@ -33,103 +42,286 @@ const BalancePage1 = () => {
   const image1 =
     "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
-      <ScrollView>
-        <View
-          style={{
-            display: "flex",
-            backgroundColor: "#270041",
-            width: "100%",
-            top: 0,
-            height: 300,
-            borderBottomRightRadius: 80,
-            borderBottomLeftRadius: 80,
-          }}
-        >
+    <>
+      <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+        <ScrollView>
           <View
             style={{
-              flexDirection: "row",
-              paddingHorizontal: 30,
-              justifyContent: "space-between",
-              top: 50,
-              paddingBottom: 10,
-              marginLeft: 15,
-              borderRadius: 10,
+              display: "flex",
+              backgroundColor: "#270041",
+              width: "100%",
+              top: 0,
+              height: hp("40%"),
+              borderBottomRightRadius: 80,
+              borderBottomLeftRadius: 80,
             }}
           >
-            <Image
-              source={{ uri: image1 }}
+            <View
               style={{
-                width: 40,
-                height: 40,
+                flexDirection: "row",
+                paddingHorizontal: 30,
+                justifyContent: "space-between",
+                top: 50,
+                paddingBottom: 10,
+                marginLeft: 15,
                 borderRadius: 10,
               }}
-            />
-            <MaterialCommunityIcons
-              name="code-brackets"
-              size={34}
-              color="white"
-            />
-          </View>
-          <Text
-            style={{
-              color: "#fff",
-              marginTop: 10,
-              justifyContent: "center",
-              textAlign: "center",
-              top: 50,
-              fontSize: 24,
-              fontWeight: "700",
-            }}
-          >
-            Balance Total
-          </Text>
-          <Text
-            style={{
-              color: "#fff",
-              marginTop: 10,
-              justifyContent: "center",
-              textAlign: "center",
-              top: 50,
-              fontSize: 18,
-            }}
-          >
-            $456,895.37 mxn
-          </Text>
-        </View>
-        <View style={{ top: -100, height: "100%" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              alignSelf: "center",
-              marginTop: 5,
-              backgroundColor: "#fff",
-              marginHorizontal: 40,
-              paddingVertical: 80,
-              paddingHorizontal: 80,
-              // backgroundColor :"#fff",
-              //   ...customContainerStyle,
-              ...styles.shadow,
-              borderRadius: 20,
-              height: "50%",
-              width: "90%",
-              justifyContent: "center",
-            }}
-          >
-            <Text>
-              {/* <HalfPieChart
-                name="rentStatus"
-                right={right}
-                left={left}
-                title="Rent Status"
-              /> */}
-              
+            >
+              <TouchableOpacity>
+                <Image
+                  source={{ uri: image1 }}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 10,
+                  }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Image
+                  style={{ width: 30, height: 30 }}
+                  source={require("../../assets/scan.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text
+              style={{
+                color: "#fff",
+                marginTop: 10,
+                justifyContent: "center",
+                textAlign: "center",
+                top: 50,
+                fontSize: 24,
+                fontWeight: "700",
+              }}
+            >
+              Balance Total
+            </Text>
+            <Text
+              style={{
+                color: "#fff",
+                marginTop: 10,
+                justifyContent: "center",
+                textAlign: "center",
+                top: 50,
+                fontSize: 18,
+              }}
+            >
+              $456,895.37 mxn
             </Text>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAwareScrollView>
+          <View style={{ top: hp(-13), height: "100%" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                alignSelf: "center",
+                marginTop: 5,
+                backgroundColor: "#fff",
+                marginHorizontal: 40,
+                paddingVertical: 80,
+                paddingHorizontal: 80,
+                // backgroundColor :"#fff",
+                //   ...customContainerStyle,
+                ...styles.shadow,
+                borderRadius: 20,
+                height: hp("35%"),
+                width: wp("80%"),
+                justifyContent: "center",
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    color: "#2D0052",
+                    fontSize: 16,
+                    marginLeft: wp(12),
+                    lineHeight: 26,
+                    fontWeight: "800",
+                  }}
+                >
+                  Balance combinado
+                </Text>
+                <Image
+                  style={{ width: wp(65), height: hp(20) }}
+                  source={require("../../assets/Diagram.png")}
+                />
+                <View style={{ marginLeft: wp(15), bottom: hp(5) }}>
+                  <Text
+                    style={{
+                      color: "#2D0052",
+                      fontSize: hp(2.5),
+                      marginLeft: wp(3),
+                      lineHeight: 26,
+                      fontWeight: "600",
+                    }}
+                  >
+                    $345,987.00
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#2D0052",
+                      fontSize: hp(2.4),
+                      lineHeight: 26,
+                      fontWeight: "600",
+                    }}
+                  >
+                    {" "}
+                    MXN en startups
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <Text
+              style={{
+                color: "black",
+                fontSize: 16,
+                right: 15,
+                lineHeight: 26,
+                fontWeight: "800",
+                paddingLeft: 30,
+                bottom: hp(-2),
+              }}
+            >
+              Tus inversiones
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                style={{
+                  width: wp("40%"),
+                  paddingVertical: 20,
+                  paddingHorizontal: 20,
+                  borderRadius: 15,
+                  top: hp(3),
+                  height: hp("20%"),
+                  marginLeft: wp(5),
+                  backgroundColor: "#fff",
+                }}
+                // key={index}
+                // onPress={() => navigation.navigate("CryptoDetail", { currency: item })}
+              >
+                <LinearGradient
+                  start={[0, 0.5]}
+                  end={[1, 0.5]}
+                  colors={["#FC6A18", "#E4B716D4", "#FFE600"]}
+                  style={{
+                    width: wp("40%"),
+                    paddingVertical: 20,
+                    borderTopLeftRadius: 15,
+                    borderTopRightRadius: 15,
+                    bottom: hp(3),
+                    alignSelf: "center",
+                  }}
+                ></LinearGradient>
+                <View style={{ flexDirection: "row" }}>
+                  <View></View>
+                  <View style={{}}>
+                    <Text style={{ fontSize: hp(2.3), fontWeight: "500" }}>
+                      BlockbitLab
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={{ marginTop: 10 }}>
+                  <Text style={{ fontWeight: "bold", color: "#8D00FF" }}>
+                    BCKL
+                  </Text>
+                  <Text style={{}}>$23,359.74 mxn</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  width: wp("42%"),
+                  paddingVertical: 20,
+                  paddingHorizontal: 20,
+                  borderRadius: 15,
+                  height: hp("20%"),
+                  top: hp(3),
+                  marginLeft: wp(5),
+                  backgroundColor: "#fff",
+                }}
+                // key={index}
+                // onPress={() => navigation.navigate("CryptoDetail", { currency: item })}
+              >
+                <LinearGradient
+                  start={[0, 0.5]}
+                  end={[1, 0.5]}
+                  colors={["#184AFC", "#16A6E4D4", "#00D1FF"]}
+                  style={{
+                    width: wp("42%"),
+                    paddingVertical: 20,
+                    borderTopLeftRadius: 15,
+                    borderTopRightRadius: 15,
+                    bottom: hp(3),
+                    // justifyContent: "center",
+                    // alignItems: "center",
+                    alignSelf: "center",
+                  }}
+                ></LinearGradient>
+                <View style={{ flexDirection: "row" }}>
+                  <View></View>
+                  <View style={{}}>
+                    <Text style={{ fontSize: hp(2.2), fontWeight: "500" }}>
+                      Meishy
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={{ marginTop: 10 }}>
+                  <Text style={{ color: "#8D00FF", fontWeight: "600" }}>
+                    MSH
+                  </Text>
+                  <Text style={{}}>$125,698.00 mxn</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            {/* <Text
+              style={{
+                color: "#2D0052",
+                fontSize: 16,
+                lineHeight: 26,
+                fontFamily: "NunitoSans_400Regular",
+                fontWeight: "700",
+                margintop: hp(10),
+              }}
+            >
+              Tus criptomonedas
+            </Text> */}
+
+            <View style={{ padding: 20, paddingBottom: 100, top: 20 }}>
+              <Text
+                style={{
+                  color: "#2D0052",
+                  fontSize: 16,
+                  lineHeight: 26,
+                  // fontFamily: "NunitoSans_400Regular",
+                  fontWeight: "700",
+                  margin: 20,
+                  right: 15,
+                  margintop: hp(10),
+                }}
+              >
+                Tus criptomonedas
+              </Text>
+              {CoinData.map((item, idx) => {
+                return (
+                  <>
+                    <Listitem
+                      price={item.price}
+                      change={item.change}
+                      image={item.image}
+                      title={item.title}
+                      symbol={item.symbol}
+                    />
+                  </>
+                );
+              })}
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAwareScrollView>
+      <Footer active={"wallet"} />
+    </>
   );
 };
 

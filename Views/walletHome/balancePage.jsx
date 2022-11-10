@@ -6,7 +6,8 @@ import {
   Image,
   Pressable,
   FlatList,
-  TouchableOpacity,StatusBar
+  TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -56,7 +57,7 @@ const renderItem = ({ item, index }) => {
   );
 };
 
-export default function BalancePage  () {
+export default function BalancePage(props) {
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
@@ -66,13 +67,12 @@ export default function BalancePage  () {
   }
   // const image1 =
   //   "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
-  
 
   return (
     <>
-     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-      <StatusBar style="auto"/>
+      <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <StatusBar style="auto" />
           <View
             style={{
               display: "flex",
@@ -94,14 +94,15 @@ export default function BalancePage  () {
                 paddingBottom: 10,
                 borderRadius: 10,
               }}
-            ><Image
-            style={{ width: 40, height: 40 }}
-            source={require("../../assets/image.png")}
-          />
-          <Image
-            style={{ width: 30, height: 30 }}
-            source={require("../../assets/scan.png")}
-          />
+            >
+              <Image
+                style={{ width: 40, height: 40 }}
+                source={require("../../assets/image.png")}
+              />
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require("../../assets/scan.png")}
+              />
             </View>
             <Text
               style={{
@@ -111,7 +112,8 @@ export default function BalancePage  () {
                 textAlign: "center",
                 top: 30,
                 fontSize: 24,
-                fontWeight: "700",alignSelf:'center'
+                fontWeight: "700",
+                alignSelf: "center",
               }}
             >
               Balance Total
@@ -123,7 +125,8 @@ export default function BalancePage  () {
                 justifyContent: "center",
                 textAlign: "center",
                 top: 50,
-                fontSize: 18,alignSelf:'center'
+                fontSize: 18,
+                alignSelf: "center",
               }}
             >
               $0.00 mxn
@@ -145,7 +148,7 @@ export default function BalancePage  () {
                   "#8D00FF",
                   "#8D00FF",
                 ]}
-                style={{ borderRadius: 5, padding :1.5 }}
+                style={{ borderRadius: 5, padding: 1.5 }}
               >
                 <Pressable style={styles.circleGradient}>
                   <Text
@@ -192,16 +195,17 @@ export default function BalancePage  () {
           </View>
           <View style={{ padding: 20 }}>
             {Recommendations.map((item, idx) => {
-              return (<>
-                <BlockAlert
-                  price={item.price}
-                  change={item.change}
-                  image={item.image}
-                  title={item.title}
-                  symbol={item.symbol}
-                  text={item.text}
-                  buttons={item.buttons}
-                />
+              return (
+                <>
+                  <BlockAlert
+                    price={item.price}
+                    change={item.change}
+                    image={item.image}
+                    title={item.title}
+                    symbol={item.symbol}
+                    text={item.text}
+                    buttons={item.buttons}
+                  />
                 </>
               );
             })}
@@ -235,33 +239,45 @@ export default function BalancePage  () {
               showsVerticalScrollIndicator={false}
             />
           </View>
-          <View style={{ flexDirection:'row', marginTop: 15,alignSelf: "center",marginBottom:120}}>
-            <Text style={{ alignSelf: "center", color: "#2D0052",
-                fontFamily: "NunitoSans_400Regular", }}>
-              ¿Ya tienes criptos? 
-            </Text>
-          <TouchableOpacity
-            style={{ paddingLeft: 5 }}
-            // onPress={() => navigation.navigate("register")}
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 15,
+              alignSelf: "center",
+              marginBottom: 120,
+            }}
           >
             <Text
               style={{
-                fontFamily: "NunitoSans_400Regular",
+                alignSelf: "center",
                 color: "#2D0052",
-                textDecorationLine: "underline",
-                fontWeight: "bold",
+                fontFamily: "NunitoSans_400Regular",
               }}
             >
-              Depositar ahora
+              ¿Ya tienes criptos?
             </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{ paddingLeft: 5 }}
+              onPress={() => props.navigation.navigate("balancePage1")}
+            >
+              <Text
+                style={{
+                  fontFamily: "NunitoSans_400Regular",
+                  color: "#2D0052",
+                  textDecorationLine: "underline",
+                  fontWeight: "bold",
+                }}
+              >
+                Depositar ahora
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-      <Footer active={"wallet"}/>
+      <Footer active={"wallet"} />
     </>
   );
-};
+}
 const styles = StyleSheet.create({
   MainContainer: {
     width: "100%",
