@@ -72,26 +72,18 @@ const BalancePage1 = () => {
                 justifyContent: "space-between",
                 top: 50,
                 paddingBottom: 10,
-                marginLeft: 15,
+                // marginLeft: 15,
                 borderRadius: 10,
               }}
             >
-              <TouchableOpacity>
-                <Image
-                  source={{ uri: image1 }}
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 10,
-                  }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  style={{ width: 30, height: 30 }}
-                  source={require("../../assets/scan.png")}
-                />
-              </TouchableOpacity>
+              <Image
+                style={{ width: 40, height: 40 }}
+                source={require("../../assets/image.png")}
+              />
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require("../../assets/scan.png")}
+              />
             </View>
             <Text
               style={{
