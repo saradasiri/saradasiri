@@ -234,7 +234,7 @@ export default function BalancePage(props) {
               }}
               data={CoinData}
               renderItem={renderItem}
-              keyExtractor={(item) => `${item.id}`}
+              // keyExtractor={(item) => `${item.id}`}
               horizontal
               showsVerticalScrollIndicator={false}
             />
