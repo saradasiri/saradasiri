@@ -44,33 +44,32 @@ const Login = (formik) => {
       email: values.email,
       password: values.password,
     };
-    navigation.navigate("walletHome");
-    // axios
-    //   .post(API_PATHS.LOGIN, obj)
-    //   .then((res) => {
-    //     if (res.data.message) {
-    //       Toast.show({
-    //         type: "info",
-    //         text1: res.data.message,
-    //       });
-    //       setUserEmail(values.email);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     if (err.message) {
-    //       Toast.show({
-    //         type: "info",
-    //         text1: err.message,
-    //       });
-    //     }
-    //   });
+    axios
+      .post(API_PATHS.LOGIN, obj)
+      .then((res) => {
+        if (res.data.message) {
+          Toast.show({
+            type: "info",
+            text1: res.data.message,
+          });
+          setUserEmail(values.email);
+        }
+      })
+      .catch((err) => {
+        if (err.message) {
+          Toast.show({
+            type: "info",
+            text1: err.message,
+          });
+        }
+      });
   };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
-        <Toast position="top" topOffset={-10} />
+        <Toast position="bottom" bottomOffset={-10} />
 
         <Text style={styles.Label}>¡Hola de nuevo!</Text>
         <View style={{ paddingTop: 20 }}>

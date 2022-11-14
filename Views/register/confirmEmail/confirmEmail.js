@@ -41,7 +41,7 @@ const ConfirmEmail = (formik) => {
     //     "\nIs Accepted : " +
     //     isAccepted
     // );
-    navigation.navigate("setPassword");
+    navigation.navigate("setPassword", { email : values.email});
   };
 
   return (
@@ -195,14 +195,14 @@ const ConfirmEmail = (formik) => {
                     : 0.5,
               },
             ]}
-            // disabled={
-            //   !(
-            //     formik.isValid &&
-            //     formik.dirty &&
-            //     isPrivacyChecked &&
-            //     isAccepted
-            //   )
-            // }
+            disabled={
+              !(
+                formik.isValid &&
+                formik.dirty &&
+                isPrivacyChecked &&
+                isAccepted
+              )
+            }
             onPress={() => {
               handleSubmit();
             }}

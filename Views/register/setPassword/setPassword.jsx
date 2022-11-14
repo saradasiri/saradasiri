@@ -14,6 +14,10 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import * as Progress from "react-native-progress";
+import axios from "axios";
+import { API_PATHS } from "../../../src/constants/apiPaths";
+import Toast from "react-native-toast-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SetPassword = (formik) => {
   const navigation = useNavigation();
@@ -26,21 +30,59 @@ const SetPassword = (formik) => {
   if (!fontsLoad) {
     return null;
   }
+
+  const setUserEmail = async (value) => {
+    try {
+      await AsyncStorage.setItem("@userEmail", value);
+      navigation.navigate("verifyOTP");
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const handleSubmit = () => {
     // alert("Password : " + values.password)
-    navigation.navigate("verifyOTP");
+    const obj = {
+      email: values.email,
+      password: values.password,
+    };
+    axios
+      .post(API_PATHS.SIGNUP, obj)
+      .then((res) => {
+        if (res.data.message) {
+          Toast.show({
+            type: "info",
+            text1: res.data.message,
+          });
+        }
+        if (
+          res.data.message ===
+          "Success,Verification code has been sent to your Mail"
+        ) {
+          setUserEmail(values.email);
+        }
+      })
+      .catch((err) => {
+        if (err.message) {
+          Toast.show({
+            type: "info",
+            text1: err.message,
+          });
+        }
+        console.log(err.message);
+      });
   };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
+        <Toast position="bottom" bottomOffset={10} />
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
             marginBottom: -10,
-            marginTop:10
+            marginTop: 10,
           }}
         >
           <Progress.Bar
@@ -54,11 +96,16 @@ const SetPassword = (formik) => {
         <Text style={styles.Label}>Protege tu cuenta</Text>
 
         <View style={{ paddingTop: 20 }}>
-          <Text  style={[
+          <Text
+            style={[
               styles.text,
-              { color: errors.password && touched.password ? "red" : "#2D0052" },
+              {
+                color: errors.password && touched.password ? "red" : "#2D0052",
+              },
             ]}
-          >Elige una contraseña</Text>
+          >
+            Elige una contraseña
+          </Text>
           <TextInput
             name="password"
             onChangeText={formik.handleChange("password")}
@@ -162,7 +209,7 @@ const SetPassword = (formik) => {
               styles.button,
               { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
             ]}
-            // disabled={!(formik.isValid && formik.dirty)}
+            disabled={!(formik.isValid && formik.dirty)}
             onPress={() => {
               handleSubmit();
             }}

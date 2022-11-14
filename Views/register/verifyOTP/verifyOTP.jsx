@@ -8,7 +8,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
@@ -16,7 +16,25 @@ import { useFonts } from "expo-font";
 import OTPTextView from "react-native-otp-textinput";
 import { useNavigation } from "@react-navigation/native";
 import * as Progress from "react-native-progress";
+import axios from "axios";
+import { API_PATHS } from "../../../src/constants/apiPaths";
+import Toast from "react-native-toast-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 const VerifyOTP = () => {
+
+  const fetchEmail = async () => {
+    try {
+      const userEmail = await AsyncStorage.getItem("@userEmail");
+      setEmail(userEmail);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchEmail();
+  }, []);
   const [otpInput, setOtpInput] = useState("");
   const [email, setEmail] = useState("");
   const navigation = useNavigation();
@@ -30,20 +48,44 @@ const VerifyOTP = () => {
   }
 
   const handleSubmit = () => {
-    // alert("OTP : " + otpInput);
-    navigation.navigate("registerSuccess");
+    const obj = {
+      email: email,
+      otp: Number(otpInput),
+    };
+    axios
+      .post(API_PATHS.VALIDATE_OTP, obj)
+      .then((res) => {
+        if (res.data.message) {
+          Toast.show({
+            type: "info",
+            text1: res.data.message,
+          });
+          if (res.data.message === "User Confirmed his/her Email") {
+            navigation.navigate("registerSuccess");
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.message) {
+          Toast.show({
+            type: "info",
+            text1: err.message,
+          });
+        }
+      });
   };
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
+        <Toast position="bottom" bottomOffset={20} />
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
             marginBottom: -10,
-            marginTop:10
+            marginTop: 10,
           }}
         >
           <Progress.Bar
@@ -66,7 +108,12 @@ const VerifyOTP = () => {
         <Text
           style={[
             styles.Label,
-            { fontSize: 16, marginTop: 20, textAlign: "center", color:'#8D00FF' },
+            {
+              fontSize: 16,
+              marginTop: 20,
+              textAlign: "center",
+              color: "#8D00FF",
+            },
           ]}
         >
           {email ? email : "carmen@aureacode.com"}
@@ -98,7 +145,7 @@ const VerifyOTP = () => {
         <View style={{ marginTop: 150 }}>
           <TouchableOpacity
             style={[styles.button, { opacity: otpInput.length > 5 ? 1 : 0.5 }]}
-            // disabled={!(otpInput.length>5)}
+            disabled={!(otpInput.length>5)}
             onPress={() => {
               handleSubmit();
             }}

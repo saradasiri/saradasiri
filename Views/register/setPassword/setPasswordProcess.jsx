@@ -4,8 +4,9 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import SetPassword from "./setPassword";
 
-const SetPasswordProcess = () => {
+const SetPasswordProcess = (email) => {
   const initialValues = {
+    email: email.route.params.email,
     password: "",
   };
 
