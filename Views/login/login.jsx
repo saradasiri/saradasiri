@@ -18,7 +18,7 @@ import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
 import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+// import CookieManager from '@react-native-cookies/cookies';
 const Login = (formik) => {
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
@@ -31,9 +31,34 @@ const Login = (formik) => {
     return null;
   }
 
-  const setUserEmail = async (value) => {
+  const resendOTP = () => {
+    axios
+      .get(API_PATHS.RESEND_OTP + values.email)
+      .then((res) => {
+        if (res.data.message) {
+          Toast.show({
+            type: "info",
+            text1: res.data.message,
+          });
+          if (res.data.message === "mail sent") {
+            navigation.navigate("verifyOTP");
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.message) {
+          Toast.show({
+            type: "info",
+            text1: err.message,
+          });
+        }
+      });
+  };
+
+  const setUserEmail = async (isVerified) => {
     try {
-      await AsyncStorage.setItem("@userEmail", value);
+      await AsyncStorage.setItem("@userEmail", values.email);
+      isVerified === false ? resendOTP() : navigation.navigate("walletHome");
     } catch (e) {
       console.log(e);
     }
@@ -52,7 +77,9 @@ const Login = (formik) => {
             type: "info",
             text1: res.data.message,
           });
-          setUserEmail(values.email);
+        }
+        if (res.data.message === "Login Success") {
+          setUserEmail(res.data.isVerified);
         }
       })
       .catch((err) => {
@@ -208,7 +235,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontFamily: "NunitoSans_400Regular",
     color: "#737373",
-    fontWeight:'500'
+    fontWeight: "500",
   },
   error: {
     color: "red",
