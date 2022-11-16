@@ -78,4 +78,65 @@ export default StyleSheet.create({
     fontSize: hp("2%"),
     padding: 20,
   },
+
+
+
+
+  inputStyle: {
+    height: 50,
+    width: 322,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: "white",
+    paddingLeft: 30,
+    alignSelf: "center",
+  },
+  button: {
+    height: 42,
+    width: 312,
+    borderRadius: 8,
+    backgroundColor: "#8D00FF",
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontFamily: "NunitoSans_400Regular",
+    fontSize: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    textAlign: "center",
+  },
+  Logo: {
+    height: 50,
+    width: 180,
+    marginTop: 50,
+    alignSelf: "center",
+  },
+  error: {
+    color: "red",
+    fontFamily: "NunitoSans_400Regular",
+    textAlign: "left",
+  },
+  MainContainer: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  Label: {
+    marginTop: 40,
+    fontWeight: "400",
+    fontSize: 30,
+    fontFamily: "NunitoSans_400Regular",
+    color: "#2D0052",
+  },
+  text: {
+    fontSize: 18,
+    marginBottom: 5,
+    fontFamily: "NunitoSans_400Regular",
+    color: "#737373",
+    fontWeight: "500",
+  },
 });

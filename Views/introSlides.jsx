@@ -103,7 +103,8 @@ const IntroSlides = (props) => {
           textAlign: "center",
           borderRadius: 8,
           alignSelf: "center",
-          marginTop: getHeight(-95),
+          marginTop: getHeight(-85),
+          marginHorizontal:8
         }}
         onPress={() => props.navigation.navigate("confirmEmail")}
       >

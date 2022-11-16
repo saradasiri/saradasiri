@@ -9,12 +9,13 @@ import {
   Image,
 } from "react-native";
 import React, { useState } from "react";
+import globalStyles from "../../../globalStyles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-import * as Progress from "react-native-progress";
 import Checkbox from "expo-checkbox";
 import { useNavigation } from "@react-navigation/native";
+import ProgressBar from "../../../src/progressBar";
 
 const ConfirmEmail = (formik) => {
   const navigation = useNavigation();
@@ -30,47 +31,17 @@ const ConfirmEmail = (formik) => {
     return null;
   }
 
-  const handleSubmit = () => {
-    // alert(
-    //   "Email : " +
-    //     values.email +
-    //     "\nConfirm Email : " +
-    //     values.confirmEmail +
-    //     "\nIs Privacy Checked: " +
-    //     isPrivacyChecked +
-    //     "\nIs Accepted : " +
-    //     isAccepted
-    // );
-    navigation.navigate("setPassword", { email : values.email});
-  };
-
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: -10,
-            marginTop:10
-          }}
-        >
-          <Progress.Bar
-            progress={0.25}
-            width={90}
-            color={"#8D00FF"}
-            borderColor={"#c5dafb"}
-            backgroundColor={"#d2e2fb"}
-          />
-        </View>
-
-        <Text style={styles.Label}>Abre tu cuenta</Text>
+        <ProgressBar length={0.25} />
+        <Text style={globalStyles.Label}>Abre tu cuenta</Text>
 
         <View style={{ paddingTop: 30 }}>
           <Text
             style={[
-              styles.text,
+              globalStyles.text,
               { color: errors.email && touched.email ? "red" : "#2D0052" },
             ]}
           >
@@ -82,7 +53,7 @@ const ConfirmEmail = (formik) => {
             onBlur={formik.handleBlur("email")}
             value={values.email}
             style={[
-              styles.inputStyle,
+              globalStyles.inputStyle,
               {
                 borderColor:
                   errors.email && touched.email
@@ -92,14 +63,14 @@ const ConfirmEmail = (formik) => {
             ]}
           />
           {errors.email && touched.email && (
-            <Text style={styles.error}>{errors.email}</Text>
+            <Text style={globalStyles.error}>{errors.email}</Text>
           )}
         </View>
 
         <View style={{ paddingTop: 30 }}>
           <Text
             style={[
-              styles.text,
+              globalStyles.text,
               {
                 color:
                   errors.confirmEmail && touched.confirmEmail
@@ -116,7 +87,7 @@ const ConfirmEmail = (formik) => {
             onBlur={formik.handleBlur("confirmEmail")}
             value={values.confirmEmail}
             style={[
-              styles.inputStyle,
+              globalStyles.inputStyle,
               {
                 borderColor:
                   errors.confirmEmail && touched.confirmEmail
@@ -126,7 +97,7 @@ const ConfirmEmail = (formik) => {
             ]}
           />
           {errors.confirmEmail && touched.confirmEmail && (
-            <Text style={styles.error}>{errors.confirmEmail}</Text>
+            <Text style={globalStyles.error}>{errors.confirmEmail}</Text>
           )}
         </View>
 
@@ -184,8 +155,9 @@ const ConfirmEmail = (formik) => {
         <View style={{}}>
           <TouchableOpacity
             style={[
-              styles.button,
+              globalStyles.button,
               {
+                marginTop: 45,
                 opacity:
                   formik.isValid &&
                   formik.dirty &&
@@ -204,15 +176,15 @@ const ConfirmEmail = (formik) => {
               )
             }
             onPress={() => {
-              handleSubmit();
+              navigation.navigate("setPassword", { email: values.email });
             }}
           >
-            <Text style={styles.buttonText}>Siguiente</Text>
+            <Text style={globalStyles.buttonText}>Siguiente</Text>
           </TouchableOpacity>
         </View>
 
         <Image
-          style={styles.Logo}
+          style={globalStyles.Logo}
           source={require("../../../assets/vlogo.png")}
         />
       </ScrollView>
@@ -221,57 +193,6 @@ const ConfirmEmail = (formik) => {
 };
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  Label: {
-    marginTop: 40,
-    fontWeight: "400",
-    fontSize: 30,
-    fontFamily: "NunitoSans_400Regular",
-  },
-  text: {
-    fontSize: 18,
-    marginBottom: 5,
-    fontFamily: "NunitoSans_400Regular",
-    color: "#2D0052",
-  },
-  error: {
-    color: "red",
-    fontFamily: "NunitoSans_400Regular",
-    textAlign: "left",
-  },
-  inputStyle: {
-    height: 50,
-    width: 322,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    paddingLeft: 30,
-    borderColor: "rgba(18, 3, 58, 0.1)",
-    alignSelf: "center",
-  },
-  button: {
-    marginTop: 45,
-    height: 42,
-    width: 312,
-    borderRadius: 8,
-    backgroundColor: "#8D00FF",
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
   agreementText: {
     textDecorationLine: "underline",
     fontWeight: "bold",
@@ -287,17 +208,10 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 5,
   },
-
   privacy: {
     flexDirection: "row",
     fontFamily: "NunitoSans_400Regular",
     paddingLeft: 15,
-  },
-  Logo: {
-    height: 50,
-    width: 180,
-    marginTop: 50,
-    alignSelf: "center",
   },
 });
 export default ConfirmEmail;

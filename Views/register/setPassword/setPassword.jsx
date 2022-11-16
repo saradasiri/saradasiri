@@ -7,18 +7,18 @@ import {
   TextInput,
   ScrollView,
   Image,
+  ToastAndroid,
 } from "react-native";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
-import * as Progress from "react-native-progress";
 import axios from "axios";
 import { API_PATHS } from "../../../src/constants/apiPaths";
-import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import globalStyles from "../../../globalStyles";
+import ProgressBar from "../../../src/progressBar";
 const SetPassword = (formik) => {
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
@@ -49,56 +49,31 @@ const SetPassword = (formik) => {
       .post(API_PATHS.SIGNUP, obj)
       .then((res) => {
         if (res.data.message) {
-          Toast.show({
-            type: "info",
-            text1: res.data.message,
-          });
-        }
-        if (
-          res.data.message ===
-          "Success,Verification code has been sent to your Mail"
-        ) {
-          setUserEmail(values.email);
+          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+          if (
+            res.data.message ===
+            "Success,Verification code has been sent to your Mail"
+          ) {
+            setUserEmail(values.email);
+          }
         }
       })
       .catch((err) => {
-        if (err.message) {
-          Toast.show({
-            type: "info",
-            text1: err.message,
-          });
-        }
-        console.log(err.message);
+        ToastAndroid.show(err.message, ToastAndroid.SHORT);
       });
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
-        <Toast position="bottom" bottomOffset={10} />
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: -10,
-            marginTop: 10,
-          }}
-        >
-          <Progress.Bar
-            progress={0.5}
-            width={90}
-            color={"#8D00FF"}
-            borderColor={"#c5dafb"}
-            backgroundColor={"#d2e2fb"}
-          />
-        </View>
-        <Text style={styles.Label}>Protege tu cuenta</Text>
+        <ProgressBar length={0.5}/>
+        <Text style={globalStyles.Label}>Protege tu cuenta</Text>
 
         <View style={{ paddingTop: 20 }}>
           <Text
             style={[
-              styles.text,
+              globalStyles.text,
               {
                 color: errors.password && touched.password ? "red" : "#2D0052",
               },
@@ -112,7 +87,7 @@ const SetPassword = (formik) => {
             onBlur={formik.handleBlur("password")}
             value={values.password}
             style={[
-              styles.inputStyle,
+              globalStyles.inputStyle,
               {
                 borderColor:
                   errors.password && touched.password
@@ -206,19 +181,19 @@ const SetPassword = (formik) => {
         <View style={{ marginTop: 50 }}>
           <TouchableOpacity
             style={[
-              styles.button,
-              { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+              globalStyles.button,
+              { marginTop:80,opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
             ]}
             disabled={!(formik.isValid && formik.dirty)}
             onPress={() => {
               handleSubmit();
             }}
           >
-            <Text style={styles.buttonText}>Siguiente</Text>
+            <Text style={globalStyles.buttonText}>Siguiente</Text>
           </TouchableOpacity>
         </View>
         <Image
-          style={styles.Logo}
+          style={globalStyles.Logo}
           source={require("../../../assets/vlogo.png")}
         />
       </ScrollView>
@@ -226,63 +201,5 @@ const SetPassword = (formik) => {
   );
 };
 
-const styles = StyleSheet.create({
-  MainContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  Label: {
-    marginTop: 40,
-    fontWeight: "400",
-    fontSize: 30,
-    fontFamily: "NunitoSans_400Regular",
-  },
-  text: {
-    fontSize: 18,
-    marginBottom: 5,
-    fontFamily: "NunitoSans_400Regular",
-    color: "#2D0052",
-  },
-  error: {
-    color: "red",
-    fontFamily: "NunitoSans_400Regular",
-    textAlign: "left",
-  },
-  inputStyle: {
-    height: 50,
-    width: 322,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    paddingLeft: 30,
-    borderColor: "rgba(18, 3, 58, 0.1)",
-    alignSelf: "center",
-  },
-  button: {
-    marginTop: 80,
-    height: 42,
-    width: 312,
-    borderRadius: 8,
-    backgroundColor: "#8D00FF",
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
-  Logo: {
-    height: 50,
-    width: 180,
-    marginTop: 50,
-    alignSelf: "center",
-  },
-});
+const styles = StyleSheet.create({});
 export default SetPassword;

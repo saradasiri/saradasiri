@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  ToastAndroid,
 } from "react-native";
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -16,8 +17,8 @@ import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
-import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import globalStyles from "../../globalStyles";
 // import CookieManager from '@react-native-cookies/cookies';
 const Login = (formik) => {
   const navigation = useNavigation();
@@ -31,39 +32,6 @@ const Login = (formik) => {
     return null;
   }
 
-  const resendOTP = () => {
-    axios
-      .get(API_PATHS.RESEND_OTP + values.email)
-      .then((res) => {
-        if (res.data.message) {
-          Toast.show({
-            type: "info",
-            text1: res.data.message,
-          });
-          if (res.data.message === "mail sent") {
-            navigation.navigate("verifyOTP");
-          }
-        }
-      })
-      .catch((err) => {
-        if (err.message) {
-          Toast.show({
-            type: "info",
-            text1: err.message,
-          });
-        }
-      });
-  };
-
-  const setUserEmail = async (isVerified) => {
-    try {
-      await AsyncStorage.setItem("@userEmail", values.email);
-      isVerified === false ? resendOTP() : navigation.navigate("walletHome");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const handleSubmit = () => {
     const obj = {
       email: values.email,
@@ -73,36 +41,55 @@ const Login = (formik) => {
       .post(API_PATHS.LOGIN, obj)
       .then((res) => {
         if (res.data.message) {
-          Toast.show({
-            type: "info",
-            text1: res.data.message,
-          });
-        }
-        if (res.data.message === "Login Success") {
-          setUserEmail(res.data.isVerified);
+          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+          if (res.data.message === "Login Success") {
+            setUserEmail(res.data.isVerified);
+          }
         }
       })
       .catch((err) => {
         if (err.message) {
-          Toast.show({
-            type: "info",
-            text1: err.message,
-          });
+          ToastAndroid.show(err.message, ToastAndroid.SHORT);
+        }
+      });
+  };
+
+  const setUserEmail = async (isVerified) => {
+    try {
+      await AsyncStorage.setItem("@userEmail", values.email);
+      isVerified === false ? sendOTP() : navigation.navigate("walletHome");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const sendOTP = () => {
+    axios
+      .get(API_PATHS.RESEND_OTP + values.email)
+      .then((res) => {
+        if (res.data.message) {
+          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+          if (res.data.message === "mail sent") {
+            navigation.navigate("verifyOTP");
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.message) {
+          ToastAndroid.show(err.message, ToastAndroid.SHORT);
         }
       });
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
-        <Toast position="bottom" bottomOffset={-10} />
-
-        <Text style={styles.Label}>¡Hola de nuevo!</Text>
+        <Text style={globalStyles.Label}>¡Hola de nuevo!</Text>
         <View style={{ paddingTop: 20 }}>
           <Text
             style={[
-              styles.text,
+              globalStyles.text,
               { color: errors.email && touched.email ? "red" : "#2D0052" },
             ]}
           >
@@ -115,7 +102,7 @@ const Login = (formik) => {
               onBlur={formik.handleBlur("email")}
               value={values.email}
               style={[
-                styles.inputStyle,
+                globalStyles.inputStyle,
                 {
                   borderColor:
                     errors.email && touched.email
@@ -126,14 +113,14 @@ const Login = (formik) => {
             />
           </View>
           {errors.email && touched.email && (
-            <Text style={styles.error}>{errors.email}</Text>
+            <Text style={globalStyles.error}>{errors.email}</Text>
           )}
         </View>
 
         <View style={{ paddingTop: 40 }}>
           <Text
             style={[
-              styles.text,
+              globalStyles.text,
               {
                 color: errors.password && touched.password ? "red" : "#2D0052",
               },
@@ -148,7 +135,7 @@ const Login = (formik) => {
               onBlur={formik.handleBlur("password")}
               value={values.password}
               style={[
-                styles.inputStyle,
+                globalStyles.inputStyle,
                 {
                   borderColor:
                     errors.password && touched.password
@@ -160,7 +147,7 @@ const Login = (formik) => {
           </View>
           <View></View>
           {errors.password && touched.password && (
-            <Text style={styles.error}>{errors.password}</Text>
+            <Text style={globalStyles.error}>{errors.password}</Text>
           )}
         </View>
 
@@ -190,100 +177,36 @@ const Login = (formik) => {
         <View style={{ marginTop: 50 }}>
           <TouchableOpacity
             style={[
-              styles.button,
-              // { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+              globalStyles.button,
+              {
+                marginTop: 103,
+                opacity: formik.isValid && formik.dirty ? 1 : 0.5,
+              },
             ]}
-            // disabled={!(formik.isValid && formik.dirty)}
+            disabled={!(formik.isValid && formik.dirty)}
             onPress={() => {
               handleSubmit();
             }}
           >
-            <Text style={styles.buttonText}>Entrar</Text>
+            <Text style={globalStyles.buttonText}>Entrar</Text>
           </TouchableOpacity>
         </View>
 
-        <Image style={styles.Logo} source={require("../../assets/vlogo.png")} />
+        <Image
+          style={globalStyles.Logo}
+          source={require("../../assets/vlogo.png")}
+        />
       </ScrollView>
     </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  Logo: {
-    height: 50,
-    width: 180,
-    marginTop: 50,
-    alignSelf: "center",
-  },
-  Label: {
-    marginTop: 40,
-    fontWeight: "400",
-    fontSize: 30,
-    fontFamily: "NunitoSans_400Regular",
-    color: "#2D0052",
-  },
-  text: {
-    fontSize: 18,
-    marginBottom: 8,
-    fontFamily: "NunitoSans_400Regular",
-    color: "#737373",
-    fontWeight: "500",
-  },
-  error: {
-    color: "red",
-    fontFamily: "NunitoSans_400Regular",
-    textAlign: "left",
-  },
-  inputStyle: {
-    height: 50,
-    width: 322,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    paddingLeft: 30,
-  },
-  button: {
-    marginTop: 103,
-    height: 42,
-    width: 312,
-    borderRadius: 8,
-    backgroundColor: "#8D00FF",
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
-  resetPassword: {
-    fontStyle: "normal",
-    fontWeight: "400",
-    marginTop: -14,
-    color: "#7A869A",
-    alignSelf: "flex-end",
-  },
   signup: {
     marginTop: 15,
     flexDirection: "row",
     fontFamily: "NunitoSans_400Regular",
     alignSelf: "center",
-  },
-  passwordViewer: {
-    alignSelf: "flex-end",
-    paddingRight: 30,
-    top: -35,
-    borderColor: "grey",
   },
 });
 export default Login;

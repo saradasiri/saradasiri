@@ -4,26 +4,22 @@ import {
   View,
   StatusBar,
   TouchableOpacity,
-  TextInput,
   ScrollView,
   Image,
+  ToastAndroid,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-// import AppLoading from "expo-app-loading";
 import OTPTextView from "react-native-otp-textinput";
 import { useNavigation } from "@react-navigation/native";
-import * as Progress from "react-native-progress";
 import axios from "axios";
 import { API_PATHS } from "../../../src/constants/apiPaths";
-import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
+import globalStyles from "../../../globalStyles";
+import ProgressBar from "../../../src/progressBar";
 const VerifyOTP = () => {
-
   const fetchEmail = async () => {
     try {
       const userEmail = await AsyncStorage.getItem("@userEmail");
@@ -56,10 +52,7 @@ const VerifyOTP = () => {
       .post(API_PATHS.VALIDATE_OTP, obj)
       .then((res) => {
         if (res.data.message) {
-          Toast.show({
-            type: "info",
-            text1: res.data.message,
-          });
+          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
           if (res.data.message === "User Confirmed his/her Email") {
             navigation.navigate("registerSuccess");
           }
@@ -67,36 +60,17 @@ const VerifyOTP = () => {
       })
       .catch((err) => {
         if (err.message) {
-          Toast.show({
-            type: "info",
-            text1: err.message,
-          });
+          ToastAndroid.show(err.message, ToastAndroid.SHORT);
         }
       });
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
-        <Toast position="bottom" bottomOffset={20} />
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: -10,
-            marginTop: 10,
-          }}
-        >
-          <Progress.Bar
-            progress={0.75}
-            width={90}
-            color={"#8D00FF"}
-            borderColor={"#c5dafb"}
-            backgroundColor={"#d2e2fb"}
-          />
-        </View>
-        <Text style={styles.Label}>Confirma tu correo</Text>
+        <ProgressBar length={0.75} />
+        <Text style={globalStyles.Label}>Confirma tu correo</Text>
         <Text
           style={[
             styles.Label,
@@ -144,18 +118,21 @@ const VerifyOTP = () => {
 
         <View style={{ marginTop: 150 }}>
           <TouchableOpacity
-            style={[styles.button, { opacity: otpInput.length > 5 ? 1 : 0.5 }]}
-            disabled={!(otpInput.length>5)}
+            style={[
+              globalStyles.button,
+              { marginTop: 45, opacity: otpInput.length > 5 ? 1 : 0.5 },
+            ]}
+            disabled={!(otpInput.length > 5)}
             onPress={() => {
               handleSubmit();
             }}
           >
-            <Text style={styles.buttonText}>Siguiente</Text>
+            <Text style={globalStyles.buttonText}>Siguiente</Text>
           </TouchableOpacity>
         </View>
 
         <Image
-          style={styles.Logo}
+          style={globalStyles.Logo}
           source={require("../../../assets/vlogo.png")}
         />
       </ScrollView>
@@ -164,36 +141,6 @@ const VerifyOTP = () => {
 };
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  Label: {
-    marginTop: 40,
-    fontWeight: "400",
-    fontSize: 30,
-    fontFamily: "NunitoSans_400Regular",
-  },
-  button: {
-    marginTop: 45,
-    height: 42,
-    width: 312,
-    borderRadius: 8,
-    backgroundColor: "#8D00FF",
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
   container: {
     justifyContent: "center",
     alignItems: "center",
@@ -210,12 +157,6 @@ const styles = StyleSheet.create({
     fontFamily: "NunitoSans_400Regular",
     height: 50,
     width: 42,
-  },
-  Logo: {
-    height: 50,
-    width: 180,
-    marginTop: 50,
-    alignSelf: "center",
   },
 });
 export default VerifyOTP;
