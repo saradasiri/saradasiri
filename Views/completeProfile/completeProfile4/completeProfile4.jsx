@@ -22,7 +22,7 @@ import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import Checkbox from "expo-checkbox";
 import Modal from "react-native-modal";
-// import TermsConditions from "../../../src/termsConditions/termsConditions";
+import TermsConditions from "../../../src/termsConditions/termsConditions";
 import { API_PATHS } from "../../../src/constants/apiPaths";
 
 const CompleteProfile4 = (profile3) => {
@@ -763,7 +763,7 @@ const CompleteProfile4 = (profile3) => {
               </Text>
               <ScrollView>
                 <Text style={[styles.modalLevel, { width: 300, fontSize: 11 }]}>
-                  {/* <TermsConditions /> */}
+                  <TermsConditions />
                 </Text>
               </ScrollView>
               <Pressable

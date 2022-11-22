@@ -9,6 +9,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
+import { getHeight } from "../src/Dimentions/DImentions";
 
 const HomePage = () => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ const HomePage = () => {
         style={{
           justifyContent: "center",
           alignSelf: "center",
-          top: 625,
+          top: getHeight(800),
         }}
       >
         <TouchableOpacity
