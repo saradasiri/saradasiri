@@ -8,7 +8,7 @@ import axios from "axios";
 const FundingProcess = (login) => {
   const [data, setData] = useState([])
   const obj = {
-    email: login.route.params.email
+    email: "vikashchandra458@gmail.com"
   };
   useEffect(() => {
     axios
@@ -18,10 +18,10 @@ const FundingProcess = (login) => {
         setData(res.data)
       })
       .catch((err) => console.log(err));
-  }, [login.route.params.email]);
+  }, [obj.email]);
 
   const initialValues = {
-    email: login.route.params.email,
+    email: "vikashchandra458@gmail.com",
     amount:"",
     cryptoType:"",
     TransType:"",
@@ -50,7 +50,7 @@ const FundingProcess = (login) => {
     state: data.state,
     documentNo: data.documentNo,
     totalAmountFunded : data.totalAmountFunded,
-    isTokenSubscribed : login.route.params.isTokenSubscribed,
+    isTokenSubscribed : false,
     isGeo: data.isGeo,
     isEmailVerified: data.isEmailVerified,
     isProfileCreated: data.isProfileCreated,

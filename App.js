@@ -11,15 +11,15 @@ import VerifyOTP from "./views/register/verifyOTP/verifyOTP";
 import SetUpPin from "./views/register/setUpPin/setUpPin";
 // import "react-native-gesture-handler";
 // import LandingPage from "./views/landingPage/landingPage";
-// import FundingProcess from "./views/funding/fundingProcess";
+import FundingProcess from "./views/funding/fundingProcess";
 // import MobileVerify from "./views/registerLevel1";
 // import MobileInput from "./views/mobileInput";
 // import VerifyMobile from "./views/verifyMobileOtp";
-// import AccountLevel from "./views/accountLevel/accountLevel";
-// import CompleteProfileProcess1 from "./views/completeProfile/completeProfile1/completeProfileProcess1";
-// import CompleteProfileProcess2 from "./views/completeProfile/completeProfile2/completeProfileProcess2";
-// import CompleteProfileProcess3 from "./views/completeProfile/completeProfile3/completeProfileProcess3";
-// import CompleteProfile4 from "./views/completeProfile/completeProfile4/completeProfile4";
+import AccountLevel from "./views/accountLevel/accountLevel";
+import CompleteProfileProcess1 from "./views/completeProfile/completeProfile1/completeProfileProcess1";
+import CompleteProfileProcess2 from "./views/completeProfile/completeProfile2/completeProfileProcess2";
+import CompleteProfileProcess3 from "./views/completeProfile/completeProfile3/completeProfileProcess3";
+import CompleteProfile4 from "./views/completeProfile/completeProfile4/completeProfile4";
 // import RegisterLevel1 from "./views/registerLevel1";
 // import SetWalletPin from "./views/setWalletPin";
 import WalletHome from "./views/walletHome/walletHome";
@@ -31,6 +31,8 @@ import BalancePage1 from "./views/walletHome/balancePage1";
 import { Text } from "react-native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
+import PaymentProcess from "./views/payment/paymentProcess";
+import Header from "./src/header2/header";
 function BellMenu() {
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -129,6 +131,40 @@ export default function App() {
           name="walletHome"
           options={{ ...TransitionPresets.SlideFromRightIOS }}
           component={WalletHome}
+        />
+        <Stack.Screen name="accountLevel" component={AccountLevel} />
+        <Stack.Screen
+          name="completeProfile1"
+          component={CompleteProfileProcess1}
+        />
+        <Stack.Screen
+          name="completeProfile2"
+          component={CompleteProfileProcess2}
+        />
+        <Stack.Screen
+          name="completeProfile3"
+          component={CompleteProfileProcess3}
+        />
+        <Stack.Screen name="completeProfile4" component={CompleteProfile4} />
+        <Stack.Screen
+          name="funding"
+          options={{
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: "true",
+            headerRight: (props) => <Header {...props} />,
+          }}
+          component={FundingProcess}
+        />
+
+        <Stack.Screen
+          name="payment"
+          component={PaymentProcess}
+          options={{
+            headerShown: "true",
+            unmountOnBlur: true,
+            headerRight: (props) => <Header {...props} />,
+            headerTransparent: false,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
