@@ -8,7 +8,7 @@ import {
   Image,
   TextInput,
   Pressable,
-  Alert,
+  Alert,ToastAndroid
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState, useRef } from "react";
@@ -17,7 +17,7 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 // import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
-// import Footer from "../../src/footer/footer";
+import Footer from "../../src/footer2/footer";
 import SwitchSelector from "react-native-switch-selector";
 import { Picker } from "@react-native-picker/picker";
 import Modal from "react-native-modal";
@@ -79,21 +79,15 @@ const Funding = (formik) => {
       .post(API_PATHS.VALIDATE_PASSWORD + values.email, obj)
       .then((res) => {
         if (res.data.message) {
-          Toast.show({
-            type: "info",
-            text1: res.data.message,
-          });
-        }
-        if (res.data.message === "success ") {
-          subscribeSubmit();
+          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+          if (res.data.message === "success ") {
+            subscribeSubmit();
+          }
         }
       })
       .catch((err) => {
         if (err.message) {
-          Toast.show({
-            type: "info",
-            text1: err.message,
-          });
+          ToastAndroid.show(err.message, ToastAndroid.SHORT);
         }
       });
   };
@@ -104,10 +98,7 @@ const Funding = (formik) => {
         `https://apiforvadi.herokuapp.com/api/investor/token-subscription/${values.email} `
       )
       .then((res) => {
-        Toast.show({
-          type: "info",
-          text1: res.data.message,
-        });
+        ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
 
         if (
           res.data.message === "subscription success " ||
@@ -134,25 +125,22 @@ const Funding = (formik) => {
       ) {
         amountDocModal();
       } else {
-        Toast.show({
-          type: "info",
-          text1: `Your Investment Range is : \n${values.range}`,
-        });
+        ToastAndroid.show(
+          `Your Investment Range is : \n${values.range}`,
+          ToastAndroid.SHORT
+        );
       }
     }
     if (values.amount < 100) {
       if (values.range === "$0 - $9,999") {
-        Toast.show({
-          type: "info",
-          text1: "Minimum Amount is 100",
-        });
+        ToastAndroid.show("Minimum Amount is 100", ToastAndroid.SHORT);
       }
     }
     if (values.amount < values.lower) {
-      Toast.show({
-        type: "info",
-        text1: `Your Investment Range is : \n${values.range}`,
-      });
+      ToastAndroid.show(
+        `Your Investment Range is : \n${values.range}`,
+        ToastAndroid.SHORT
+      );
     }
     if (
       values.amount >= values.lower &&
@@ -175,7 +163,6 @@ const Funding = (formik) => {
     <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
-        <Toast position="top" topOffset={28} />
         <Text style={{ textAlign: "center", marginTop: 5 }}>
           {isSubscribe ? "Subscribed" : "Not Subscribed"}
         </Text>
@@ -313,7 +300,6 @@ const Funding = (formik) => {
             >
               {!isToggle ? (
                 <View>
-                  <Toast position="bottom" bottomOffset={55} />
                   <TouchableOpacity
                     onPress={() => setClose(false)}
                     style={styles.passwordViewer}
@@ -496,7 +482,7 @@ const Funding = (formik) => {
           </View>
         </Modal>
       </ScrollView>
-      {/* <Footer /> */}
+      <Footer />
     </KeyboardAwareScrollView>
   );
 };

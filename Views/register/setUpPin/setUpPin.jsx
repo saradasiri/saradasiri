@@ -29,7 +29,7 @@ const VerifyOTP = (email) => {
   }
 
   const handleSubmit = () => {
-    navigation.navigate("login");
+    navigation.navigate("accountLevel");
   };
 
   return (

@@ -56,7 +56,7 @@ const AccountLevel = (email) => {
       // email: login1.route.params.email,
       // isTokenSubscribed: login1.route.params.isTokenSubscribed,
     };
-    navigation.navigate("walletHome");
+    navigation.navigate("funding");
   };
 
   return (
