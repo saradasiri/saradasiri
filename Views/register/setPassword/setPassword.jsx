@@ -83,6 +83,7 @@ const SetPassword = (formik) => {
           </Text>
           <TextInput
             name="password"
+            secureTextEntry={true}
             onChangeText={formik.handleChange("password")}
             onBlur={formik.handleBlur("password")}
             value={values.password}
