@@ -106,7 +106,7 @@ const ConfirmEmail = (formik) => {
             style={styles.checkbox}
             value={isPrivacyChecked}
             onValueChange={setChecked}
-            color={isPrivacyChecked ? "#33B7B0" : undefined}
+            color={isPrivacyChecked ? "#8D00FF" : undefined}
           />
 
           <View style={{ flexDirection: "column", marginTop: -5 }}>
@@ -135,7 +135,7 @@ const ConfirmEmail = (formik) => {
             style={styles.checkbox}
             value={isAccepted}
             onValueChange={setIsAccepted}
-            color={isAccepted ? "#33B7B0" : undefined}
+            color={isAccepted ? "#8D00FF" : undefined}
           />
           <View style={{ flexDirection: "column", top: -5, left: 15 }}>
             <Text style={{ color: "#2D0052" }}>

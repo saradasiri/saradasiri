@@ -137,7 +137,7 @@ const CompleteProfile4 = (profile3) => {
       email: profile3.route.params.email,
     };
 
-    navigation.navigate("funding", login);
+    navigation.navigate("walletHome", login);
   };
 
   const handleFormSubmit = () => {

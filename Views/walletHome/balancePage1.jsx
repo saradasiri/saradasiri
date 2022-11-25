@@ -28,19 +28,19 @@ const screenWidth = Dimensions.get("window").width;
 
 const BalancePage1 = () => {
   const [data, setData] = useState([]);
-     const widthAndHeight = 250;
-     const series = [123, 321, 123, 789, 537];
-     const sliceColor = ["#F44336", "#2196F3", "#FFEB3B", "#4CAF50", "#FF9800"];
-const chartConfig = {
-  backgroundGradientFrom: "#1E2923",
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#08130D",
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-  strokeWidth: 2, // optional, default 3
-  barPercentage: 0.5,
-  useShadowColorFromDataset: false, // optional
-};
+  const widthAndHeight = 250;
+  const series = [123, 321, 123, 789, 537];
+  const sliceColor = ["#F44336", "#2196F3", "#FFEB3B", "#4CAF50", "#FF9800"];
+  const chartConfig = {
+    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#08130D",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+  };
   useEffect(() => {
     axios
       .get(`https://apiforvadi.herokuapp.com/api/coins/marketdata`)
@@ -371,6 +371,7 @@ const chartConfig = {
                   </>
                 );
               })}
+              <View style={{ marginBottom: -90 }}></View>
             </View>
           </View>
         </ScrollView>
