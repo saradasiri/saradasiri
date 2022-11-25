@@ -42,11 +42,11 @@ const WalletHome = () => {
       )
       .then((res) => {
         console.log(res.data);
-        if (res.data) {
+        if (res.data == true) {
           setToggle(true);
         } else setToggle(false);
       });
-  }, [email]);
+  }, []);
 
   useEffect(() => {
     axios
