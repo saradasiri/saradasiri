@@ -372,7 +372,7 @@ const BalancePage1 = () => {
                     <View key={idx}>
                       <Listitem
                         image={item.image}
-                        // change={item.price_change_percentage_24h}
+                        change={''}
                         title={item.name}
                         symbol={item.symbol}
                         price={item.balance.balance}

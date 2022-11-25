@@ -13,7 +13,7 @@ const Listitem = ({ image, change, title, symbol, price , key}) => {
   if (!fontsLoad) {
     return null;
   }
-  const priceChange = change
+  const priceChange = change.toString().includes('-') ? 'red': 'green'
   return (
     <TouchableOpacity
       style={{
