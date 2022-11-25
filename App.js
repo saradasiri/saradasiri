@@ -23,6 +23,11 @@ import BalancePage1 from "./views/walletHome/balancePage1";
 import { Text } from "react-native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
+import { Provider } from "react-redux";
+import {Store} from "./src/redux/store"
+
+
+
 function BellMenu() {
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -48,95 +53,97 @@ function BellMenu() {
 export default function App() {
   const Stack = createStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="walletHome"
-        screenOptions={{ headerTitle: "", headerShown: false }}
-      >
-        <Stack.Screen name="homepage" component={HomePage} />
-        <Stack.Screen name="joinVadi" component={JoinVadi} />
-        <Stack.Screen name="registerSuccess" component={RegisterSuccess} />
-        <Stack.Screen name="introSlides" component={IntroSlides} />
-        <Stack.Screen
-          name="balancePage"
-          options={{ ...TransitionPresets.SlideFromRightIOS }}
-          component={BalancePage}
-        />
-        <Stack.Screen
-          name="balancePage1"
-          options={{ ...TransitionPresets.SlideFromRightIOS }}
-          component={BalancePage1}
-        />
-        <Stack.Screen
-          name="login"
-          options={{
-            headerShown: true,
-            headerStyle: { backgroundColor: "white" },
-            ...TransitionPresets.SlideFromRightIOS,
-            headerRight: (props) => <BellMenu {...props} />,
-          }}
-          component={LoginProcess}
-        />
-        <Stack.Screen
-          name="confirmEmail"
-          options={{
-            headerShown: true,
-            headerStyle: { backgroundColor: "white" },
-            ...TransitionPresets.ModalSlideFromBottomIOS,
-            headerRight: (props) => <BellMenu {...props} />,
-          }}
-          component={ConfirmEmailProcess}
-        />
-        <Stack.Screen
-          name="setPassword"
-          options={{
-            headerShown: true,
-            headerStyle: { backgroundColor: "white" },
-            ...TransitionPresets.SlideFromRightIOS,
-            headerRight: (props) => <BellMenu {...props} />,
-          }}
-          component={SetPasswordProcess}
-        />
-        <Stack.Screen
-          name="verifyOTP"
-          options={{
-            headerShown: true,
-            headerStyle: { backgroundColor: "white" },
-            ...TransitionPresets.SlideFromRightIOS,
-            headerRight: (props) => <BellMenu {...props} />,
-          }}
-          component={VerifyOTP}
-        />
-        <Stack.Screen
-          name="setUpPin"
-          options={{
-            headerShown: true,
-            headerStyle: { backgroundColor: "#F2F6FF" },
-            ...TransitionPresets.SlideFromRightIOS,
-            headerRight: (props) => <BellMenu {...props} />,
-          }}
-          component={SetUpPin}
-        />
-        <Stack.Screen
-          name="walletHome"
-          options={{ ...TransitionPresets.SlideFromRightIOS }}
-          component={WalletHome}
-        />
-        <Stack.Screen name="accountLevel" component={AccountLevel} />
-        <Stack.Screen
-          name="completeProfile1"
-          component={CompleteProfileProcess1}
-        />
-        <Stack.Screen
-          name="completeProfile2"
-          component={CompleteProfileProcess2}
-        />
-        <Stack.Screen
-          name="completeProfile3"
-          component={CompleteProfileProcess3}
-        />
-        <Stack.Screen name="completeProfile4" component={CompleteProfile4} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="walletHome"
+          screenOptions={{ headerTitle: "", headerShown: false }}
+        >
+          <Stack.Screen name="homepage" component={HomePage} />
+          <Stack.Screen name="joinVadi" component={JoinVadi} />
+          <Stack.Screen name="registerSuccess" component={RegisterSuccess} />
+          <Stack.Screen name="introSlides" component={IntroSlides} />
+          <Stack.Screen
+            name="balancePage"
+            options={{ ...TransitionPresets.SlideFromRightIOS }}
+            component={BalancePage}
+          />
+          <Stack.Screen
+            name="balancePage1"
+            options={{ ...TransitionPresets.SlideFromRightIOS }}
+            component={BalancePage1}
+          />
+          <Stack.Screen
+            name="login"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+            component={LoginProcess}
+          />
+          <Stack.Screen
+            name="confirmEmail"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.ModalSlideFromBottomIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+            component={ConfirmEmailProcess}
+          />
+          <Stack.Screen
+            name="setPassword"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+            component={SetPasswordProcess}
+          />
+          <Stack.Screen
+            name="verifyOTP"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+            component={VerifyOTP}
+          />
+          <Stack.Screen
+            name="setUpPin"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "#F2F6FF" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+            component={SetUpPin}
+          />
+          <Stack.Screen
+            name="walletHome"
+            options={{ ...TransitionPresets.SlideFromRightIOS }}
+            component={WalletHome}
+          />
+          <Stack.Screen name="accountLevel" component={AccountLevel} />
+          <Stack.Screen
+            name="completeProfile1"
+            component={CompleteProfileProcess1}
+          />
+          <Stack.Screen
+            name="completeProfile2"
+            component={CompleteProfileProcess2}
+          />
+          <Stack.Screen
+            name="completeProfile3"
+            component={CompleteProfileProcess3}
+          />
+          <Stack.Screen name="completeProfile4" component={CompleteProfile4} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

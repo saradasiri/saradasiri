@@ -22,10 +22,16 @@ import { LinearGradient } from "expo-linear-gradient";
 import PriceAlert from "../../src/priceAlert";
 import Listitem from "../../src/Listitem";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addEmail , addPassword ,addAccesToken} from "../../src/redux/actions";
 
-const WalletHome = (email) => {
+
+const WalletHome = () => {
+  const dispatch = useDispatch()
   const [data, setData] = useState([]);
   const navigation = useNavigation();
+  const [accessToken, setAccessToken] = useState()
+  const { email, password } = useSelector((state) => state.userReducer);
 
 
    useEffect(() => {
@@ -36,6 +42,21 @@ const WalletHome = (email) => {
          setData(res.data.result)
        });
    }, []);
+  
+  
+  const createWallet = () => {
+    const obj = {
+      email: email,
+      password : password
+    }
+    axios.post(`https://vadi-wallet.herokuapp.com/api/User/auth/signUp`, obj)
+      .then(res => {
+        console.log(res.data.access_token);
+        setAccessToken(res.data.access_token)
+        dispatch(addAccesToken(res.data.access_token))
+        navigation.navigate("balancePage")
+      })
+  }
   
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -117,7 +138,7 @@ const WalletHome = (email) => {
               style={{
                 marginTop: 70,
                 // paddingLeft: 30,
-                marginHorizontal: 65,
+                marginHorizontal: 55,
                 justifyContent: "space-between",
                 flexDirection: "row",
               }}
@@ -164,19 +185,22 @@ const WalletHome = (email) => {
                 ]}
                 style={{ borderRadius: 5, padding: 1.5 }}
               >
-                <Pressable style={styles.circleGradient}>
+                <Pressable
+                  style={styles.circleGradient}
+                  onPress={() => createWallet()}
+                >
                   <Text
                     style={{
                       color: "#fff",
                       justifyContent: "center",
                       textAlign: "center",
                       fontSize: 16,
-                      paddingTop: 10,
+                      padding: 5,
                       fontFamily: "NunitoSans_400Regular",
                       fontWeight: "700",
                     }}
                   >
-                    Comprar
+                    Crear Billetera
                   </Text>
                 </Pressable>
               </LinearGradient>

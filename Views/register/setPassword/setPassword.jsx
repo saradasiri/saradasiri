@@ -19,7 +19,15 @@ import { API_PATHS } from "../../../src/constants/apiPaths";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import globalStyles from "../../../globalStyles";
 import ProgressBar from "../../../src/progressBar";
+import { useDispatch , useSelector } from "react-redux";
+import { addEmail, addPassword } from "../../../src/redux/actions";
+
+
+
+
 const SetPassword = (formik) => {
+  const dispatch = useDispatch()
+  
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
 
@@ -39,8 +47,7 @@ const SetPassword = (formik) => {
       console.log(e);
     }
   };
-  const handleSubmit = () => {
-    // alert("Password : " + values.password)
+  const handleSubmit = () => {   
     const obj = {
       email: values.email,
       password: values.password,
@@ -55,6 +62,8 @@ const SetPassword = (formik) => {
             "Success,Verification code has been sent to your Mail"
           ) {
             setUserEmail(values.email);
+            dispatch(addEmail(values.email))
+            dispatch(addPassword(values.password))
           }
         }
       })
