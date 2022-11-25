@@ -19,8 +19,11 @@ import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import globalStyles from "../../globalStyles";
+import { useDispatch , useSelector } from "react-redux";
+import { addEmail, addPassword } from "../../src/redux/actions";
 // import CookieManager from '@react-native-cookies/cookies';
 const Login = (formik) => {
+  const dispatch = useDispatch()
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
 
@@ -44,6 +47,8 @@ const Login = (formik) => {
           ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
           if (res.data.message === "Login Success") {
             setUserEmail(res.data.isVerified);
+            dispatch(addEmail(values.email))
+            dispatch(addPassword(values.password))
           }
         }
       })

@@ -23,41 +23,80 @@ import PriceAlert from "../../src/priceAlert";
 import Listitem from "../../src/Listitem";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmail , addPassword ,addAccesToken} from "../../src/redux/actions";
-
+import { addEmail, addPassword, addAccessToken } from "../../src/redux/actions";
 
 const WalletHome = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const navigation = useNavigation();
-  const [accessToken, setAccessToken] = useState()
-  const { email, password } = useSelector((state) => state.userReducer);
+  const [accessToken, setAccessToken] = useState();
+  const [toggle, setToggle] = useState(false);
+  const { email, password, access_token } = useSelector(
+    (state) => state.userReducer
+  );
 
+  useEffect(() => {
+    axios
+      .get(
+        `https://vadi-wallet.herokuapp.com/api/User/check-existance-of-wallet/${email}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setToggle(true);
+        } else setToggle(false);
+      });
+  }, [email]);
 
-   useEffect(() => {
-     axios
-       .get(`https://apiforvadi.herokuapp.com/api/coins/marketdata`)
-       .then((res) => {
+  useEffect(() => {
+    axios
+      .get(`https://apiforvadi.herokuapp.com/api/coins/marketdata`)
+      .then((res) => {
         //  console.log(res.data.result);
-         setData(res.data.result)
-       });
-   }, []);
-  
-  
+        setData(res.data.result);
+      });
+  }, []);
+
   const createWallet = () => {
     const obj = {
       email: email,
-      password : password
-    }
-    axios.post(`https://vadi-wallet.herokuapp.com/api/User/auth/signUp`, obj)
-      .then(res => {
-        console.log(res.data.access_token);
-        setAccessToken(res.data.access_token)
-        dispatch(addAccesToken(res.data.access_token))
-        navigation.navigate("balancePage")
-      })
-  }
-  
+      password: password,
+    };
+    axios
+      .post(`https://vadi-wallet.herokuapp.com/api/User/auth/signUp`, obj)
+      .then((res) => {
+        if (res.data.access_token) {
+          dispatch(addAccessToken(res.data.access_token));
+          axios
+            .get(`https://vadi-wallet.herokuapp.com/api/vdc/create/wallet`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${res.data.access_token}`,
+              },
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                navigation.navigate("balancePage1");
+              }
+            });
+        }
+      });
+  };
+
+  const signIn = () => {
+    const obj = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post(`https://vadi-wallet.herokuapp.com/api/User/auth/signIn`, obj)
+      .then((res) => {
+        if (res.data.access_token) {
+          dispatch(addAccessToken(res.data.access_token));
+          navigation.navigate("balancePage1");
+        }
+      });
+  };
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
@@ -138,7 +177,7 @@ const WalletHome = () => {
               style={{
                 marginTop: 70,
                 // paddingLeft: 30,
-                marginHorizontal: 55,
+                marginHorizontal: toggle ?70 : 55,
                 justifyContent: "space-between",
                 flexDirection: "row",
               }}
@@ -163,7 +202,7 @@ const WalletHome = () => {
                       justifyContent: "center",
                       textAlign: "center",
                       fontSize: 16,
-                      paddingTop: 10,
+                      // paddingTop: 10,
                       fontFamily: "NunitoSans_400Regular",
                       fontWeight: "700",
                     }}
@@ -187,7 +226,9 @@ const WalletHome = () => {
               >
                 <Pressable
                   style={styles.circleGradient}
-                  onPress={() => createWallet()}
+                  onPress={() => {
+                    toggle ? signIn() : createWallet();
+                  }}
                 >
                   <Text
                     style={{
@@ -195,12 +236,12 @@ const WalletHome = () => {
                       justifyContent: "center",
                       textAlign: "center",
                       fontSize: 16,
-                      padding: 5,
+                      // padding: 5,
                       fontFamily: "NunitoSans_400Regular",
                       fontWeight: "700",
                     }}
                   >
-                    Crear Billetera
+                    {toggle ? "Registrarse" : "Crear Billetera"}
                   </Text>
                 </Pressable>
               </LinearGradient>
@@ -316,7 +357,9 @@ const styles = StyleSheet.create({
     margin: 1,
     backgroundColor: "#270041",
     borderRadius: 5,
-    width: 100,
+    // width: 100,
+    // justifyContent:'center',
+    padding: 10,
     height: 50,
   },
   Label: {

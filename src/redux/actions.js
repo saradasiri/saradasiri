@@ -17,9 +17,9 @@ export const addPassword = password => dispatch => {
     })
 }
 
-export const addAccesToken = (token) => (dispatch) => {
+export const addAccessToken = (token) => (dispatch) => {
   return dispatch({
-    type: USER_EMAIL,
+    type: ACCESS_TOKEN,
     payload: token,
   });
 };

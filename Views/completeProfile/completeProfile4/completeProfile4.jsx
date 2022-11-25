@@ -137,7 +137,7 @@ const CompleteProfile4 = (profile3) => {
       email: profile3.route.params.email,
     };
 
-    navigation.navigate("walletHome", login);
+    navigation.navigate("walletHome");
   };
 
   const handleFormSubmit = () => {
@@ -184,7 +184,7 @@ const CompleteProfile4 = (profile3) => {
       isTokenSubscribed: "true",
       email: "vikashchandra458@gmail.com",
     };
-    navigation.navigate("funding", login);
+    navigation.navigate("walletHome");
 
     // console.log(profile4);
     // axios

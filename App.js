@@ -56,7 +56,7 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="walletHome"
+          initialRouteName="homepage"
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
           <Stack.Screen name="homepage" component={HomePage} />

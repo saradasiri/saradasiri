@@ -4,7 +4,6 @@ import {
   Text,
   View,
   Image,
-  Pressable,
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -25,9 +24,13 @@ import Listitem from "../../src/Listitem";
 import { pieChartData } from "./data";
 import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
-
+import { useDispatch, useSelector } from "react-redux";
 const BalancePage1 = () => {
   const [data, setData] = useState([]);
+  const { email, password, access_token } = useSelector(
+    (state) => state.userReducer
+  );
+
   const widthAndHeight = 250;
   const series = [123, 321, 123, 789, 537];
   const sliceColor = ["#F44336", "#2196F3", "#FFEB3B", "#4CAF50", "#FF9800"];
@@ -41,13 +44,20 @@ const BalancePage1 = () => {
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
   };
+
   useEffect(() => {
     axios
-      .get(`https://apiforvadi.herokuapp.com/api/coins/marketdata`)
+      .get(`https://vadi-wallet.herokuapp.com/api/vdc/get/balances`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
       .then((res) => {
-        //  console.log(res.data.result);
-        setData(res.data.result);
-      });
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
   const graphStyle = {
     marginVertical: 8,
@@ -120,7 +130,7 @@ const BalancePage1 = () => {
                 fontFamily: "NunitoSans_400Regular",
               }}
             >
-              $456,895.37 mxn
+              $ {(data.map(li => li.balance.balance).reduce((sum, val) => sum + val, 0) )} MXN
             </Text>
           </View>
           <View style={{ top: hp(-13), height: "100%" }}>
@@ -157,7 +167,7 @@ const BalancePage1 = () => {
                   Balance combinado
                 </Text>
                 <Image
-                  style={{ width: wp(60), height: hp(20) }}
+                  style={{ width: wp(75), height: hp(20) }}
                   source={require("../../assets/Diagram.png")}
                 />
                 <View style={{ bottom: hp(5) }}>
@@ -171,7 +181,7 @@ const BalancePage1 = () => {
                       fontFamily: "NunitoSans_400Regular",
                     }}
                   >
-                    $345,987.00
+                    $0 MXN
                   </Text>
                   <Text
                     style={{
@@ -261,7 +271,7 @@ const BalancePage1 = () => {
                       fontFamily: "NunitoSans_400Regular",
                     }}
                   >
-                    $23,359.74 mxn
+                    {/* {values.totalbalance ? values.totalbalance : '0'} */}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -365,7 +375,7 @@ const BalancePage1 = () => {
                         change={item.price_change_percentage_24h}
                         title={item.name}
                         symbol={item.symbol}
-                        price={item.current_price}
+                        price={item.balance.balance}
                       />
                     </View>
                   </>

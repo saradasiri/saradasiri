@@ -52,7 +52,9 @@ function Footer(active) {
       </View>
 
       <View style={{ }}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity     onPress={() => {
+            navigation.navigate("balancePage");
+          }}>
           <Image
             style={{ alignSelf: "center", width: 25, height: 22 }}
             source={require("../../assets/graph.png")}
@@ -63,7 +65,7 @@ function Footer(active) {
       <View style={{ }}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("balancePage");
+            navigation.navigate("balancePage1");
           }}
         >
           {active.active === "wallet" ? (
