@@ -60,7 +60,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="homepage"
+        initialRouteName="balancePage"
         screenOptions={{ headerTitle: "", headerShown: false }}
       >
         <Stack.Screen name="homepage" component={HomePage} />

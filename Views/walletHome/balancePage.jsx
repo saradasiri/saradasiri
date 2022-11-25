@@ -9,17 +9,19 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import React from "react";
+import React, { useEffect , useState} from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import PriceAlert from "../../src/priceAlert";
 import BlockAlert from "../../src/blockAlert";
 import { CoinData, Recommendations } from "../../data/coinsData";
+import axios from "axios";
 import Footer from "../../src/footer/footer";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 
 const renderItem = ({ item, index }) => {
+
   return (
     <TouchableOpacity
       style={{
@@ -37,20 +39,20 @@ const renderItem = ({ item, index }) => {
       <View style={{ flexDirection: "row" }}>
         <View>
           <Image
-            source={item.image}
+            source={{uri :item.image}}
             resizeMode="cover"
             style={{ marginTop: 5, width: 25, height: 25 }}
           />
         </View>
         <View style={{ marginLeft: 14 }}>
-          <Text style={{ fontWeight: "700" }}>{item.title}</Text>
-          <Text>{item.symbol}</Text>
+          <Text style={{ fontWeight: "700" }}>{item.name}</Text>
+          <Text>{item.symbol.toUpperCase()}</Text>
         </View>
       </View>
 
       <View style={{ marginTop: 12 }}>
         <Text style={{ fontWeight: "bold" }}>
-          {item.amount} <Text style={{}}>{item.price}</Text>
+        $ <Text style={{}}>{item.current_price}</Text>
         </Text>
       </View>
     </TouchableOpacity>
@@ -58,6 +60,16 @@ const renderItem = ({ item, index }) => {
 };
 
 export default function BalancePage(props) {
+  const [data ,setData] = useState([])
+
+    useEffect(() => {
+      axios
+        .get(`https://apiforvadi.herokuapp.com/api/wallet-coins/marketdata`)
+        .then((res) => {
+          //  console.log(res.data.result);
+          setData(res.data.result);
+        });
+    }, []);
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
@@ -65,8 +77,8 @@ export default function BalancePage(props) {
   if (!fontsLoad) {
     return null;
   }
-  // const image1 =
-  //   "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
+ 
+     
 
   return (
     <>
@@ -232,9 +244,9 @@ export default function BalancePage(props) {
                 borderColor: "black",
                 border: 1,
               }}
-              data={CoinData}
+              data={data}
               renderItem={renderItem}
-              // keyExtractor={(item) => `${item.id}`}
+              keyExtractor={(item) => `${item.id}`}
               horizontal
               showsVerticalScrollIndicator={false}
             />

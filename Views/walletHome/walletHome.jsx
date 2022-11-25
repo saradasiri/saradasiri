@@ -10,7 +10,7 @@ import {
   Image,
 } from "react-native";
 import { CoinData } from "../../data/coinsData";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
@@ -21,13 +21,22 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import PriceAlert from "../../src/priceAlert";
 import Listitem from "../../src/Listitem";
+import axios from "axios";
 
 const WalletHome = (email) => {
-  const [otpInput, setOtpInput] = useState("");
+  const [data, setData] = useState([]);
   const navigation = useNavigation();
-  const image1 =
-    "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
 
+
+   useEffect(() => {
+     axios
+       .get(`https://apiforvadi.herokuapp.com/api/coins/marketdata`)
+       .then((res) => {
+        //  console.log(res.data.result);
+         setData(res.data.result)
+       });
+   }, []);
+  
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
@@ -35,11 +44,6 @@ const WalletHome = (email) => {
   if (!fontsLoad) {
     return null;
   }
-
-  const handleSubmit = () => {
-    alert("ok");
-    //   navigation.navigate("setUpPin")
-  };
 
   return (
     <>
@@ -250,24 +254,27 @@ const WalletHome = (email) => {
               </Pressable>
             </View>
           </View>
-          
+          {/* <Text>{JSON.stringify(data)}</Text> */}
           <View style={{ padding: 20, paddingBottom: 100 }}>
-            {CoinData.map((item, idx) => {
-              return (<>
-                <Listitem
-                  price={item.price}
-                  change={item.change}
-                  image={item.image}
-                  title={item.title}
-                  symbol={item.symbol}
-                />
+            {data.map((item, idx) => {
+              return (
+                <>
+                  <View key={idx}>
+                    <Listitem
+                      image={item.image}
+                      change={item.price_change_percentage_24h}
+                      title={item.name}
+                      symbol={item.symbol}
+                      price={item.current_price}
+                    />
+                  </View>
                 </>
               );
             })}
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-      <Footer active={"home"}/>
+      <Footer active={"home"} />
     </>
   );
 };

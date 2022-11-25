@@ -7,41 +7,51 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { VictoryPie } from "victory";
+import PieChart from "react-native-pie-chart";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { CoinData, Recommendations } from "../../data/coinsData";
 import Footer from "../../src/footer/footer";
 import { useFonts } from "expo-font";
+import axios from "axios";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { LinearGradient } from "expo-linear-gradient";
 import Listitem from "../../src/Listitem";
-// import { LinearGradient } from "expo-linear-gradient";
-// import { HalfPieChart } from "half-pie-chart";
+import { pieChartData } from "./data";
+import { Dimensions } from "react-native";
+const screenWidth = Dimensions.get("window").width;
 
 const BalancePage1 = () => {
-  const [right, setRight] = useState([
-    {
-      value: 20,
-      displayValue: "20 $",
-      text: "Collected",
-      color: "#4cb38e",
-    },
-  ]);
-  const [left, setLeft] = useState([
-    {
-      value: 10,
-      displayValue: "10 $",
-      text: "Pending",
-      color: "#eee36b",
-    },
-  ]);
-  const image1 =
-    "https://previews.123rf.com/images/apoev/apoev1904/apoev190400012/124108711-person-gray-photo-placeholder-woman-in-costume-on-white-background.jpg?fj=1";
+  const [data, setData] = useState([]);
+     const widthAndHeight = 250;
+     const series = [123, 321, 123, 789, 537];
+     const sliceColor = ["#F44336", "#2196F3", "#FFEB3B", "#4CAF50", "#FF9800"];
+const chartConfig = {
+  backgroundGradientFrom: "#1E2923",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "#08130D",
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5,
+  useShadowColorFromDataset: false, // optional
+};
+  useEffect(() => {
+    axios
+      .get(`https://apiforvadi.herokuapp.com/api/coins/marketdata`)
+      .then((res) => {
+        //  console.log(res.data.result);
+        setData(res.data.result);
+      });
+  }, []);
+  const graphStyle = {
+    marginVertical: 8,
+  };
 
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -147,7 +157,7 @@ const BalancePage1 = () => {
                   Balance combinado
                 </Text>
                 <Image
-                  style={{ width: wp(70), height: hp(20) }}
+                  style={{ width: wp(60), height: hp(20) }}
                   source={require("../../assets/Diagram.png")}
                 />
                 <View style={{ bottom: hp(5) }}>
@@ -236,7 +246,7 @@ const BalancePage1 = () => {
                   </View>
                 </View>
 
-                <View style={{ marginTop: 10, width:120 }}>
+                <View style={{ marginTop: 10, width: 120 }}>
                   <Text
                     style={{
                       fontWeight: "700",
@@ -246,8 +256,13 @@ const BalancePage1 = () => {
                   >
                     BCKL
                   </Text>
-                  <Text style={{
-                        fontFamily: "NunitoSans_400Regular",}}>$23,359.74 mxn</Text>
+                  <Text
+                    style={{
+                      fontFamily: "NunitoSans_400Regular",
+                    }}
+                  >
+                    $23,359.74 mxn
+                  </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -281,7 +296,7 @@ const BalancePage1 = () => {
                 ></LinearGradient>
                 <View style={{ flexDirection: "row" }}>
                   <View></View>
-                  <View style={{ }}>
+                  <View style={{}}>
                     <Text
                       style={{
                         fontSize: hp(2.2),
@@ -295,10 +310,20 @@ const BalancePage1 = () => {
                 </View>
 
                 <View style={{ marginTop: 10 }}>
-                  <Text style={{ color: "#8D00FF", fontWeight: "700",fontFamily: "NunitoSans_400Regular" }}>
+                  <Text
+                    style={{
+                      color: "#8D00FF",
+                      fontWeight: "700",
+                      fontFamily: "NunitoSans_400Regular",
+                    }}
+                  >
                     MSH
                   </Text>
-                  <Text style={{fontFamily: "NunitoSans_400Regular",width:180}}>$125,698.00 mxn</Text>
+                  <Text
+                    style={{ fontFamily: "NunitoSans_400Regular", width: 180 }}
+                  >
+                    $125,698.00 mxn
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -331,16 +356,18 @@ const BalancePage1 = () => {
               >
                 Tus criptomonedas
               </Text>
-              {CoinData.map((item, idx) => {
+              {data.map((item, idx) => {
                 return (
                   <>
-                    <Listitem
-                      price={item.price}
-                      change={item.change}
-                      image={item.image}
-                      title={item.title}
-                      symbol={item.symbol}
-                    />
+                    <View key={idx}>
+                      <Listitem
+                        image={item.image}
+                        change={item.price_change_percentage_24h}
+                        title={item.name}
+                        symbol={item.symbol}
+                        price={item.current_price}
+                      />
+                    </View>
                   </>
                 );
               })}
@@ -375,7 +402,7 @@ const styles = StyleSheet.create({
     // textAlign: "center",
   },
   circleGradient: {
-    margin: 1,
+    marginTop: 10,
     backgroundColor: "#270041",
     borderRadius: 5,
     width: 150,
