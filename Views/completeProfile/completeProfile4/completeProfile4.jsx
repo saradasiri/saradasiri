@@ -68,7 +68,7 @@ const CompleteProfile4 = (profile3) => {
       };
       axios
         .post(
-          `https://apiforvadi.herokuapp.com/api/profile/file/upload/idFront/${profile3.route.params.email}`,
+          `http://134.209.96.231/api/profile/file/upload/idFront/${profile3.route.params.email}`,
           body1,
           { headers: headers }
         )
@@ -94,7 +94,7 @@ const CompleteProfile4 = (profile3) => {
       };
       axios
         .post(
-          `https://apiforvadi.herokuapp.com/api/profile/file/upload/idBackSide/${profile3.route.params.email}`,
+          `http://134.209.96.231/api/profile/file/upload/idBackSide/${profile3.route.params.email}`,
           body2,
           { headers: headers }
         )
@@ -121,7 +121,7 @@ const CompleteProfile4 = (profile3) => {
 
       axios
         .post(
-          `https://apiforvadi.herokuapp.com/api/profile/file/upload/idAddress/${profile3.route.params.email}`,
+          `http://134.209.96.231/api/profile/file/upload/idAddress/${profile3.route.params.email}`,
           body3,
           { headers: headers }
         )

@@ -22,6 +22,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import PriceAlert from "../../src/priceAlert";
 import Listitem from "../../src/Listitem";
 import axios from "axios";
+import { API_PATHS } from "../../src/constants/apiPaths";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmail, addPassword, addAccessToken } from "../../src/redux/actions";
 
@@ -38,10 +39,9 @@ const WalletHome = () => {
   useEffect(() => {
     axios
       .get(
-        `https://vadi-wallet.herokuapp.com/api/User/check-existance-of-wallet/${email}`
+        `${API_PATHS.EXISTENCE_OF_WALLET}${email}`
       )
       .then((res) => {
-        console.log(res.data);
         if (res.data == true) {
           setToggle(true);
         } else setToggle(false);
@@ -50,9 +50,8 @@ const WalletHome = () => {
 
   useEffect(() => {
     axios
-      .get(`https://apiforvadi.herokuapp.com/api/coins/marketdata`)
+      .get(API_PATHS.MARKET_DATA)
       .then((res) => {
-        //  console.log(res.data.result);
         setData(res.data.result);
       });
   }, []);
@@ -63,12 +62,12 @@ const WalletHome = () => {
       password: password,
     };
     axios
-      .post(`https://vadi-wallet.herokuapp.com/api/User/auth/signUp`, obj)
+      .post(API_PATHS.WALLET_SIGNUP, obj)
       .then((res) => {
         if (res.data.access_token) {
           dispatch(addAccessToken(res.data.access_token));
           axios
-            .get(`https://vadi-wallet.herokuapp.com/api/vdc/create/wallet`, {
+            .get(API_PATHS.CREATE_WALLET, {
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${res.data.access_token}`,
@@ -89,7 +88,7 @@ const WalletHome = () => {
       password: password,
     };
     axios
-      .post(`https://vadi-wallet.herokuapp.com/api/User/auth/signIn`, obj)
+      .post(API_PATHS.WALLET_SIGNIN, obj)
       .then((res) => {
         if (res.data.access_token) {
           dispatch(addAccessToken(res.data.access_token));

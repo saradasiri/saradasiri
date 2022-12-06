@@ -25,6 +25,7 @@ import { pieChartData } from "./data";
 import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 import { useDispatch, useSelector } from "react-redux";
+import { API_PATHS } from "../../src/constants/apiPaths";
 const BalancePage1 = () => {
   const [data, setData] = useState([]);
   const { email, password, access_token } = useSelector(
@@ -47,14 +48,13 @@ const BalancePage1 = () => {
 
   useEffect(() => {
     axios
-      .get(`https://vadi-wallet.herokuapp.com/api/vdc/get/balances`, {
+      .get(API_PATHS.GET_BALANCES, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${access_token}`,
         },
       })
       .then((res) => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch((err) => console.log(err));
@@ -130,7 +130,11 @@ const BalancePage1 = () => {
                 fontFamily: "NunitoSans_400Regular",
               }}
             >
-              $ {(data.map(li => li.balance.balance).reduce((sum, val) => sum + val, 0) )} MXN
+              ${" "}
+              {data
+                .map((li) => li.balance.balance)
+                .reduce((sum, val) => sum + val, 0)}{" "}
+              MXN
             </Text>
           </View>
           <View style={{ top: hp(-13), height: "100%" }}>
@@ -372,7 +376,7 @@ const BalancePage1 = () => {
                     <View key={idx}>
                       <Listitem
                         image={item.image}
-                        change={''}
+                        change={""}
                         title={item.name}
                         symbol={item.symbol}
                         price={item.balance.balance}

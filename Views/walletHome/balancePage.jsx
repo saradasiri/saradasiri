@@ -16,6 +16,7 @@ import PriceAlert from "../../src/priceAlert";
 import BlockAlert from "../../src/blockAlert";
 import { CoinData, Recommendations } from "../../data/coinsData";
 import axios from "axios";
+import { API_PATHS } from "../../src/constants/apiPaths";
 import Footer from "../../src/footer/footer";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
@@ -64,9 +65,8 @@ export default function BalancePage(props) {
 
     useEffect(() => {
       axios
-        .get(`https://apiforvadi.herokuapp.com/api/wallet-coins/marketdata`)
+        .get(API_PATHS.MARKET_DATA)
         .then((res) => {
-          //  console.log(res.data.result);
           setData(res.data.result);
         });
     }, []);
