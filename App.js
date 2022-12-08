@@ -24,9 +24,7 @@ import { Text } from "react-native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
-import {Store} from "./src/redux/store"
-
-
+import { Store } from "./src/redux/store";
 
 function BellMenu() {
   let [fontsLoad, error] = useFonts({
@@ -117,7 +115,7 @@ export default function App() {
             name="setUpPin"
             options={{
               headerShown: true,
-              headerStyle: { backgroundColor: "#F2F6FF" },
+              headerStyle: { backgroundColor: "white" },
               ...TransitionPresets.SlideFromRightIOS,
               headerRight: (props) => <BellMenu {...props} />,
             }}
@@ -128,20 +126,56 @@ export default function App() {
             options={{ ...TransitionPresets.SlideFromRightIOS }}
             component={WalletHome}
           />
-          <Stack.Screen name="accountLevel" component={AccountLevel} />
           <Stack.Screen
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+            name="accountLevel"
+            component={AccountLevel}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
             name="completeProfile1"
             component={CompleteProfileProcess1}
           />
           <Stack.Screen
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
             name="completeProfile2"
             component={CompleteProfileProcess2}
           />
           <Stack.Screen
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
             name="completeProfile3"
             component={CompleteProfileProcess3}
           />
-          <Stack.Screen name="completeProfile4" component={CompleteProfile4} />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+            name="completeProfile4"
+            component={CompleteProfile4}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -14,5 +14,8 @@ export const API_PATHS = {
   WALLET_SIGNUP : `http://134.209.96.231/wallet/User/auth/signUp`,
   WALLET_SIGNIN : `http://134.209.96.231/wallet/User/auth/signIn`,
   CREATE_WALLET :`http://134.209.96.231/wallet/vdc/create/wallet`,
-  GET_BALANCES :`http://134.209.96.231/wallet/vdc/get/balances`
+  GET_BALANCES :`http://134.209.96.231/wallet/vdc/get/balances`,
+  FRONT_DOC: `http://134.209.96.231/api/profile/file/upload/idFront/`,
+  BACK_DOC:`http://134.209.96.231/api/profile/file/upload/idBackSide/`,
+  ADDRESS_DOC:`http://134.209.96.231/api/profile/file/upload/idAddress/`
 };

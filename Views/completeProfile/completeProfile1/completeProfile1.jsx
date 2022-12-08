@@ -19,20 +19,33 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import CountryPicker from "react-native-country-picker-modal";
-import DateTimePicker from "@react-native-community/datetimepicker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
+import Tabs1234 from "../../../src/tabs1234";
+import globalStyles from "../../../globalStyles";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addFund,
+  addFirstName,
+  addLastName,
+  addName,
+  addBirth,
+  addNationality,
+  addCountryBirth,
+  addCurp,
+  addRfc,
+  addTax,
+  addPhone,
+  addOccupation,
+  addCountryCode,
+} from "../../../src/redux/actions";
 
 const CompleteProfile1 = (formik) => {
+  const dispatch = useDispatch();
+  const { range, lower, upper } = useSelector((state) => state.userReducer);
   const [datePicker, setDatePicker] = useState(false);
-  const [date, setDate] = useState(new Date());
-  function showDatePicker() {
-    setDatePicker(true);
-  }
-  function onDateSelected(event, value) {
-    setDate(value);
-    setDatePicker(false);
-    calAge(value);
-  }
-
+  const [date, setDate] = useState("");
   const calAge = (value) => {
     const birthDate = new Date(value);
     const difference = Date.now() - birthDate.getTime();
@@ -79,7 +92,7 @@ const CompleteProfile1 = (formik) => {
     setAge("");
     setCountryBirth("MX");
     setNationality("MX");
-  }, [values.range]);
+  }, [range]);
 
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -90,114 +103,52 @@ const CompleteProfile1 = (formik) => {
   }
 
   const handleFormSubmit = (values) => {
-    const profile1 = {
-      email: values.email,
-      range: values.range,
-      fund: values.fund,
-      lower: values.lower,
-      upper: values.upper,
-      firstName: values.firstName.trim(),
-      secondName: values.secondName,
-      name: values.name,
-      birth: date.toDateString(),
-      dateISO: date.toISOString(),
-      dateISO: "",
-      nationality: nationality,
-      countryBirth: values.countryBirth,
-      curp: values.curp ? values.curp : "",
-      rfc: values.rfc ? values.rfc : "",
-      tax: values.tax ? values.tax : "",
-      phone: values.phone,
-      occupation: values.occupation ? values.occupation : "",
-      age: age,
-      countryCode: countryCode,
-      isTokenSubscribed: values.isTokenSubscribed,
-    };
+    dispatch(addFund(values.fund));
+    dispatch(addFirstName(values.firstName));
+    dispatch(addLastName(values.secondName));
+    dispatch(addName(values.name));
+    dispatch(addBirth(date));
+    dispatch(addNationality(nationality));
+    dispatch(addCountryBirth(values.countryBirth));
+    dispatch(addCurp(values.curp));
+    dispatch(addRfc(values.rfc));
+    dispatch(addTax(values.tax));
+    dispatch(addPhone(values.phone));
+    dispatch(addOccupation(values.occupation));
+    dispatch(addCountryCode(countryCode));
 
-    if (values.fund < values.lower || values.fund > values.upper) {
+    if (values.fund < lower || values.fund > upper) {
       ToastAndroid.show(
-        `Your Investment Range is : ${values.range}`,
+        `Your Investment Range is : ${range}`,
         ToastAndroid.SHORT
       );
     }
     if (values.fund < 100) {
       ToastAndroid.show("Minimum Amount is 100", ToastAndroid.SHORT);
     }
-    if (
-      values.fund >= values.lower &&
-      values.fund >= 100 &&
-      values.fund <= values.upper
-    ) {
-      navigation.navigate("completeProfile2", { ...profile1 });
+    if (values.fund >= lower && values.fund >= 100 && values.fund <= upper) {
+      navigation.navigate("completeProfile2");
     }
   };
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <StatusBar style="auto" />
-
-          <Image
-            style={styles.Logo}
-            source={require("../../../assets/vlogo.png")}
-          />
-
-          {values.range === "$0 - $9,999" ? (
-            <View style={styles.tab}>
-              <View
-                style={[
-                  styles.tab1,
-                  {
-                    marginLeft: 0,
-                    backgroundColor: "#00BFFF",
-                    borderRadius: 30,
-                  },
-                ]}
-              >
-                <Text>1</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>2</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>3</Text>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.tab}>
-              <View
-                style={[
-                  styles.tab1,
-                  { marginLeft: 0, backgroundColor: "#00BFFF" },
-                ]}
-              >
-                <Text>1</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>2</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>3</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>4</Text>
-              </View>
-            </View>
-          )}
-
-          {values.range === "$0 - $9,999" ? (
-            <View style={[styles.dottedline, { width: 120, left: 90 }]}></View>
-          ) : (
-            <View style={styles.dottedline}></View>
-          )}
+          <Tabs1234 range={range} value="1" />
 
           <View style={{ paddingTop: 25 }}>
-            <Text style={[styles.text, { textAlign: "center", marginLeft: 0 }]}>
+            <Text
+              style={[
+                globalStyles.text,
+                {
+                  textAlign: "center",
+                  marginLeft: 0,
+                  color: errors.fund && touched.fund ? "red" : "#737373",
+                  fontSize: 17,
+                },
+              ]}
+            >
               Indicate the amount you are going to fund
             </Text>
             <View>
@@ -212,24 +163,37 @@ const CompleteProfile1 = (formik) => {
                 value={values.fund}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
-                    borderColor: errors.fund && touched.fund ? "red" : "black",
+                    borderColor:
+                      errors.fund && touched.fund
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.fund && touched.fund && (
-              <Text style={styles.error}>{errors.fund}</Text>
+              <Text style={globalStyles.error}>{errors.fund}</Text>
             )}
           </View>
 
           <View>
-            <Text style={styles.Label}>Personal Data</Text>
+          <Text style={[globalStyles.Label, { textAlign: "center" }]}>Personal Data</Text>
           </View>
 
-          <View style={{ paddingTop: 20 }}>
-            <Text style={styles.text}>First Name</Text>
+          <View style={{ paddingTop: 25 }}>
+            <Text
+              style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.firstName && touched.firstName ? "red" : "#737373",
+                },
+              ]}
+            >
+              First Name
+            </Text>
             <View>
               <TextInput
                 name="firstName"
@@ -241,21 +205,33 @@ const CompleteProfile1 = (formik) => {
                 value={values.firstName}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.firstName && touched.firstName ? "red" : "black",
+                      errors.firstName && touched.firstName
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.firstName && touched.firstName && (
-              <Text style={styles.error}>{errors.firstName}</Text>
+              <Text style={globalStyles.error}>{errors.firstName}</Text>
             )}
           </View>
 
           <View style={{ paddingTop: 25 }}>
-            <Text style={styles.text}>Second Name</Text>
+            <Text
+              style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.secondName && touched.secondName ? "red" : "#737373",
+                },
+              ]}
+            >
+              Second Name
+            </Text>
             <View>
               <TextInput
                 name="secondName"
@@ -267,21 +243,30 @@ const CompleteProfile1 = (formik) => {
                 value={values.secondName}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.secondName && touched.secondName ? "red" : "black",
+                      errors.secondName && touched.secondName
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.secondName && touched.secondName && (
-              <Text style={styles.error}>{errors.secondName}</Text>
+              <Text style={globalStyles.error}>{errors.secondName}</Text>
             )}
           </View>
 
           <View style={{ paddingTop: 25 }}>
-            <Text style={styles.text}>Name(s)</Text>
+            <Text
+              style={[
+                globalStyles.text,
+                { color: errors.name && touched.name ? "red" : "#737373" },
+              ]}
+            >
+              Name(s)
+            </Text>
             <View>
               <TextInput
                 name="name"
@@ -291,23 +276,33 @@ const CompleteProfile1 = (formik) => {
                 value={values.name}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
-                    borderColor: errors.name && touched.name ? "red" : "black",
+                    borderColor:
+                      errors.name && touched.name
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.name && touched.name && (
-              <Text style={styles.error}>{errors.name}</Text>
+              <Text style={globalStyles.error}>{errors.name}</Text>
             )}
           </View>
 
           <View style={{ paddingTop: 25 }}>
-            <Text style={styles.text}>Date of Birth</Text>
+            <Text style={[globalStyles.text, { color: "#737373" }]}>
+              Date of Birth
+            </Text>
             <TouchableOpacity
-              onPress={showDatePicker}
-              style={styles.inputStyle}
+              onPress={() => setDatePicker(true)}
+              style={[
+                globalStyles.inputStyle,
+                {
+                  borderColor: "rgba(18, 3, 58, 0.1)",
+                },
+              ]}
               activeOpacity={0.8}
             >
               <Text
@@ -319,67 +314,119 @@ const CompleteProfile1 = (formik) => {
                 {age < 18 ? "DD / MM / YYYY" : date.toDateString()}
               </Text>
             </TouchableOpacity>
-            {datePicker && (
-              <DateTimePicker
-                value={date}
-                mode={"date"}
-                display={Platform.OS === "ios" ? "spinner" : "default"}
-                is24Hour={true}
-                onChange={onDateSelected}
-              />
-            )}
+            <DateTimePickerModal
+              isVisible={datePicker}
+              mode="date"
+              onConfirm={(value) => {
+                setDate(value);
+                setDatePicker(false);
+                calAge(value);
+              }}
+              onCancel={() => {
+                setDatePicker(false);
+              }}
+            />
           </View>
 
           <View style={{ paddingTop: 25 }}>
-            <Text style={styles.text}>Country of Birth</Text>
-            <View style={styles.inputStyle}>
-              <CountryPicker
-                withFilter
-                countryCode={countryBirth}
-                withFlag
-                withCountryNameButton
-                withAlphaFilter={false}
-                withCountryButton={false}
-                withCallingCode
-                onSelect={(country) => {
-                  const { cca2 } = country;
-                  setCountryBirth(cca2);
-                }}
-                style={{ fontSize: 24, width: 322, paddingBottom: 50 }}
-              />
+            <Text
+              style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.countryBirth && touched.countryBirth
+                      ? "red"
+                      : "#737373",
+                },
+              ]}
+            >
+              Country of Birth
+            </Text>
+            <View
+              style={[
+                globalStyles.inputStyle,
+                {
+                  borderColor: "rgba(18, 3, 58, 0.1)",
+                },
+              ]}
+            >
+              <View style={{ paddingTop: 10 }}>
+                <CountryPicker
+                  withFilter
+                  countryCode={countryBirth}
+                  withFlag
+                  withCountryNameButton
+                  withAlphaFilter={false}
+                  withCountryButton={false}
+                  withCallingCode
+                  onSelect={(country) => {
+                    const { cca2 } = country;
+                    setCountryBirth(cca2);
+                  }}
+                  style={{ fontSize: 24, width: 322, paddingBottom: 50 }}
+                />
+              </View>
             </View>
             {errors.countryBirth && touched.countryBirth && (
-              <Text style={styles.error}>{errors.countryBirth}</Text>
+              <Text style={globalStyles.error}>{errors.countryBirth}</Text>
             )}
           </View>
 
           <View style={{ paddingTop: 25 }}>
-            <Text style={styles.text}>Nationality</Text>
-            <View style={styles.inputStyle}>
-              <CountryPicker
-                withFilter
-                countryCode={nationality}
-                withFlag
-                withCountryNameButton
-                withAlphaFilter={false}
-                withCountryButton={false}
-                withCallingCode
-                onSelect={(country) => {
-                  const { cca2, callingCode } = country;
-                  setNationality(cca2);
-                  setCountryCode(callingCode);
-                }}
-                style={{ fontSize: 24, width: 322 }}
-              />
+            <Text
+              style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.nationality && touched.nationality
+                      ? "red"
+                      : "#737373",
+                },
+              ]}
+            >
+              Nationality
+            </Text>
+            <View
+              style={[
+                globalStyles.inputStyle,
+                {
+                  borderColor: "rgba(18, 3, 58, 0.1)",
+                },
+              ]}
+            >
+              <View style={{ paddingTop: 10 }}>
+                <CountryPicker
+                  withFilter
+                  countryCode={nationality}
+                  withFlag
+                  withCountryNameButton
+                  withAlphaFilter={false}
+                  withCountryButton={false}
+                  withCallingCode
+                  onSelect={(country) => {
+                    const { cca2, callingCode } = country;
+                    setNationality(cca2);
+                    setCountryCode(callingCode);
+                  }}
+                  style={{ fontSize: 24, width: 322 }}
+                />
+              </View>
             </View>
             {errors.nationality && touched.nationality && (
-              <Text style={styles.error}>{errors.nationality}</Text>
+              <Text style={globalStyles.error}>{errors.nationality}</Text>
             )}
           </View>
 
           {countryBirth === "MX" && nationality === "MX" && (
             <View style={{ paddingTop: 25 }}>
-              <Text style={styles.text}>CURP</Text>
+              <Text
+                style={[
+                  globalStyles.text,
+                  { color: errors.curp && touched.curp ? "red" : "#737373" },
+                ]}
+              >
+                CURP
+              </Text>
               <View>
                 <TextInput
                   name="curp"
@@ -392,23 +439,32 @@ const CompleteProfile1 = (formik) => {
                   value={values.curp}
                   autoCapitalize="none"
                   style={[
-                    styles.inputStyle,
+                    globalStyles.inputStyle,
                     {
                       borderColor:
-                        errors.curp && touched.curp ? "red" : "black",
+                        errors.curp && touched.curp
+                          ? "red"
+                          : "rgba(18, 3, 58, 0.1)",
                     },
                   ]}
                 />
               </View>
               {errors.curp && touched.curp && (
-                <Text style={styles.error}>{errors.curp}</Text>
+                <Text style={globalStyles.error}>{errors.curp}</Text>
               )}
             </View>
           )}
 
           {countryBirth === "MX" && nationality === "MX" ? (
             <View style={{ paddingTop: 25 }}>
-              <Text style={styles.text}>RFC</Text>
+              <Text
+                style={[
+                  globalStyles.text,
+                  { color: errors.rfc && touched.rfc ? "red" : "#737373" },
+                ]}
+              >
+                RFC
+              </Text>
               <View>
                 <TextInput
                   name="rfc"
@@ -421,22 +477,32 @@ const CompleteProfile1 = (formik) => {
                   value={values.rfc}
                   autoCapitalize="none"
                   style={[
-                    styles.inputStyle,
+                    globalStyles.inputStyle,
                     {
-                      borderColor: errors.rfc && touched.rfc ? "red" : "black",
+                      borderColor:
+                        errors.rfc && touched.rfc
+                          ? "red"
+                          : "rgba(18, 3, 58, 0.1)",
                     },
                   ]}
                 />
               </View>
               {errors.rfc && touched.rfc && (
-                <Text style={styles.error}>{errors.rfc}</Text>
+                <Text style={globalStyles.error}>{errors.rfc}</Text>
               )}
             </View>
           ) : null}
 
           {countryBirth !== "MX" || nationality !== "MX" ? (
             <View style={{ paddingTop: 25 }}>
-              <Text style={styles.text}>TAX ID</Text>
+              <Text
+                style={[
+                  globalStyles.text,
+                  { color: errors.tax && touched.tax ? "red" : "#737373" },
+                ]}
+              >
+                TAX ID
+              </Text>
               <View>
                 <TextInput
                   name="tax"
@@ -449,21 +515,31 @@ const CompleteProfile1 = (formik) => {
                   value={values.tax}
                   autoCapitalize="none"
                   style={[
-                    styles.inputStyle,
+                    globalStyles.inputStyle,
                     {
-                      borderColor: errors.tax && touched.tax ? "red" : "black",
+                      borderColor:
+                        errors.tax && touched.tax
+                          ? "red"
+                          : "rgba(18, 3, 58, 0.1)",
                     },
                   ]}
                 />
               </View>
               {errors.tax && touched.tax && (
-                <Text style={styles.error}>{errors.tax}</Text>
+                <Text style={globalStyles.error}>{errors.tax}</Text>
               )}
             </View>
           ) : null}
 
           <View style={{ paddingTop: 25 }}>
-            <Text style={styles.text}>Phone Number </Text>
+            <Text
+              style={[
+                globalStyles.text,
+                { color: errors.phone && touched.phone ? "red" : "#737373" },
+              ]}
+            >
+              Phone Number{" "}
+            </Text>
             <View>
               <TextInput
                 name="phone"
@@ -477,28 +553,44 @@ const CompleteProfile1 = (formik) => {
                 keyboardType="numeric"
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.phone && touched.phone ? "red" : "black",
+                      errors.phone && touched.phone
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.phone && touched.phone && (
-              <Text style={styles.error}>{errors.phone}</Text>
+              <Text style={globalStyles.error}>{errors.phone}</Text>
             )}
           </View>
 
-          {values.range === "$60,000 - $1,20,000" ? (
+          {range === "$60,000 - $1,20,000" ? (
             <View style={{ marginTop: 25 }}>
-              <Text style={styles.text}>Occupation</Text>
+              <Text
+                style={[
+                  globalStyles.text,
+                  {
+                    color:
+                      errors.occupation && touched.occupation
+                        ? "red"
+                        : "#737373",
+                  },
+                ]}
+              >
+                Occupation
+              </Text>
               <Pressable
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.occupation && touched.occupation ? "red" : "black",
+                      errors.occupation && touched.occupation
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
                 onPress={open}
@@ -542,23 +634,30 @@ const CompleteProfile1 = (formik) => {
                 </Picker>
               </Pressable>
               {errors.occupation && touched.occupation && (
-                <Text style={styles.error}>{errors.occupation}</Text>
+                <Text style={globalStyles.error}>{errors.occupation}</Text>
               )}
             </View>
           ) : null}
 
           <TouchableOpacity
-            // disabled={!(formik.isValid && formik.dirty && age)}
+            disabled={!(formik.isValid && formik.dirty && age)}
             onPress={() => {
               handleFormSubmit(values);
             }}
             style={[
-              styles.button,
-              // { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+              globalStyles.button,
+              {
+                marginTop: 50,
+              },
+              { opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
             ]}
           >
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={globalStyles.buttonText}>Next</Text>
           </TouchableOpacity>
+          <Image
+            style={[globalStyles.Logo, { marginBottom: 50 }]}
+            source={require("../../../assets/vlogo.png")}
+          />
         </View>
       </ScrollView>
     </KeyboardAwareScrollView>
@@ -566,90 +665,6 @@ const CompleteProfile1 = (formik) => {
 };
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#F2F6FF",
-    justifyContent: "center",
-    textAlign: "center",
-    alignContent: "center",
-    alignItems: "center",
-  },
-  tab: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  tab1: {
-    width: 35,
-    height: 35,
-    marginLeft: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dottedline: {
-    borderColor: "#33B7B0",
-    borderStyle: "dotted",
-    borderWidth: 0.5,
-    width: 210,
-    zIndex: -1,
-    left: 49,
-    top: -17,
-  },
-  Logo: {
-    height: 50,
-    width: 180,
-    marginTop: 20,
-    alignSelf: "center",
-    marginBottom: 25,
-  },
-  Label: {
-    marginTop: 20,
-    fontWeight: "400",
-    fontSize: 24,
-    lineHeight: 27,
-    textAlign: "center",
-  },
-  text: {
-    fontSize: 16,
-    marginBottom: 5,
-    fontFamily: "NunitoSans_400Regular",
-    color: "#737373",
-    marginLeft: 15,
-  },
-  inputStyle: {
-    height: 40,
-    width: 300,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    paddingLeft: 30,
-    alignSelf: "center",
-    justifyContent: "center",
-  },
-  button: {
-    marginTop: 40,
-    height: 50,
-    width: 322,
-    borderRadius: 5,
-    backgroundColor: "#2D0052",
-    marginBottom: 50,
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "#ffff",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 20,
-    paddingTop: 10,
-    textAlign: "center",
-  },
-  error: {
-    color: "red",
-    fontFamily: "NunitoSans_400Regular",
-    textAlign: "left",
-    marginLeft: 18,
-  },
   boxContainer: {
     height: 50,
     width: 322,
@@ -667,6 +682,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontFamily: "NunitoSans_400Regular",
     alignSelf: "flex-start",
+    top: 12,
   },
 });
 export default CompleteProfile1;

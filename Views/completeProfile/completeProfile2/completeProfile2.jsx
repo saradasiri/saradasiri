@@ -10,25 +10,30 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-// import Checkbox from "expo-checkbox";
-
-// import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-// import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
+import Tabs1234 from "../../../src/tabs1234";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addStreet,
+  addExterior,
+  addInside,
+  addPostalCode,
+  addColony,
+  addMunicipality,
+  addState,
+} from "../../../src/redux/actions";
+import globalStyles from "../../../globalStyles";
 
 const CompleteProfile2 = (formik) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { range } = useSelector((state) => state.userReducer);
 
   const { values, errors, touched } = formik;
-  const [geoLocation, setGeoLocation] = useState(false);
-  const [terms, setTerms] = useState(false);
-  const [isNatural, setIsNatural] = useState(false);
-  const [isGeo, setIsGeo] = useState(false);
-  const [isAccepted, setIsAccepted] = useState(false);
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
@@ -38,117 +43,45 @@ const CompleteProfile2 = (formik) => {
   }
 
   const handleFormSubmit = (values) => {
-    if (values.range === "$0 - $9,999") {
-      const profile3 = {
-        email: values.email,
-        range: values.range,
-        fund: values.fund,
-        lower: values.lower,
-        upper: values.upper,
-        firstName: values.firstName,
-        secondName: values.secondName,
-        name: values.name,
-        birth: values.birth,
-        dateISO: values.dateISO,
-        nationality: values.nationality,
-        countryBirth: values.countryBirth,
-        curp: values.curp ? values.curp : "",
-        rfc: values.rfc ? values.rfc : "",
-        tax: values.tax ? values.tax : "",
-        phone: values.phone,
-        age: values.age,
-        occupation: values.occupation ? values.occupation : "",
-        street: values.street,
-        exterior: values.exterior,
-        inside: values.inside,
-        postalCode: values.postalCode,
-        colony: values.colony,
-        municipality: values.municipality,
-        state: values.state,
-        countryCode: values.countryCode,
+    dispatch(addStreet(values.street));
+    dispatch(addExterior(values.exterior));
+    dispatch(addInside(values.inside));
+    dispatch(addPostalCode(values.postalCode));
+    dispatch(addColony(values.colony));
+    dispatch(addMunicipality(values.municipality));
+    dispatch(addState(values.state));
+    if (range === "$0 - $9,999") {
+      const profile = {
         frontDoc: "",
         behindDoc: "",
+        documentNo: "",
         addressDoc: "",
-        isTokenSubscribed: values.isTokenSubscribed,
       };
-      navigation.navigate("completeProfile4", { ...profile3 });
+      navigation.navigate("completeProfile4", profile);
     } else {
-      navigation.navigate("completeProfile3", { ...values });
+      navigation.navigate("completeProfile3");
     }
-    // Axios.post("http://localhost:9000/signin", {name: values.name, email:values.email}).then(res => {
-    //      if(res.data === "Successfully Registered. !!!")
-    //      { alert(res.data)
-    //        }
-    //      else{alert(res.data)}
-    //    });
-    //      values.preventDefault()
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <StatusBar style="auto" />
-          <Image
-            style={styles.Logo}
-            source={require("../../../assets/vlogo.png")}
-          />
-          {values.range === "$0 - $9,999" ? (
-            <View style={styles.tab}>
-              <View
-                style={[
-                  styles.tab1,
-                  { marginLeft: 0, backgroundColor: "#D9D9D9" },
-                ]}
-              >
-              <Text>1</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
-                <Text>2</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>3</Text>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.tab}>
-              <View
-                style={[
-                  styles.tab1,
-                  { marginLeft: 0, backgroundColor: "#D9D9D9" },
-                ]}
-              >
-                <Text>1</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
-                <Text>2</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>3</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>4</Text>
-              </View>
-            </View>
-          )}
-
-          {values.range === "$0 - $9,999" ? (
-            <View style={[styles.dottedline, { width: 120, left: 90 }]}></View>
-          ) : (
-            <View style={styles.dottedline}></View>
-          )}
+          <Tabs1234 range={range} value="2" />
 
           <View>
-            <Text style={styles.Label}>Home Address</Text>
+          <Text style={[globalStyles.Label, { textAlign: "center" }]}>Home Address</Text>
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text style={styles.text}>Street</Text>
+            <Text style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.street && touched.street ? "red" : "#737373",
+                },
+              ]}>Street</Text>
             <View>
               <TextInput
                 name="street"
@@ -157,22 +90,36 @@ const CompleteProfile2 = (formik) => {
                 value={values.street}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.street && touched.street ? "red" : "black",
+                      errors.street && touched.street
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.street && touched.street && (
-              <Text style={styles.error}>{errors.street}</Text>
+              <Text style={globalStyles.error}>{errors.street}</Text>
             )}
           </View>
 
-          <View style={{ paddingTop: 20, flexDirection: "row" }}>
+          <View
+            style={{
+              paddingTop: 20,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
             <View style={{ flexDirection: "column" }}>
-              <Text style={styles.text}>No. Exterior</Text>
+              <Text style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.exterior && touched.exterior ? "red" : "#737373",
+                },
+              ]}>No. Exterior</Text>
               <TextInput
                 name="exterior"
                 keyboardType="numeric"
@@ -183,23 +130,29 @@ const CompleteProfile2 = (formik) => {
                 value={values.exterior}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     width: 135,
-                    marginLeft: 10,
-                    marginRight: 15,
                     borderColor:
-                      errors.exterior && touched.exterior ? "red" : "black",
+                      errors.exterior && touched.exterior
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
               {errors.exterior && touched.exterior && (
-                <Text style={styles.error}>{errors.exterior}</Text>
+                <Text style={globalStyles.error}>{errors.exterior}</Text>
               )}
             </View>
 
             <View style={{ flexDirection: "column" }}>
-              <Text style={styles.text}>No. Interior</Text>
+              <Text style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.inside && touched.inside ? "red" : "#737373",
+                },
+              ]}>No. Interior</Text>
               <TextInput
                 name="inside"
                 keyboardType="numeric"
@@ -210,22 +163,30 @@ const CompleteProfile2 = (formik) => {
                 value={values.inside}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     width: 150,
                     borderColor:
-                      errors.inside && touched.inside ? "red" : "black",
+                      errors.inside && touched.inside
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
               {errors.inside && touched.inside && (
-                <Text style={styles.error}>{errors.inside}</Text>
+                <Text style={globalStyles.error}>{errors.inside}</Text>
               )}
             </View>
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text style={styles.text}>Postal Code</Text>
+            <Text style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.postalCode && touched.postalCode ? "red" : "#737373",
+                },
+              ]}>Postal Code</Text>
             <View>
               <TextInput
                 name="postalCode"
@@ -237,21 +198,29 @@ const CompleteProfile2 = (formik) => {
                 value={values.postalCode}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.postalCode && touched.postalCode ? "red" : "black",
+                      errors.postalCode && touched.postalCode
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.postalCode && touched.postalCode && (
-              <Text style={styles.error}>{errors.postalCode}</Text>
+              <Text style={globalStyles.error}>{errors.postalCode}</Text>
             )}
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text style={styles.text}>Colony</Text>
+            <Text style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.colony && touched.colony ? "red" : "#737373",
+                },
+              ]}>Colony</Text>
             <View>
               <TextInput
                 name="colony"
@@ -260,21 +229,29 @@ const CompleteProfile2 = (formik) => {
                 value={values.colony}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.colony && touched.colony ? "red" : "black",
+                      errors.colony && touched.colony
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.colony && touched.colony && (
-              <Text style={styles.error}>{errors.colony}</Text>
+              <Text style={globalStyles.error}>{errors.colony}</Text>
             )}
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text style={styles.text}>Municipality</Text>
+            <Text style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.municipality && touched.municipality ? "red" : "#737373",
+                },
+              ]}>Municipality</Text>
             <View>
               <TextInput
                 name="municipality"
@@ -283,23 +260,29 @@ const CompleteProfile2 = (formik) => {
                 value={values.municipality}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
                       errors.municipality && touched.municipality
                         ? "red"
-                        : "black",
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.municipality && touched.municipality && (
-              <Text style={styles.error}>{errors.municipality}</Text>
+              <Text style={globalStyles.error}>{errors.municipality}</Text>
             )}
           </View>
 
           <View style={{ paddingTop: 20 }}>
-            <Text style={styles.text}>State</Text>
+            <Text style={[
+                globalStyles.text,
+                {
+                  color:
+                    errors.state && touched.state ? "red" : "#737373",
+                },
+              ]}>State</Text>
             <View>
               <TextInput
                 name="state"
@@ -308,34 +291,43 @@ const CompleteProfile2 = (formik) => {
                 value={values.state}
                 autoCapitalize="none"
                 style={[
-                  styles.inputStyle,
+                  globalStyles.inputStyle,
                   {
                     borderColor:
-                      errors.state && touched.state ? "red" : "black",
+                      errors.state && touched.state
+                        ? "red"
+                        : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
               />
             </View>
             {errors.state && touched.state && (
-              <Text style={styles.error}>{errors.state}</Text>
+              <Text style={globalStyles.error}>{errors.state}</Text>
             )}
           </View>
 
           <View style={{ marginBottom: 40 }}>
             <TouchableOpacity
-              // disabled={!(formik.isValid && formik.dirty)}
+              disabled={!(formik.isValid && formik.dirty)}
               onPress={() => {
                 handleFormSubmit(values);
               }}
               style={[
-                styles.button,
-                // {
-                //   opacity: formik.isValid && formik.dirty ? 1 : 0.5,
-                // },
+                globalStyles.button,
+                {
+                  marginTop: 50,
+                },
+                {
+                  opacity: formik.isValid && formik.dirty ? 1 : 0.5,
+                },
               ]}
             >
-              <Text style={styles.buttonText}>Next</Text>
+              <Text style={globalStyles.buttonText}>Next</Text>
             </TouchableOpacity>
+            <Image
+              style={[globalStyles.Logo, { marginBottom: 50 }]}
+              source={require("../../../assets/vlogo.png")}
+            />
           </View>
         </View>
       </ScrollView>
@@ -343,90 +335,5 @@ const CompleteProfile2 = (formik) => {
   );
 };
 
-const styles = StyleSheet.create({
-  MainContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#F2F6FF",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  Label: {
-    marginTop: 20,
-    fontWeight: "400",
-    fontSize: 24,
-    lineHeight: 27,
-    textAlign: "center",
-  },
-  Logo: {
-    height: 50,
-    width: 180,
-    marginTop: 20,
-    alignSelf: "center",
-    marginBottom: 25,
-  },
-  tab: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  tab1: {
-    width: 35,
-    height: 35,
-    marginLeft: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dottedline: {
-    borderColor: "#33B7B0",
-    borderStyle: "dotted",
-    borderWidth: 0.5,
-    width: 210,
-    zIndex: -1,
-    left: 49,
-    top: -17,
-  },
-  text: {
-    fontSize: 16,
-    marginBottom: 5,
-    fontFamily: "NunitoSans_400Regular",
-    color: "#737373",
-    marginLeft: 15,
-  },
-  inputStyle: {
-    height: 40,
-    width: 300,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    paddingLeft: 30,
-    alignSelf: "center",
-    justifyContent: "center",
-  },
-  button: {
-    marginTop: 40,
-    height: 50,
-    width: 322,
-    borderRadius: 5,
-    backgroundColor: "#2D0052",
-    marginBottom: 50,
-    alignSelf: "center",
-  },
-
-  buttonText: {
-    color: "#ffff",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 20,
-    paddingTop: 10,
-    textAlign: "center",
-  },
-  error: {
-    color: "red",
-    fontFamily: "NunitoSans_400Regular",
-    textAlign: "left",
-    marginLeft: 12,
-  },
-});
+const styles = StyleSheet.create({});
 export default CompleteProfile2;

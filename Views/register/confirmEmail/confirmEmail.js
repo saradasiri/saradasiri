@@ -103,7 +103,7 @@ const ConfirmEmail = (formik) => {
 
         <View style={styles.agreement}>
           <Checkbox
-            style={styles.checkbox}
+            style={globalStyles.checkbox}
             value={isPrivacyChecked}
             onValueChange={setChecked}
             color={isPrivacyChecked ? "#8D00FF" : undefined}
@@ -132,7 +132,7 @@ const ConfirmEmail = (formik) => {
 
         <View style={styles.agreement}>
           <Checkbox
-            style={styles.checkbox}
+            style={globalStyles.checkbox}
             value={isAccepted}
             onValueChange={setIsAccepted}
             color={isAccepted ? "#8D00FF" : undefined}
@@ -200,13 +200,6 @@ const styles = StyleSheet.create({
   agreement: {
     marginTop: 25,
     flexDirection: "row",
-  },
-  checkbox: {
-    borderColor: "rgba(18, 3, 58, 0.1)",
-    opacity: 0.8,
-    width: 30,
-    height: 30,
-    borderRadius: 5,
   },
   privacy: {
     flexDirection: "row",

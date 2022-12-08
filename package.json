@@ -43,6 +43,7 @@
     "react-native-country-picker-modal": "^2.0.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "^13.0.1",
+    "react-native-modal-datetime-picker": "^14.0.0",
     "react-native-otp-textinput": "^0.0.9",
     "react-native-paper": "^4.12.5",
     "react-native-pie": "^1.1.2",

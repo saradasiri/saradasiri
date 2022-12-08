@@ -139,4 +139,11 @@ export default StyleSheet.create({
     color: "#737373",
     fontWeight: "500",
   },
+  checkbox: {
+    borderColor: "rgba(18, 3, 58, 0.1)",
+    opacity: 0.8,
+    width: 30,
+    height: 30,
+    borderRadius: 5,
+  },
 });

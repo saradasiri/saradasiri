@@ -1,16 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Formik, Field, yupToFormErrors } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import CompleteProfile1 from "./completeProfile1";
 
-const CompleteProfileProcess1 = (accountLevel) => {
+const CompleteProfileProcess1 = () => {
   const initialValues = {
-    email: accountLevel.route.params.email,
-    range: accountLevel.route.params.range,
     fund: "",
-    upper: accountLevel.route.params.upper,
-    lower: accountLevel.route.params.lower,
     firstName: "",
     secondName: "",
     name: "",
@@ -21,7 +16,6 @@ const CompleteProfileProcess1 = (accountLevel) => {
     nationality: "MX",
     phone: "",
     occupation: "",
-    isTokenSubscribed: accountLevel.route.params.isTokenSubscribed,
   };
 
   const validationSchema = Yup.object({
@@ -71,5 +65,3 @@ const CompleteProfileProcess1 = (accountLevel) => {
 };
 
 export default CompleteProfileProcess1;
-
-const styles = StyleSheet.create({});

@@ -1,4 +1,3 @@
-
 import {
   StyleSheet,
   Text,
@@ -10,21 +9,23 @@ import {
   ScrollView,
   ToastAndroid,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-// import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import globalStyles from "../../globalStyles";
-import { useDispatch , useSelector } from "react-redux";
-import { addEmail, addPassword } from "../../src/redux/actions";
-// import CookieManager from '@react-native-cookies/cookies';
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addEmail,
+  addPassword,
+  addAccountAccessToken,
+  addIsTokenSubscribed
+} from "../../src/redux/actions";
 const Login = (formik) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
 
@@ -47,9 +48,15 @@ const Login = (formik) => {
         if (res.data.message) {
           ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
           if (res.data.message === "Login Success") {
-            setUserEmail(res.data.isVerified);
-            dispatch(addEmail(values.email))
-            dispatch(addPassword(values.password))
+            dispatch(addAccountAccessToken(res.data.access_token));
+            dispatch(addIsTokenSubscribed(res.data.isTokenSubscribed));
+            dispatch(addEmail(values.email));
+            dispatch(addPassword(values.password));
+            res.data.isVerified
+              ? res.data.isProfileCompleted
+                ? navigation.navigate("walletHome")
+                : navigation.navigate("accountLevel")
+              : sendOTP();
           }
         }
       })
@@ -58,15 +65,6 @@ const Login = (formik) => {
           ToastAndroid.show(err.message, ToastAndroid.SHORT);
         }
       });
-  };
-
-  const setUserEmail = async (isVerified) => {
-    try {
-      await AsyncStorage.setItem("@userEmail", values.email);
-      isVerified === false ? sendOTP() : navigation.navigate("walletHome");
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const sendOTP = () => {

@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import CompleteProfile2 from "./completeProfile2";
 
-const CompleteProfileProcess2 = (profile1) => {
+const CompleteProfileProcess2 = () => {
   const initialValues = {
     street: "",
     exterior: "",
@@ -13,26 +12,6 @@ const CompleteProfileProcess2 = (profile1) => {
     colony: "",
     municipality: "",
     state: "",
-    email: profile1.route.params.email,
-    range: profile1.route.params.range,
-    fund: profile1.route.params.fund,
-    lower: profile1.route.params.lower,
-    upper: profile1.route.params.upper,
-    firstName: profile1.route.params.firstName,
-    secondName: profile1.route.params.secondName,
-    name: profile1.route.params.name,
-    birth: profile1.route.params.birth,
-    dateISO: profile1.route.params.dateISO,
-    nationality: profile1.route.params.nationality,
-    countryBirth: profile1.route.params.countryBirth,
-    curp: profile1.route.params.curp,
-    rfc: profile1.route.params.rfc,
-    tax: profile1.route.params.tax,
-    phone: profile1.route.params.phone,
-    occupation: profile1.route.params.occupation,
-    age: profile1.route.params.age,
-    countryCode : profile1.route.params.countryCode,
-    isTokenSubscribed: profile1.route.params.isTokenSubscribed,
   };
 
   const validationSchema = Yup.object({
@@ -57,5 +36,3 @@ const CompleteProfileProcess2 = (profile1) => {
 };
 
 export default CompleteProfileProcess2;
-
-const styles = StyleSheet.create({});

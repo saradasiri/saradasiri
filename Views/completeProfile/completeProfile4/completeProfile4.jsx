@@ -11,22 +11,49 @@ import {
   Pressable,
 } from "react-native";
 import axios from "axios";
-import moment from "moment";
 import Toast from "react-native-toast-message";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
-// import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
 import Checkbox from "expo-checkbox";
 import Modal from "react-native-modal";
 import TermsConditions from "../../../src/termsConditions/termsConditions";
 import { API_PATHS } from "../../../src/constants/apiPaths";
-
-const CompleteProfile4 = (profile3) => {
+import Tabs1234 from "../../../src/tabs1234";
+import { useSelector } from "react-redux";
+import globalStyles from "../../../globalStyles";
+import DocModal from "../../../src/docModal";
+const CompleteProfile4 = (profile) => {
   const navigation = useNavigation();
+  const {
+    email,
+    access_token,
+    range,
+    fund,
+    lower,
+    upper,
+    firstName,
+    lastName,
+    name,
+    birth,
+    nationality,
+    countryBirth,
+    curp,
+    rfc,
+    tax,
+    phone,
+    occupation,
+    countryCode,
+    street,
+    exterior,
+    inside,
+    postalCode,
+    colony,
+    municipality,
+    state,
+  } = useSelector((state) => state.userReducer);
   const [isNatural, setIsNatural] = useState(false);
   const [isGeo, setIsGeo] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
@@ -54,11 +81,11 @@ const CompleteProfile4 = (profile3) => {
   }
 
   const docUpload = () => {
-    if (profile3.route.params.frontDoc.name) {
+    if (profile.route.params.frontDoc.name) {
       const file = {
-        uri: profile3.route.params.frontDoc.uri,
-        name: profile3.route.params.frontDoc.name,
-        type: profile3.route.params.frontDoc.mimeType,
+        uri: profile.route.params.frontDoc.uri,
+        name: profile.route.params.frontDoc.name,
+        type: profile.route.params.frontDoc.mimeType,
       };
       const body1 = new FormData();
       body1.append("file", file);
@@ -67,24 +94,20 @@ const CompleteProfile4 = (profile3) => {
         "Content-Type": "multipart/form-data",
       };
       axios
-        .post(
-          `http://134.209.96.231/api/profile/file/upload/idFront/${profile3.route.params.email}`,
-          body1,
-          { headers: headers }
-        )
+        .post(API_PATHS.FRONT_DOC + email, body1, { headers: headers })
         .then(function (response) {
-          // console.log("image upload successfully", response.data);
+          console.log("image upload successfully", response.data);
         })
         .catch((error) => {
-          // console.log("error raised", error);
+          console.log("error raised", error);
         });
     }
 
-    if (profile3.route.params.behindDoc.name) {
+    if (profile.route.params.behindDoc.name) {
       const file = {
-        uri: profile3.route.params.behindDoc.uri,
-        name: profile3.route.params.behindDoc.name,
-        type: profile3.route.params.behindDoc.mimeType,
+        uri: profile.route.params.behindDoc.uri,
+        name: profile.route.params.behindDoc.name,
+        type: profile.route.params.behindDoc.mimeType,
       };
       const body2 = new FormData();
       body2.append("file", file);
@@ -93,24 +116,20 @@ const CompleteProfile4 = (profile3) => {
         "Content-Type": "multipart/form-data",
       };
       axios
-        .post(
-          `http://134.209.96.231/api/profile/file/upload/idBackSide/${profile3.route.params.email}`,
-          body2,
-          { headers: headers }
-        )
+        .post(API_PATHS.BACK_DOC + email, body2, { headers: headers })
         .then(function (response) {
-          // console.log("image upload successfully", response.data);
+          console.log("image upload successfully", response.data);
         })
         .catch((error) => {
-          // console.log("error raised", error);
+          console.log("error raised", error);
         });
     }
 
-    if (profile3.route.params.addressDoc.name) {
+    if (profile.route.params.addressDoc.name) {
       const file = {
-        uri: profile3.route.params.addressDoc.uri,
-        name: profile3.route.params.addressDoc.name,
-        type: profile3.route.params.addressDoc.mimeType,
+        uri: profile.route.params.addressDoc.uri,
+        name: profile.route.params.addressDoc.name,
+        type: profile.route.params.addressDoc.mimeType,
       };
       const body3 = new FormData();
       body3.append("file", file);
@@ -120,170 +139,97 @@ const CompleteProfile4 = (profile3) => {
       };
 
       axios
-        .post(
-          `http://134.209.96.231/api/profile/file/upload/idAddress/${profile3.route.params.email}`,
-          body3,
-          { headers: headers }
-        )
+        .post(API_PATHS.ADDRESS_DOC + email, body3, { headers: headers })
         .then(function (response) {
-          // console.log("image upload successfully", response.data);
+          console.log("image upload successfully", response.data);
         })
         .catch((error) => {
-          // console.log("error raised", error);
+          console.log("error raised", error);
         });
     }
-    const login = {
-      isTokenSubscribed: profile3.route.params.isTokenSubscribed,
-      email: profile3.route.params.email,
-    };
 
     navigation.navigate("walletHome");
   };
 
   const handleFormSubmit = () => {
-    const profile4 = {
-      range: profile3.route.params.range,
-      lower: profile3.route.params.lower,
-      upper: profile3.route.params.upper,
-      fundAmount: Number(profile3.route.params.fund),
-      firstName: profile3.route.params.firstName,
-      lastName: profile3.route.params.secondName,
-      fullName: profile3.route.params.name,
-      dateOfBirth: profile3.route.params.dateISO,
-      nationality: profile3.route.params.nationality,
-      countryCode: profile3.route.params.countryCode,
-      countryOfBirth: profile3.route.params.countryBirth,
-      cURP: profile3.route.params.curp ? Number(profile3.route.params.curp) : 0,
-      rFC: profile3.route.params.rfc ? Number(profile3.route.params.rfc) : 0,
-      phoneNumber: Number(profile3.route.params.phone),
-      tax: profile3.route.params.tax ? Number(profile3.route.params.tax) : 0,
-      occupation: profile3.route.params.occupation
-        ? profile3.route.params.occupation
-        : " ",
-      // age: profile3.route.params.age,
-      // homeAddress: " ",
-      street: profile3.route.params.street,
-      exterior: profile3.route.params.exterior,
-      interior: profile3.route.params.inside,
-      postalCode: Number(profile3.route.params.postalCode),
-      colony: profile3.route.params.colony,
-      muncipiality: profile3.route.params.municipality,
-      state: profile3.route.params.state,
+    const obj = {
+      range:range,
+      fund: fund,
+      lower: lower,
+      upper: upper,
+      fundAmount: Number(fund),
+      firstName: firstName,
+      lastName: lastName,
+      fullName: name,
+      dateOfBirth: birth.toISOString(),
+      nationality: nationality,
+      countryCode: countryCode,
+      countryOfBirth: countryBirth,
+      cURP: curp ? Number(curp) : 0,
+      rFC: rfc ? Number(rfc) : 0,
+      phoneNumber: Number(phone),
+      tax: tax ? Number(tax) : 0,
+      occupation: occupation ? occupation : " ",
+      street: street,
+      exterior: exterior,
+      interior: inside,
+      postalCode: Number(postalCode),
+      colony: colony,
+      muncipiality: municipality,
+      state: state,
       documentNo:
-        profile3.route.params.range === "$0 - $9,999"
+        range === "$0 - $9,999"
           ? " "
-          : profile3.route.params.documentNo
-          ? profile3.route.params.documentNo
+          : profile.route.params.documentNo
+          ? profile.route.params.documentNo
           : " ",
-      isGeo: isGeo.toString(),
+      isGeo: " ",
       isEmailVerified: true,
       isProfileCompleted: true,
     };
-
-    const login = {
-      isTokenSubscribed: "true",
-      email: "vikashchandra458@gmail.com",
-    };
-    navigation.navigate("walletHome");
-
-    // console.log(profile4);
-    // axios
-    //   .post(API_PATHS.CREATE_PROFILE + profile3.route.params.email, profile4)
-    //   .then((res) => {
-    //     // console.log(res.data.message);
-    //     if (res.data.message) {
-    //       Toast.show({
-    //         type: "info",
-    //         text1: res.data.message,
-    //       });
-    //       docUpload();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     // console.log(err.message);
-    //     if (err.message) {
-    //       Toast.show({
-    //         type: "info",
-    //         text1: err.message,
-    //       });
-    //     }
-    //   });
+    axios
+      .post(API_PATHS.CREATE_PROFILE+email, obj)
+      .then((res) => {
+        console.log(res.data.message);
+        if (res.data.message) {
+          Toast.show({
+            type: "info",
+            text1: res.data.message,
+          });
+          docUpload();
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        if (err.message) {
+          Toast.show({
+            type: "info",
+            text1: err.message,
+          });
+        }
+      });
   };
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.MainContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <StatusBar style="auto" />
-          <Image
-            style={styles.Logo}
-            source={require("../../../assets/vlogo.png")}
-          />
-          <Text>{profile3.route.params.range === "$0 - $9,999"}</Text>
-
-          {profile3.route.params.range === "$0 - $9,999" ? (
-            <View style={styles.tab}>
-              <View
-                style={[
-                  styles.tab1,
-                  { marginLeft: 0, backgroundColor: "#D9D9D9" },
-                ]}
-              >
-              <Text>1</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>2</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
-                <Text>3</Text>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.tab}>
-              <View
-                style={[
-                  styles.tab1,
-                  { marginLeft: 0, backgroundColor: "#D9D9D9" },
-                ]}
-              >
-                <Text>1</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>2</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#D9D9D9" }]}>
-                <Text>3</Text>
-              </View>
-
-              <View style={[styles.tab1, { backgroundColor: "#00BFFF" }]}>
-                <Text>4</Text>
-              </View>
-            </View>
-          )}
-
-          {profile3.route.params.range === "$0 - $9,999" ? (
-            <View style={[styles.dottedline, { width: 120, left: 90 }]}></View>
-          ) : (
-            <View style={styles.dottedline}></View>
-          )}
+          <Tabs1234 range={range} value={range === "$0 - $9,999" ? "3" : "4"} />
 
           <View>
-            <Text style={styles.Label}>Confirmation</Text>
+          <Text style={[globalStyles.Label, { textAlign: "center" }]}>Confirmation</Text>
           </View>
 
           <View style={{ paddingTop: 40 }}>
-            <Text style={[styles.text, { color: "#33B7B0", top: 30 }]}>
+            <Text style={[styles.text, { color: "#8D00FF", top: 30 }]}>
               Investment
             </Text>
             <View
               style={[
                 styles.inputStyle,
                 {
-                  borderColor: "#33B7B0",
+                  borderColor: "#8D00FF",
                 },
               ]}
             >
@@ -294,7 +240,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.range}
+                  {range}
                 </Text>
               </View>
 
@@ -305,21 +251,21 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.fund}
+                  {fund}
                 </Text>
               </View>
             </View>
           </View>
 
           <View>
-            <Text style={[styles.text, { color: "#33B7B0" }]}>
+            <Text style={[styles.text, { color: "#8D00FF" }]}>
               Personal Data
             </Text>
             <View
               style={[
                 styles.inputStyle,
                 {
-                  borderColor: "#33B7B0",
+                  borderColor: "#8D00FF",
                 },
               ]}
             >
@@ -330,7 +276,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.firstName}
+                  {firstName}
                 </Text>
               </View>
 
@@ -341,7 +287,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.secondName}
+                  {lastName}
                 </Text>
               </View>
 
@@ -352,7 +298,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.name}
+                  {name}
                 </Text>
               </View>
 
@@ -363,7 +309,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.birth}
+                  {birth.toDateString()}
                 </Text>
               </View>
 
@@ -374,7 +320,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.countryBirth}
+                  {countryBirth}
                 </Text>
               </View>
 
@@ -385,11 +331,11 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.nationality}
+                  {nationality}
                 </Text>
               </View>
 
-              {profile3.route.params.curp ? (
+              {curp ? (
                 <View style={styles.totalText}>
                   <Text style={styles.personalText}>CURP : </Text>
                   <Text
@@ -397,12 +343,12 @@ const CompleteProfile4 = (profile3) => {
                     numberOfLines={1}
                     ellipsizeMode={"tail"}
                   >
-                    {profile3.route.params.curp}{" "}
+                    {curp}{" "}
                   </Text>
                 </View>
               ) : null}
 
-              {profile3.route.params.rfc ? (
+              {rfc ? (
                 <View style={styles.totalText}>
                   <Text style={styles.personalText}>RFC : </Text>
                   <Text
@@ -410,12 +356,12 @@ const CompleteProfile4 = (profile3) => {
                     numberOfLines={1}
                     ellipsizeMode={"tail"}
                   >
-                    {profile3.route.params.rfc}
+                    {rfc}
                   </Text>
                 </View>
               ) : null}
 
-              {profile3.route.params.tax ? (
+              {tax ? (
                 <View style={styles.totalText}>
                   <Text style={styles.personalText}>Tax ID : </Text>
                   <Text
@@ -423,7 +369,7 @@ const CompleteProfile4 = (profile3) => {
                     numberOfLines={1}
                     ellipsizeMode={"tail"}
                   >
-                    {profile3.route.params.tax}
+                    {tax}
                   </Text>
                 </View>
               ) : null}
@@ -435,11 +381,11 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.phone}
+                  {phone}
                 </Text>
               </View>
 
-              {profile3.route.params.occupation ? (
+              {occupation ? (
                 <View style={styles.totalText}>
                   <Text style={styles.personalText}>Occupation : </Text>
                   <Text
@@ -447,7 +393,7 @@ const CompleteProfile4 = (profile3) => {
                     numberOfLines={1}
                     ellipsizeMode={"tail"}
                   >
-                    {profile3.route.params.occupation}
+                    {occupation}
                   </Text>
                 </View>
               ) : null}
@@ -457,12 +403,12 @@ const CompleteProfile4 = (profile3) => {
           </View>
 
           <View>
-            <Text style={[styles.text, { color: "#33B7B0" }]}>Address</Text>
+            <Text style={[styles.text, { color: "#8D00FF" }]}>Address</Text>
             <View
               style={[
                 styles.inputStyle,
                 {
-                  borderColor: "#33B7B0",
+                  borderColor: "#8D00FF",
                 },
               ]}
             >
@@ -473,7 +419,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.street}
+                  {street}
                 </Text>
               </View>
 
@@ -484,7 +430,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.inside}
+                  {exterior}
                 </Text>
               </View>
 
@@ -495,7 +441,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.inside}
+                  {inside}
                 </Text>
               </View>
 
@@ -506,7 +452,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.postalCode}
+                  {postalCode}
                 </Text>
               </View>
 
@@ -517,7 +463,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.colony}
+                  {colony}
                 </Text>
               </View>
 
@@ -528,7 +474,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.municipality}
+                  {municipality}
                 </Text>
               </View>
 
@@ -539,7 +485,7 @@ const CompleteProfile4 = (profile3) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {profile3.route.params.state}
+                  {state}
                 </Text>
               </View>
 
@@ -547,20 +493,20 @@ const CompleteProfile4 = (profile3) => {
             </View>
           </View>
 
-          {profile3.route.params.range === "$0 - $9,999" ? null : (
+          {range === "$0 - $9,999" ? null : (
             <View>
-              <Text style={[styles.text, { color: "#33B7B0" }]}>Documents</Text>
+              <Text style={[styles.text, { color: "#8D00FF" }]}>Documents</Text>
               <View
                 style={[
                   styles.inputStyle,
                   {
-                    borderColor: "#33B7B0",
+                    borderColor: "#8D00FF",
                   },
                 ]}
               >
                 <View style={[styles.totalText, { marginTop: 20 }]}>
                   <Text style={styles.personalText}>
-                    {profile3.route.params.nationality === "MX"
+                    {nationality === "MX"
                       ? "Official ID front : "
                       : "Valid Passport : "}
                   </Text>
@@ -570,36 +516,18 @@ const CompleteProfile4 = (profile3) => {
                       numberOfLines={1}
                       ellipsizeMode={"middle"}
                     >
-                      {profile3.route.params.frontDoc.name}
+                      {profile.route.params.frontDoc.name}
                     </Text>
                   </Pressable>
-                  <Modal
-                    isVisible={isFrontModalVisible}
-                    style={styles.modalContainer}
-                  >
-                    <Image
-                      style={styles.image}
-                      source={profile3.route.params.frontDoc}
-                    />
-                    <Pressable
-                      style={styles.modalButton}
-                      onPress={frontDocModal}
-                    >
-                      <LinearGradient
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        colors={["#4E68E1", "#33B9AF"]}
-                        width={250}
-                        height={50}
-                        style={[{ borderRadius: 100 }]}
-                      >
-                        <Text style={styles.buttonText}>Close</Text>
-                      </LinearGradient>
-                    </Pressable>
-                  </Modal>
+
+                  <DocModal
+                    visible={isFrontModalVisible}
+                    doc={profile.route.params.frontDoc}
+                    func={frontDocModal}
+                  />
                 </View>
 
-                {profile3.route.params.behindDoc.name ? (
+                {profile.route.params.behindDoc.name ? (
                   <View style={styles.totalText}>
                     <Text style={styles.personalText}>
                       Official ID Behind :
@@ -610,39 +538,20 @@ const CompleteProfile4 = (profile3) => {
                         numberOfLines={1}
                         ellipsizeMode={"middle"}
                       >
-                        {profile3.route.params.behindDoc.name}
+                        {profile.route.params.behindDoc.name}
                       </Text>
                     </Pressable>
-                    <Modal
-                      isVisible={isBehindModalVisible}
-                      style={styles.modalContainer}
-                    >
-                      <Image
-                        style={styles.image}
-                        source={profile3.route.params.behindDoc}
-                      />
-                      <Pressable
-                        style={styles.modalButton}
-                        onPress={behindDocModal}
-                      >
-                        <LinearGradient
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 0 }}
-                          colors={["#4E68E1", "#33B9AF"]}
-                          width={250}
-                          height={50}
-                          style={[{ borderRadius: 100 }]}
-                        >
-                          <Text style={styles.buttonText}>Close</Text>
-                        </LinearGradient>
-                      </Pressable>
-                    </Modal>
+                    <DocModal
+                      visible={isBehindModalVisible}
+                      doc={profile.route.params.behindDoc}
+                      func={behindDocModal}
+                    />
                   </View>
                 ) : null}
 
                 <View style={styles.totalText}>
                   <Text style={styles.personalText}>
-                    {profile3.route.params.nationality === "MX"
+                    {nationality === "MX"
                       ? "Identification number : "
                       : "Passport Number : "}
                   </Text>
@@ -651,11 +560,11 @@ const CompleteProfile4 = (profile3) => {
                     numberOfLines={1}
                     ellipsizeMode={"middle"}
                   >
-                    {profile3.route.params.documentNo}
+                    {profile.route.params.documentNo}
                   </Text>
                 </View>
 
-                {profile3.route.params.addressDoc.name ? (
+                {profile.route.params.addressDoc.name ? (
                   <View style={styles.totalText}>
                     <Text style={styles.personalText}>Proof of address : </Text>
                     <Pressable onPress={addressDocModal}>
@@ -664,33 +573,14 @@ const CompleteProfile4 = (profile3) => {
                         numberOfLines={1}
                         ellipsizeMode={"middle"}
                       >
-                        {profile3.route.params.addressDoc.name}
+                        {profile.route.params.addressDoc.name}
                       </Text>
                     </Pressable>
-                    <Modal
-                      isVisible={isAddressModalVisible}
-                      style={styles.modalContainer}
-                    >
-                      <Image
-                        style={styles.image}
-                        source={profile3.route.params.addressDoc}
-                      />
-                      <Pressable
-                        style={styles.modalButton}
-                        onPress={addressDocModal}
-                      >
-                        <LinearGradient
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 0 }}
-                          colors={["#4E68E1", "#33B9AF"]}
-                          width={250}
-                          height={50}
-                          style={[{ borderRadius: 100 }]}
-                        >
-                          <Text style={styles.buttonText}>Close</Text>
-                        </LinearGradient>
-                      </Pressable>
-                    </Modal>
+                    <DocModal
+                      visible={isAddressModalVisible}
+                      doc={profile.route.params.addressDoc}
+                      func={addressDocModal}
+                    />
                   </View>
                 ) : null}
 
@@ -701,10 +591,10 @@ const CompleteProfile4 = (profile3) => {
 
           <View style={styles.agreement}>
             <Checkbox
-              style={styles.checkbox}
+              style={globalStyles.checkbox}
               value={isNatural}
               onValueChange={setIsNatural}
-              color={isNatural ? "#33B7B0" : undefined}
+              color={isNatural ? "#8D00FF" : undefined}
             />
             {/* <TouchableOpacity> */}
             <Text style={styles.agreementText}>
@@ -715,10 +605,10 @@ const CompleteProfile4 = (profile3) => {
 
           <View style={styles.agreement}>
             <Checkbox
-              style={styles.checkbox}
+              style={globalStyles.checkbox}
               value={isGeo}
               onValueChange={setIsGeo}
-              color={isGeo ? "#33B7B0" : undefined}
+              color={isGeo ? "#8D00FF" : undefined}
             />
             {/* <TouchableOpacity> */}
             <Text style={styles.agreementText}>
@@ -729,10 +619,10 @@ const CompleteProfile4 = (profile3) => {
 
           <View style={styles.agreement}>
             <Checkbox
-              style={styles.checkbox}
+              style={globalStyles.checkbox}
               value={isAccepted}
               onValueChange={setIsAccepted}
-              color={isAccepted ? "#33B7B0" : undefined}
+              color={isAccepted ? "#8D00FF" : undefined}
             />
             <View style={{ flexDirection: "row" }}>
               <Text style={styles.agreementText}>
@@ -768,7 +658,7 @@ const CompleteProfile4 = (profile3) => {
               </ScrollView>
               <Pressable
                 style={[
-                  styles.modalButton,
+                  globalStyles.button,
                   { marginBottom: 20, marginTop: 20 },
                 ]}
                 onPress={() => {
@@ -776,37 +666,27 @@ const CompleteProfile4 = (profile3) => {
                   termsDocModal();
                 }}
               >
-                <LinearGradient
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  colors={["#4E68E1", "#33B9AF"]}
-                  width={250}
-                  height={50}
-                  style={[{ borderRadius: 100 }]}
-                >
-                  <Text style={styles.buttonText}>Accept</Text>
-                </LinearGradient>
+                  <Text style={globalStyles.buttonText}>Accept</Text>
               </Pressable>
             </Modal>
           </View>
 
-          <View style={{ marginBottom: 50 }}>
-            <TouchableOpacity
-              // disabled={!(isAccepted && isNatural && isGeo)}
-              onPress={() => {
-                handleFormSubmit();
-                // isAccepted && isNatural && isGeo
-                //   ? handleFormSubmit()
-                //   : Alert.alert(
-                //       "Please agree the terms and Condition to proceed"
-                //     );
-              }}
-            >
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Confirm</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            disabled={!(isAccepted && isNatural && isGeo)}
+            onPress={() => {
+              handleFormSubmit();
+            }}
+            style={[
+              globalStyles.button,
+              { opacity: isAccepted && isNatural && isGeo ? 1 : 0.5 },
+            ]}
+          >
+            <Text style={globalStyles.buttonText}>Confirm</Text>
+          </TouchableOpacity>
+          <Image
+            style={[globalStyles.Logo, { marginBottom: 50 }]}
+            source={require("../../../assets/vlogo.png")}
+          />
         </View>
       </ScrollView>
     </KeyboardAwareScrollView>
@@ -814,59 +694,6 @@ const CompleteProfile4 = (profile3) => {
 };
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#F2F6FF",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  Logo: {
-    height: 50,
-    width: 180,
-    marginTop: 20,
-    alignSelf: "center",
-    marginBottom: 25,
-  },
-  tab: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  tab1: {
-    width: 35,
-    height: 35,
-    marginLeft: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dottedline: {
-    borderColor: "#33B7B0",
-    borderStyle: "dotted",
-    borderWidth: 0.5,
-    width: 190,
-    zIndex: -1,
-    left: 69,
-    top: -17,
-  },
-  Label: {
-    marginTop: 20,
-    fontWeight: "400",
-    fontSize: 24,
-    lineHeight: 27,
-    textAlign: "center",
-  },
-  button: {
-    height: 50,
-    width: 322,
-    borderRadius: 5,
-    backgroundColor: "#2D0052",
-    alignSelf: "center",
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0,
-  },
   totalText: {
     display: "flex",
     flexDirection: "row",
@@ -898,25 +725,10 @@ const styles = StyleSheet.create({
     fontFamily: "NunitoSans_400Regular",
     marginBottom: 30,
   },
-  checkbox: {
-    borderColor: "#33B7B0",
-    opacity: 0.8,
-    width: 20,
-    height: 20,
-    borderRadius: 6,
-  },
   agreementText: {
     top: -3,
     paddingLeft: 16,
     width: 290,
-  },
-  buttonText: {
-    textAlign: "center",
-    alignContent: "center",
-    paddingTop: 10,
-    color: "#ffff",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 20,
   },
   text: {
     position: "absolute",
@@ -924,7 +736,7 @@ const styles = StyleSheet.create({
     left: 15,
     zIndex: 90,
     fontFamily: "NunitoSans_400Regular",
-    backgroundColor: "#F2F6FF",
+    backgroundColor: "white",
     paddingHorizontal: 20,
     fontSize: 16,
   },
