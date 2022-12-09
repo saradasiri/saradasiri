@@ -54,7 +54,7 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="homepage"
+          initialRouteName="accountLevel"
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
           <Stack.Screen name="homepage" component={HomePage} />

@@ -1,69 +1,83 @@
-// import React from "react";
-// import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-// import { getHeight, getWidth } from "./Dimentions/DImentions";
-// import PhoneInput from "react-native-phone-number-input";
-// import globalStyles from "../globalStyles";
-// const CountryCodePicker = (props) => {
-//   const { onChangeTextValue, OnChangeCountryCode, Value, layout, contact } =
-//     props;
-//   return (
-//     <View>
-//       <PhoneInput
-//         disableArrowIcon={false}
-//         placeholder={"     "}
-//         containerStyle={globalStyles.PhoneInput}
-//         textInputStyle={styles.textInputStyles}
-//         textContainerStyle={styles.textInputStyle}
-//         flagButtonStyle={styles.countryImage}
-//         countryPickerButtonStyle={styles.countryImages}
-//         layout={layout}
-//         onChangeCountry={OnChangeCountryCode}
-//         onChangeText={(value) => onChangeTextValue(value)}
-//         value={contact}
-//         keyboardType={"numeric"}
-//         textInputProps={{
-//           maxLength: 10,
-//         }}
-//         codeTextStyle={styles.codeTextStyle}
-//         defaultCode={"IN"}
-//         autoFocus={true}
-//         // renderDropdownImage={renderDropdownImage}
-//       />
-//     </View>
-//   );
-// };
+import React from "react";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import PhoneInput from "react-native-phone-number-input";
 
-// export default CountryCodePicker;
+const CountryCodePicker = (props) => {
+  const { onChangeTextValue, OnChangeCountryCode, Value, layout, contact } =
+    props;
+  return (
+    <View >
+      <PhoneInput
+        containerStyle={{ backgroundColor: "transparent", width: 320 }}
+        disableArrowIcon={false}
+        // placeholder={"     "}
+        // containerStyle={globalStyles.PhoneInput}
+        textInputStyle={styles.textInputStyles}
+        textContainerStyle={styles.textInputStyle}
+        flagButtonStyle={styles.countryImage}
+        // countryPickerButtonStyle={styles.countryImages}
+        // layout={layout}
+        onChangeCountry={(value) => {OnChangeCountryCode(value.callingCode);}}
+        onChangeText={onChangeTextValue}
+        value={contact}
+        keyboardType={"numeric"}
+        textInputProps={{
+          maxLength: 10,
+        }}
+        // codeTextStyle={styles.codeTextStyle}
+        defaultCode={"MX"}
+        // onChangeText={(text) => {
+        //   // setValue(text);
+        // }}
+        // onChangeFormattedText={(text) => {
+        // }}
 
-// const styles = StyleSheet.create({
-//   textInputStyles: {
-//     padding: 0,
-//     fontWeight: "700",
-//     // position: 'absolute',
-//     // width: '100%',
-//   },
-//   textInputStyle: {
-//     paddingVertical: 0,
-//     paddingLeft: getWidth(10),
-//     backgroundColor: "white",
-//   },
-//   countryImage: {
-//     alignItems: "center",
-//     justifyContent: "center",
-//     // backgroundColor: 'blue',
-//     paddingVertical: 0,
-//     width: getWidth(150),
-//     alignSelf: "center",
-//   },
-//   countryImages: {
-//     alignItems: "center",
-//   },
-//   codeTextStyle: {
-//     marginRight: 0,
-//     fontWeight: "700",
-//     alignSelf: "center",
-//     marginLeft: getWidth(20),
+        // renderDropdownImage={renderDropdownImage}
+      />
+    </View>
+  );
+};
 
-//     // marginHorizontal: 'auto',
-//   },
-// });
+export default CountryCodePicker;
+
+const styles = StyleSheet.create({
+  textInputStyles: {
+    padding: 0,
+    fontWeight: "700",
+    // position: 'absolute',
+    // width: '100%',
+  },
+  textInputStyle: {
+    paddingVertical: 0,
+    // backgroundColor: "white",
+    width: 330,
+    borderWidth: 1,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+    borderColor: "rgba(18, 3, 58, 0.1)",
+    backgroundColor: "transparent",
+  },
+  countryImage: {
+    alignItems: "center",
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    // backgroundColor: 'blue',
+    borderColor: "rgba(18, 3, 58, 0.1)",
+    paddingVertical: 0,
+    width: 70,
+    height: 50,
+    alignSelf: "center",
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderTopStartRadius: 5,
+    borderBottomStartRadius: 5,
+  },
+  codeTextStyle: {
+    marginRight: 0,
+    fontWeight: "700",
+    alignSelf: "center",
+    // marginLeft: getWidth(20),
+
+    // marginHorizontal: 'auto',
+  },
+});

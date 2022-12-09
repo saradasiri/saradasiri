@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  Alert,
   Pressable,
-  Button,
   ToastAndroid,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
@@ -19,11 +17,10 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import CountryPicker from "react-native-country-picker-modal";
-// import DateTimePicker from "@react-native-community/datetimepicker";
 import Tabs1234 from "../../../src/tabs1234";
 import globalStyles from "../../../globalStyles";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import moment from "moment";
+import CountryCodePicker from "../../../src/countryCodePicker";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFund,
@@ -62,7 +59,6 @@ const CompleteProfile1 = (formik) => {
       ToastAndroid.show("Please select a valid Date", ToastAndroid.SHORT);
     }
   };
-
   const pickerRef = useRef();
 
   function open() {
@@ -116,6 +112,10 @@ const CompleteProfile1 = (formik) => {
     dispatch(addPhone(values.phone));
     dispatch(addOccupation(values.occupation));
     dispatch(addCountryCode(countryCode));
+    console.log("Values : ", values);
+    console.log("Date : ", date);
+    console.log("nationality : ", nationality);
+    console.log("Country Code : ", countryCode);
 
     if (values.fund < lower || values.fund > upper) {
       ToastAndroid.show(
@@ -179,7 +179,9 @@ const CompleteProfile1 = (formik) => {
           </View>
 
           <View>
-          <Text style={[globalStyles.Label, { textAlign: "center" }]}>Personal Data</Text>
+            <Text style={[globalStyles.Label, { textAlign: "center" }]}>
+              Personal Data
+            </Text>
           </View>
 
           <View style={{ paddingTop: 25 }}>
@@ -404,9 +406,8 @@ const CompleteProfile1 = (formik) => {
                   withCountryButton={false}
                   withCallingCode
                   onSelect={(country) => {
-                    const { cca2, callingCode } = country;
+                    const { cca2 } = country;
                     setNationality(cca2);
-                    setCountryCode(callingCode);
                   }}
                   style={{ fontSize: 24, width: 322 }}
                 />
@@ -538,29 +539,35 @@ const CompleteProfile1 = (formik) => {
                 { color: errors.phone && touched.phone ? "red" : "#737373" },
               ]}
             >
-              Phone Number{" "}
+              Phone Number
             </Text>
             <View>
-              <TextInput
-                name="phone"
-                placeholder="8110000000"
-                maxLength={10}
-                onChangeText={(text) => {
-                  formik.handleChange("phone")(text.replace(/\D/g, ""));
-                }}
-                onBlur={formik.handleBlur("phone")}
-                value={values.phone}
-                keyboardType="numeric"
-                autoCapitalize="none"
+              <CountryCodePicker
+                withFilter
+                countryCode={values.phone}
+                withFlag
+                withCountryNameButton
+                withAlphaFilter={false}
+                withCountryButton={false}
+                withCallingCode
                 style={[
-                  globalStyles.inputStyle,
+                  styles.input,
                   {
+                    backgroundColor: "none",
                     borderColor:
                       errors.phone && touched.phone
                         ? "red"
                         : "rgba(18, 3, 58, 0.1)",
                   },
                 ]}
+                contact={values.phone}
+                onBlur={formik.handleBlur("phone")}
+                OnChangeCountryCode={(code) => {
+                  setCountryCode(code.toString());
+                }}
+                onChangeTextValue={(text) => {
+                  formik.handleChange("phone")(text.replace(/\D/g, ""));
+                }}
               />
             </View>
             {errors.phone && touched.phone && (
