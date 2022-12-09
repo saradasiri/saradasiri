@@ -21,6 +21,7 @@ import Tabs1234 from "../../../src/tabs1234";
 import globalStyles from "../../../globalStyles";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CountryCodePicker from "../../../src/countryCodePicker";
+import NationalityList from "../../../src/nationalityList";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFund,
@@ -40,6 +41,7 @@ import {
 
 const CompleteProfile1 = (formik) => {
   const dispatch = useDispatch();
+  const [opened, setOpened] = useState(false);
   const { range, lower, upper } = useSelector((state) => state.userReducer);
   const [datePicker, setDatePicker] = useState(false);
   const [date, setDate] = useState("");
@@ -70,16 +72,18 @@ const CompleteProfile1 = (formik) => {
   const navigation = useNavigation();
 
   const [countryBirth, setCountryBirth] = useState(values.countryBirth);
-  const [nationality, setNationality] = useState(values.nationality);
+  const [nationality, setNationality] = useState("");
+  const [flag, setFlag] = useState("https://flagcdn.com/w320/mx.png");
+
   const [countryCode, setCountryCode] = useState("52");
 
   useEffect(() => {
     values.countryBirth = countryBirth;
     values.nationality = nationality;
-    if (countryBirth === "MX" && nationality === "MX") {
+    if (countryBirth === "MX" && nationality === "Mexican") {
       values.tax = "";
     }
-    if (countryBirth === "MX" || nationality === "MX") {
+    if (countryBirth === "MX" || nationality === "Mexican") {
       (values.curp = ""), (values.rfc = "");
     }
   }, [countryBirth, nationality]);
@@ -87,7 +91,7 @@ const CompleteProfile1 = (formik) => {
   useEffect(() => {
     setAge("");
     setCountryBirth("MX");
-    setNationality("MX");
+    setNationality("Mexican");
   }, [range]);
 
   let [fontsLoad, error] = useFonts({
@@ -112,10 +116,6 @@ const CompleteProfile1 = (formik) => {
     dispatch(addPhone(values.phone));
     dispatch(addOccupation(values.occupation));
     dispatch(addCountryCode(countryCode));
-    console.log("Values : ", values);
-    console.log("Date : ", date);
-    console.log("nationality : ", nationality);
-    console.log("Country Code : ", countryCode);
 
     if (values.fund < lower || values.fund > upper) {
       ToastAndroid.show(
@@ -388,37 +388,45 @@ const CompleteProfile1 = (formik) => {
             >
               Nationality
             </Text>
-            <View
-              style={[
-                globalStyles.inputStyle,
-                {
-                  borderColor: "rgba(18, 3, 58, 0.1)",
-                },
-              ]}
+            <TouchableOpacity
+              onPress={() => {
+                setOpened(true);
+              }}
             >
-              <View style={{ paddingTop: 10 }}>
-                <CountryPicker
-                  withFilter
-                  countryCode={nationality}
-                  withFlag
-                  withCountryNameButton
-                  withAlphaFilter={false}
-                  withCountryButton={false}
-                  withCallingCode
-                  onSelect={(country) => {
-                    const { cca2 } = country;
-                    setNationality(cca2);
-                  }}
-                  style={{ fontSize: 24, width: 322 }}
-                />
+              <View
+                style={[
+                  globalStyles.inputStyle,
+                  {
+                    borderColor: "rgba(18, 3, 58, 0.1)",
+                  },
+                ]}
+              >
+                <View style={{ paddingTop: 10, flexDirection: "row" }}>
+                  <Image
+                    style={{ width: 23, height: 23, marginLeft: 5 }}
+                    source={{
+                      uri: flag,
+                    }}
+                  />
+                  <Text style={{ marginLeft: 15, fontSize: 16 }}>
+                    {values.nationality ? values.nationality : "Select"}
+                  </Text>
+                  {opened ? (
+                    <NationalityList
+                      flag={setFlag}
+                      func={formik.handleChange("nationality")}
+                      setOpened={setOpened}
+                    />
+                  ) : null}
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
             {errors.nationality && touched.nationality && (
               <Text style={globalStyles.error}>{errors.nationality}</Text>
             )}
           </View>
 
-          {countryBirth === "MX" && nationality === "MX" && (
+          {countryBirth === "MX" || values.nationality === "Mexican" ? (
             <View style={{ paddingTop: 25 }}>
               <Text
                 style={[
@@ -454,9 +462,9 @@ const CompleteProfile1 = (formik) => {
                 <Text style={globalStyles.error}>{errors.curp}</Text>
               )}
             </View>
-          )}
+          ) : null}
 
-          {countryBirth === "MX" && nationality === "MX" ? (
+          {countryBirth === "MX" || values.nationality === "Mexican" ? (
             <View style={{ paddingTop: 25 }}>
               <Text
                 style={[
@@ -494,7 +502,7 @@ const CompleteProfile1 = (formik) => {
             </View>
           ) : null}
 
-          {countryBirth !== "MX" || nationality !== "MX" ? (
+          {countryBirth !== "MX" && values.nationality !== "Mexican" ? (
             <View style={{ paddingTop: 25 }}>
               <Text
                 style={[

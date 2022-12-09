@@ -13,7 +13,7 @@ const CompleteProfileProcess1 = () => {
     rfc: "",
     tax: "",
     countryBirth: "MX",
-    nationality: "MX",
+    nationality: "Mexican",
     phone: "",
     occupation: "",
   };
@@ -25,17 +25,23 @@ const CompleteProfileProcess1 = () => {
     name: Yup.string().required("Name cannot be blank"),
     countryBirth: Yup.string(),
     curp: Yup.number().when(["countryBirth", "nationality"], {
-      is: "MX",
+      is: (val, val2) => {
+        return val === "MX" && val2 === "Mexican";
+      },
       then: Yup.number().required("CURP cannot be blank"),
       otherwise: null,
     }),
     rfc: Yup.number().when(["countryBirth", "nationality"], {
-      is: "MX",
+      is: (val, val2) => {
+        return val === "MX" && val2 === "Mexican";
+      },
       then: Yup.number().required("RFC cannot be blank"),
       otherwise: null,
     }),
     tax: Yup.number().when(["countryBirth", "nationality"], {
-      is: "MX",
+      is: (val, val2) => {
+        return val === "MX" && val2 === "Mexican";
+      },
       then: null,
       otherwise: Yup.number().required("Tax cannot be blank"),
     }),

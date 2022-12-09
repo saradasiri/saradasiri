@@ -31,12 +31,4 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 20,
   },
-  buttonText: {
-    color: "white",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: 18,
-    paddingTop: 16,
-    textAlign: "left",
-    left: 20,
-  },
 });
