@@ -2,9 +2,12 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CompleteProfile1 from "./completeProfile1";
+import {  useSelector } from "react-redux";
 
 const CompleteProfileProcess1 = () => {
+  const { range } = useSelector((state) => state.userReducer);
   const initialValues = {
+    range: range,
     fund: "",
     firstName: "",
     secondName: "",
@@ -12,7 +15,7 @@ const CompleteProfileProcess1 = () => {
     curp: "",
     rfc: "",
     tax: "",
-    countryBirth: "MX",
+    countryBirth: "Mexico",
     nationality: "Mexican",
     phone: "",
     occupation: "",
@@ -24,24 +27,18 @@ const CompleteProfileProcess1 = () => {
     secondName: Yup.string(),
     name: Yup.string().required("Name cannot be blank"),
     countryBirth: Yup.string(),
-    curp: Yup.number().when(["countryBirth", "nationality"], {
-      is: (val, val2) => {
-        return val === "MX" && val2 === "Mexican";
-      },
+    curp: Yup.number().when(["nationality"], {
+      is: "Mexican",
       then: Yup.number().required("CURP cannot be blank"),
       otherwise: null,
     }),
-    rfc: Yup.number().when(["countryBirth", "nationality"], {
-      is: (val, val2) => {
-        return val === "MX" && val2 === "Mexican";
-      },
+    rfc: Yup.number().when(["nationality"], {
+      is: "Mexican",
       then: Yup.number().required("RFC cannot be blank"),
       otherwise: null,
     }),
-    tax: Yup.number().when(["countryBirth", "nationality"], {
-      is: (val, val2) => {
-        return val === "MX" && val2 === "Mexican";
-      },
+    tax: Yup.number().when(["nationality"], {
+      is: "Mexican",
       then: null,
       otherwise: Yup.number().required("Tax cannot be blank"),
     }),

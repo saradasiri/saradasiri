@@ -106,7 +106,7 @@ const IntroSlides = (props) => {
           marginTop: getHeight(-85),
           marginHorizontal:8
         }}
-        onPress={() => props.navigation.navigate("confirmEmail")}
+        onPress={() => props.navigation.navigate("joinVadi")}
       >
         <Text
           style={{

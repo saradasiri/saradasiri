@@ -129,7 +129,7 @@ const AccountLevel = () => {
         </TouchableOpacity>
 
         <Image
-          style={[globalStyles.Logo, { marginTop: 150 }]}
+          style={[globalStyles.Logo, { marginTop: 115 }]}
           source={require("../../assets/vlogo.png")}
         />
       </ScrollView>

@@ -325,7 +325,7 @@ const CompleteProfile2 = (formik) => {
               <Text style={globalStyles.buttonText}>Next</Text>
             </TouchableOpacity>
             <Image
-              style={[globalStyles.Logo, { marginBottom: 50 }]}
+              style={[globalStyles.Logo, { marginBottom: 35 }]}
               source={require("../../../assets/vlogo.png")}
             />
           </View>

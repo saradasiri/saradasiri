@@ -16,23 +16,12 @@ import OTPTextView from "react-native-otp-textinput";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { API_PATHS } from "../../../src/constants/apiPaths";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import globalStyles from "../../../globalStyles";
 import ProgressBar from "../../../src/progressBar";
+import {  useSelector } from "react-redux";
 const VerifyOTP = () => {
-  const fetchEmail = async () => {
-    try {
-      const userEmail = await AsyncStorage.getItem("@userEmail");
-      setEmail(userEmail);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  useEffect(() => {
-    fetchEmail();
-  }, []);
+  const { email } = useSelector((state) => state.userReducer);
   const [otpInput, setOtpInput] = useState("");
-  const [email, setEmail] = useState("");
   const navigation = useNavigation();
 
   let [fontsLoad, error] = useFonts({

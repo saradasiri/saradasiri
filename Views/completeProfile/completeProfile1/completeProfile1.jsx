@@ -66,32 +66,26 @@ const CompleteProfile1 = (formik) => {
   function open() {
     pickerRef.current.focus();
   }
-
   const [age, setAge] = useState("");
   const { values, errors, touched } = formik;
   const navigation = useNavigation();
 
-  const [countryBirth, setCountryBirth] = useState(values.countryBirth);
-  const [nationality, setNationality] = useState("");
-  const [flag, setFlag] = useState("https://flagcdn.com/w320/mx.png");
-
   const [countryCode, setCountryCode] = useState("52");
+  const [flag, setFlag] = useState("https://flagcdn.com/w320/mx.png");
+  const [country, setCountry] = useState();
 
   useEffect(() => {
-    values.countryBirth = countryBirth;
-    values.nationality = nationality;
-    if (countryBirth === "MX" && nationality === "Mexican") {
+    if (values.nationality === "Mexican") {
       values.tax = "";
     }
-    if (countryBirth === "MX" || nationality === "Mexican") {
+    if (values.nationality !== "Mexican") {
       (values.curp = ""), (values.rfc = "");
     }
-  }, [countryBirth, nationality]);
-
+  }, [values.nationality]);
   useEffect(() => {
     setAge("");
-    setCountryBirth("MX");
-    setNationality("Mexican");
+    setCountry();
+    values.nationality === "Mexican";
   }, [range]);
 
   let [fontsLoad, error] = useFonts({
@@ -108,7 +102,7 @@ const CompleteProfile1 = (formik) => {
     dispatch(addLastName(values.secondName));
     dispatch(addName(values.name));
     dispatch(addBirth(date));
-    dispatch(addNationality(nationality));
+    dispatch(addNationality(values.nationality));
     dispatch(addCountryBirth(values.countryBirth));
     dispatch(addCurp(values.curp));
     dispatch(addRfc(values.rfc));
@@ -355,15 +349,15 @@ const CompleteProfile1 = (formik) => {
               <View style={{ paddingTop: 10 }}>
                 <CountryPicker
                   withFilter
-                  countryCode={countryBirth}
+                  countryCode={country ? country.cca2 : "MX"}
                   withFlag
                   withCountryNameButton
                   withAlphaFilter={false}
                   withCountryButton={false}
                   withCallingCode
                   onSelect={(country) => {
-                    const { cca2 } = country;
-                    setCountryBirth(cca2);
+                    setCountry(country);
+                    values.countryBirth = country.name;
                   }}
                   style={{ fontSize: 24, width: 322, paddingBottom: 50 }}
                 />
@@ -426,83 +420,81 @@ const CompleteProfile1 = (formik) => {
             )}
           </View>
 
-          {countryBirth === "MX" || values.nationality === "Mexican" ? (
-            <View style={{ paddingTop: 25 }}>
-              <Text
-                style={[
-                  globalStyles.text,
-                  { color: errors.curp && touched.curp ? "red" : "#737373" },
-                ]}
-              >
-                CURP
-              </Text>
-              <View>
-                <TextInput
-                  name="curp"
-                  keyboardType="numeric"
-                  placeholder="Your CURP Number"
-                  onChangeText={(text) => {
-                    formik.handleChange("curp")(text.replace(/\D/g, ""));
-                  }}
-                  onBlur={formik.handleBlur("curp")}
-                  value={values.curp}
-                  autoCapitalize="none"
+          {values.nationality === "Mexican" ? (
+            <View>
+              <View style={{ paddingTop: 25 }}>
+                <Text
                   style={[
-                    globalStyles.inputStyle,
-                    {
-                      borderColor:
-                        errors.curp && touched.curp
-                          ? "red"
-                          : "rgba(18, 3, 58, 0.1)",
-                    },
+                    globalStyles.text,
+                    { color: errors.curp && touched.curp ? "red" : "#737373" },
                   ]}
-                />
+                >
+                  CURP
+                </Text>
+                <View>
+                  <TextInput
+                    name="curp"
+                    keyboardType="numeric"
+                    placeholder="Your CURP Number"
+                    onChangeText={(text) => {
+                      formik.handleChange("curp")(text.replace(/\D/g, ""));
+                    }}
+                    onBlur={formik.handleBlur("curp")}
+                    value={values.curp}
+                    autoCapitalize="none"
+                    style={[
+                      globalStyles.inputStyle,
+                      {
+                        borderColor:
+                          errors.curp && touched.curp
+                            ? "red"
+                            : "rgba(18, 3, 58, 0.1)",
+                      },
+                    ]}
+                  />
+                </View>
+                {errors.curp && touched.curp && (
+                  <Text style={globalStyles.error}>{errors.curp}</Text>
+                )}
               </View>
-              {errors.curp && touched.curp && (
-                <Text style={globalStyles.error}>{errors.curp}</Text>
-              )}
-            </View>
-          ) : null}
 
-          {countryBirth === "MX" || values.nationality === "Mexican" ? (
-            <View style={{ paddingTop: 25 }}>
-              <Text
-                style={[
-                  globalStyles.text,
-                  { color: errors.rfc && touched.rfc ? "red" : "#737373" },
-                ]}
-              >
-                RFC
-              </Text>
-              <View>
-                <TextInput
-                  name="rfc"
-                  keyboardType="numeric"
-                  placeholder="Your RFC Number"
-                  onChangeText={(text) => {
-                    formik.handleChange("rfc")(text.replace(/\D/g, ""));
-                  }}
-                  onBlur={formik.handleBlur("rfc")}
-                  value={values.rfc}
-                  autoCapitalize="none"
+              <View style={{ paddingTop: 25 }}>
+                <Text
                   style={[
-                    globalStyles.inputStyle,
-                    {
-                      borderColor:
-                        errors.rfc && touched.rfc
-                          ? "red"
-                          : "rgba(18, 3, 58, 0.1)",
-                    },
+                    globalStyles.text,
+                    { color: errors.rfc && touched.rfc ? "red" : "#737373" },
                   ]}
-                />
+                >
+                  RFC
+                </Text>
+                <View>
+                  <TextInput
+                    name="rfc"
+                    keyboardType="numeric"
+                    placeholder="Your RFC Number"
+                    onChangeText={(text) => {
+                      formik.handleChange("rfc")(text.replace(/\D/g, ""));
+                    }}
+                    onBlur={formik.handleBlur("rfc")}
+                    value={values.rfc}
+                    autoCapitalize="none"
+                    style={[
+                      globalStyles.inputStyle,
+                      {
+                        borderColor:
+                          errors.rfc && touched.rfc
+                            ? "red"
+                            : "rgba(18, 3, 58, 0.1)",
+                      },
+                    ]}
+                  />
+                </View>
+                {errors.rfc && touched.rfc && (
+                  <Text style={globalStyles.error}>{errors.rfc}</Text>
+                )}
               </View>
-              {errors.rfc && touched.rfc && (
-                <Text style={globalStyles.error}>{errors.rfc}</Text>
-              )}
             </View>
-          ) : null}
-
-          {countryBirth !== "MX" && values.nationality !== "Mexican" ? (
+          ) : (
             <View style={{ paddingTop: 25 }}>
               <Text
                 style={[
@@ -538,7 +530,7 @@ const CompleteProfile1 = (formik) => {
                 <Text style={globalStyles.error}>{errors.tax}</Text>
               )}
             </View>
-          ) : null}
+          )}
 
           <View style={{ paddingTop: 25 }}>
             <Text
@@ -611,13 +603,18 @@ const CompleteProfile1 = (formik) => {
                 onPress={open}
               >
                 <Picker
+                  style={{
+                    color: values.occupation === "" ? "#B9B9B9" : "black",
+                    top: -5,
+                    fontWeight: "bold",
+                  }}
                   ref={pickerRef}
                   selectedValue={values.occupation}
                   onValueChange={formik.handleChange("occupation")}
                   onBlur={formik.handleBlur("occupation")}
                   value={values.occupation}
                 >
-                  <Picker.Item label="--- Select Occupation ---" value="" />
+                  <Picker.Item label="Select" value="" />
                   <Picker.Item
                     label="Artistic Activities"
                     value="Artistic Activities"
@@ -670,7 +667,7 @@ const CompleteProfile1 = (formik) => {
             <Text style={globalStyles.buttonText}>Next</Text>
           </TouchableOpacity>
           <Image
-            style={[globalStyles.Logo, { marginBottom: 50 }]}
+            style={[globalStyles.Logo, { marginBottom: 75 }]}
             source={require("../../../assets/vlogo.png")}
           />
         </View>

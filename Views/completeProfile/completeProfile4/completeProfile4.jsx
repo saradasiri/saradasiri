@@ -153,7 +153,7 @@ const CompleteProfile4 = (profile) => {
 
   const handleFormSubmit = () => {
     const obj = {
-      range:range,
+      range: range,
       fund: fund,
       lower: lower,
       upper: upper,
@@ -188,7 +188,7 @@ const CompleteProfile4 = (profile) => {
       isProfileCompleted: true,
     };
     axios
-      .post(API_PATHS.CREATE_PROFILE+email, obj)
+      .post(API_PATHS.CREATE_PROFILE + email, obj)
       .then((res) => {
         console.log(res.data.message);
         if (res.data.message) {
@@ -218,7 +218,9 @@ const CompleteProfile4 = (profile) => {
           <Tabs1234 range={range} value={range === "$0 - $9,999" ? "3" : "4"} />
 
           <View>
-          <Text style={[globalStyles.Label, { textAlign: "center" }]}>Confirmation</Text>
+            <Text style={[globalStyles.Label, { textAlign: "center" }]}>
+              Confirmation
+            </Text>
           </View>
 
           <View style={{ paddingTop: 40 }}>
@@ -506,7 +508,7 @@ const CompleteProfile4 = (profile) => {
               >
                 <View style={[styles.totalText, { marginTop: 20 }]}>
                   <Text style={styles.personalText}>
-                    {nationality === "MX"
+                    {nationality === "Mexican"
                       ? "Official ID front : "
                       : "Valid Passport : "}
                   </Text>
@@ -551,7 +553,7 @@ const CompleteProfile4 = (profile) => {
 
                 <View style={styles.totalText}>
                   <Text style={styles.personalText}>
-                    {nationality === "MX"
+                    {nationality === "Mexican"
                       ? "Identification number : "
                       : "Passport Number : "}
                   </Text>
@@ -666,7 +668,7 @@ const CompleteProfile4 = (profile) => {
                   termsDocModal();
                 }}
               >
-                  <Text style={globalStyles.buttonText}>Accept</Text>
+                <Text style={globalStyles.buttonText}>Accept</Text>
               </Pressable>
             </Modal>
           </View>
@@ -684,7 +686,7 @@ const CompleteProfile4 = (profile) => {
             <Text style={globalStyles.buttonText}>Confirm</Text>
           </TouchableOpacity>
           <Image
-            style={[globalStyles.Logo, { marginBottom: 50 }]}
+            style={[globalStyles.Logo, { marginBottom: 75 }]}
             source={require("../../../assets/vlogo.png")}
           />
         </View>

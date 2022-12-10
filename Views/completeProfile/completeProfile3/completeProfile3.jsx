@@ -101,7 +101,7 @@ const CompleteProfile3 = (formik) => {
               ]}
             >
               <Text style={styles.buttonText}>
-                {nationality === "MX" ? (
+                {nationality === "Mexican" ? (
                   <Text>Official ID Front</Text>
                 ) : (
                   <Text>Valid Passport</Text>
@@ -165,7 +165,7 @@ const CompleteProfile3 = (formik) => {
               </View>
             </View>
           </View>
-          {nationality === "MX" ? (
+          {nationality === "Mexican" ? (
             <View style={{ marginTop: 40 }}>
               <View
                 style={[
@@ -243,7 +243,7 @@ const CompleteProfile3 = (formik) => {
                 },
               ]}
             >
-              {nationality === "MX" ? (
+              {nationality === "Mexican" ? (
                 <Text>Identification Number </Text>
               ) : (
                 <Text>Passport Number </Text>
@@ -364,12 +364,12 @@ const CompleteProfile3 = (formik) => {
               disabled={
                 !(range === "$10,000 - $59,999"
                   ? (values.documentNo && frontDoc.name && behindDoc.name) ||
-                    (nationality !== "MX" && values.documentNo && frontDoc.name)
+                    (nationality !== "Mexican" && values.documentNo && frontDoc.name)
                   : (values.documentNo &&
                       frontDoc.name &&
                       behindDoc.name &&
                       addressDoc.name) ||
-                    (nationality !== "MX" &&
+                    (nationality !== "Mexican" &&
                       values.documentNo &&
                       frontDoc.name &&
                       addressDoc.name))
@@ -390,12 +390,12 @@ const CompleteProfile3 = (formik) => {
                       (range === "$10,000 - $59,999" &&
                         values.documentNo &&
                         frontDoc.name &&
-                        nationality !== "MX") ||
+                        nationality !== "Mexican") ||
                       (values.documentNo &&
                         frontDoc.name &&
                         behindDoc.name &&
                         addressDoc.name) ||
-                      (nationality !== "MX" &&
+                      (nationality !== "Mexican" &&
                         values.documentNo &&
                         frontDoc.name &&
                         addressDoc.name)
@@ -408,7 +408,7 @@ const CompleteProfile3 = (formik) => {
               </View>
             </TouchableOpacity>
             <Image
-              style={[globalStyles.Logo, { marginBottom: 50 }]}
+              style={[globalStyles.Logo, { marginBottom: 75 }]}
               source={require("../../../assets/vlogo.png")}
             />
           </View>
