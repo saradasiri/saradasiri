@@ -8,28 +8,26 @@ import {
   ScrollView,
   Image,
   ToastAndroid,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { API_PATHS } from "../../../src/constants/apiPaths";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import globalStyles from "../../../globalStyles";
 import ProgressBar from "../../../src/progressBar";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addEmail, addPassword } from "../../../src/redux/actions";
 
-
-
-
 const SetPassword = (formik) => {
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
+  let [isLoading, setIsLoading] = useState(false);
 
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -38,16 +36,8 @@ const SetPassword = (formik) => {
   if (!fontsLoad) {
     return null;
   }
-
-  const setUserEmail = async (value) => {
-    try {
-      await AsyncStorage.setItem("@userEmail", value);
-      navigation.navigate("verifyOTP");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const handleSubmit = () => {   
+  const handleSubmit = () => {
+    setIsLoading(true);
     const obj = {
       email: values.email,
       password: values.password,
@@ -56,14 +46,15 @@ const SetPassword = (formik) => {
       .post(API_PATHS.SIGNUP, obj)
       .then((res) => {
         if (res.data.message) {
+          setIsLoading(false);
           ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
           if (
             res.data.message ===
             "Success,Verification code has been sent to your Mail"
           ) {
-            setUserEmail(values.email);
-            dispatch(addEmail(values.email))
-            dispatch(addPassword(values.password))
+            dispatch(addEmail(values.email));
+            dispatch(addPassword(values.password));
+            navigation.navigate("verifyOTP");
           }
         }
       })
@@ -76,7 +67,7 @@ const SetPassword = (formik) => {
     <KeyboardAwareScrollView contentContainerStyle={globalStyles.MainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar style="auto" />
-        <ProgressBar length={0.5}/>
+        <ProgressBar length={0.5} />
         <Text style={globalStyles.Label}>Protege tu cuenta</Text>
 
         <View style={{ paddingTop: 20 }}>
@@ -192,13 +183,29 @@ const SetPassword = (formik) => {
           <TouchableOpacity
             style={[
               globalStyles.button,
-              { marginTop:80,opacity: formik.isValid && formik.dirty ? 1 : 0.5 },
+              {
+                marginTop: 80,
+                opacity: formik.isValid && formik.dirty ? 1 : 0.5,
+              },
             ]}
-            disabled={!(formik.isValid && formik.dirty)}
+            disabled={!(formik.isValid && formik.dirty) || isLoading}
             onPress={() => {
               handleSubmit();
             }}
           >
+            {isLoading ? (
+              <ActivityIndicator
+                color="#000000"
+                size="large"
+                style={{
+                  zIndex: 2,
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  top: 20,
+                }}
+              />
+            ) : null}
             <Text style={globalStyles.buttonText}>Siguiente</Text>
           </TouchableOpacity>
         </View>
