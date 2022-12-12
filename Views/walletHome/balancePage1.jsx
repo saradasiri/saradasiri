@@ -12,7 +12,7 @@ import PieChart from "react-native-pie-chart";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Footer from "../../src/footer/footer";
+// import Footer from "../../src/footer/footer";
 import { useFonts } from "expo-font";
 import axios from "axios";
 import {
@@ -390,7 +390,7 @@ const BalancePage1 = () => {
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-      <Footer active={"wallet"} />
+      {/* <Footer active={"wallet"} /> */}
     </>
   );
 };

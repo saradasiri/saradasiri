@@ -22,7 +22,7 @@ import {
   addEmail,
   addPassword,
   addAccountAccessToken,
-  addIsTokenSubscribed
+  addIsTokenSubscribed,
 } from "../../src/redux/actions";
 const Login = (formik) => {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const Login = (formik) => {
             dispatch(addPassword(values.password));
             res.data.isVerified
               ? res.data.isProfileCompleted
-                ? navigation.navigate("walletHome")
+                ? navigation.navigate("tabs")
                 : navigation.navigate("accountLevel")
               : sendOTP();
           }

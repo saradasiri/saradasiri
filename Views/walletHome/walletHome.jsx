@@ -16,7 +16,7 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 // import AppLoading from "expo-app-loading";
 import { useNavigation } from "@react-navigation/native";
-import Footer from "../../src/footer/footer";
+// import Footer from "../../src/footer/footer";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import PriceAlert from "../../src/priceAlert";
@@ -338,7 +338,7 @@ const WalletHome = () => {
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-      <Footer active={"home"} />
+      {/* <Footer active={"home"} /> */}
     </>
   );
 };

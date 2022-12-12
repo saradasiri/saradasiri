@@ -122,7 +122,7 @@ const AccountLevel = () => {
         <TouchableOpacity
           style={[globalStyles.button, { marginTop: 30 }]}
           onPress={() => {
-            navigation.navigate("walletHome");
+            navigation.navigate("tabs");
           }}
         >
           <Text style={globalStyles.buttonText}>Skip for Now</Text>

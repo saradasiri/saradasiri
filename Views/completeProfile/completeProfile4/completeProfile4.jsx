@@ -148,7 +148,7 @@ const CompleteProfile4 = (profile) => {
         });
     }
 
-    navigation.navigate("walletHome");
+    navigation.navigate("tabs");
   };
 
   const handleFormSubmit = () => {

@@ -20,7 +20,7 @@ import JoinVadi from "./views/joinVadi";
 import RegisterSuccess from "./views/registerSuccess";
 import BalancePage from "./views/walletHome/balancePage";
 import BalancePage1 from "./views/walletHome/balancePage1";
-import { Text } from "react-native";
+import { Text, Image } from "react-native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
@@ -48,6 +48,93 @@ function BellMenu() {
   );
 }
 
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Bank from "./views/bank";
+import Plus from "./views/plus";
+const Tab = createBottomTabNavigator();
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="walletHome"
+      screenOptions={{
+        headerShown: false,
+        headerTitle: "",
+      }}
+      tabBarOptions={{
+        showLabel: false,
+        tabStyle: {
+          height: 100,
+          bottom: 50,
+          justifyContent: "space-between",
+          width: "100%",
+          backgroundColor: "#ffffff",
+          elevation: 0,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="walletHome"
+        component={WalletHome}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            const image = focused
+              ? require("./assets/homeButton2.png")
+              : require("./assets/homeButton.png");
+            return <Image source={image} style={{ width: 24 }} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="bank"
+        component={Bank}
+        options={{
+          tabBarIcon: ({ tintColor }) => (
+            <Image
+              style={{ alignSelf: "center", width: 25, height: 22 }}
+              source={require("./assets/exchange.png")}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="plus"
+        component={Plus}
+        options={{
+          tabBarIcon: ({ tintColor }) => (
+            <Image
+              style={{ alignSelf: "center", width: 64, height: 64, top: -10 }}
+              source={require("./assets/plus.png")}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="balancePage"
+        component={BalancePage}
+        options={{
+          tabBarIcon: ({ tintColor }) => (
+            <Image
+              style={{ alignSelf: "center", width: 25, height: 22 }}
+              source={require("./assets/graph.png")}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="balancePage1"
+        component={BalancePage1}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            const image = focused
+              ? require("./assets/wallet2.png")
+              : require("./assets/wallet.png");
+            return <Image source={image} style={{ width: 28 }} />;
+          },
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 export default function App() {
   const Stack = createStackNavigator();
   return (
@@ -57,11 +144,12 @@ export default function App() {
           initialRouteName="homepage"
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
+          <Stack.Screen name="tabs" component={MyTabs} />
           <Stack.Screen name="homepage" component={HomePage} />
           <Stack.Screen name="joinVadi" component={JoinVadi} />
           <Stack.Screen name="registerSuccess" component={RegisterSuccess} />
           <Stack.Screen name="introSlides" component={IntroSlides} />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="balancePage"
             options={{ ...TransitionPresets.SlideFromRightIOS }}
             component={BalancePage}
@@ -70,7 +158,7 @@ export default function App() {
             name="balancePage1"
             options={{ ...TransitionPresets.SlideFromRightIOS }}
             component={BalancePage1}
-          />
+          /> */}
           <Stack.Screen
             name="login"
             options={{
@@ -121,11 +209,11 @@ export default function App() {
             }}
             component={SetUpPin}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="walletHome"
             options={{ ...TransitionPresets.SlideFromRightIOS }}
             component={WalletHome}
-          />
+          /> */}
           <Stack.Screen
             options={{
               headerShown: true,

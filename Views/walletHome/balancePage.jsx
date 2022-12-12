@@ -17,7 +17,7 @@ import BlockAlert from "../../src/blockAlert";
 import { CoinData, Recommendations } from "../../data/coinsData";
 import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
-import Footer from "../../src/footer/footer";
+// import Footer from "../../src/footer/footer";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 
@@ -286,7 +286,7 @@ export default function BalancePage(props) {
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-      <Footer active={"wallet"} />
+      {/* <Footer active={"wallet"} /> */}
     </>
   );
 }
