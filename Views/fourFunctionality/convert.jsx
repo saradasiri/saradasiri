@@ -277,7 +277,7 @@ const KeypadButtons = (formik) => {
       <TouchableOpacity
         style={globalStyles.button}
         //   disabled={pin.length != 4}
-        onPress={() => handleSubmit()}
+        // onPress={() => handleSubmit()}
       >
         <Text style={globalStyles.buttonText}>Preview Conversion</Text>
       </TouchableOpacity>
