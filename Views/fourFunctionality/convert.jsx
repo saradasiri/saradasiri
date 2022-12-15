@@ -55,31 +55,36 @@ const KeypadButtons = (formik) => {
         style={{ backgroundColor: "#fff" }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}
+          <View
             style={{
               flexDirection: "row",
-              backgroundColor: "white",
               paddingHorizontal: 20,
               paddingVertical: 10,
 
               justifyContent: "space-between",
-              // margintop: 30,
             }}
           >
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-                borderColor: "#ECECEC",
-                borderRadius: 1,
-                borderWidth: 1,
-                borderRadius: 10,
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
               }}
-              source={require("../../assets/leftArrow.png")}
-            />
+              style={{
+                backgroundColor: "white",
+                // margintop: 30,
+              }}
+            >
+              <Image
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderColor: "#ECECEC",
+                  borderRadius: 1,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                }}
+                source={require("../../assets/leftArrow.png")}
+              />
+            </TouchableOpacity>
             <Text
               style={{
                 textAlign: "center",
@@ -92,7 +97,7 @@ const KeypadButtons = (formik) => {
               Convert
             </Text>
             <Text></Text>
-          </TouchableOpacity>
+          </View>
           <View
             style={{
               flexDirection: "row",
@@ -118,7 +123,7 @@ const KeypadButtons = (formik) => {
             >
               Convert
             </Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('plus')}>
+            <TouchableOpacity onPress={() => navigation.navigate("plus")}>
               <Text
                 style={{
                   backgroundColor: "white",
@@ -144,16 +149,32 @@ const KeypadButtons = (formik) => {
             <View
               style={[
                 globalStyles.inputStyle,
-                { borderColor: "#ECECEC", flexDirection: "row" },
+                {
+                  borderColor: "#ECECEC",
+                  flexDirection: "row",
+                  paddingLeft: 0,
+                  width:322
+                },
               ]}
             >
+              <View style={{ width: "15%", justifyContent: "center" }}>
+                <Image
+                  style={{ width: 35, height: 35, alignSelf:'center' }}
+                  source={require("../../assets/Bitcoin.png")}
+                />
+              </View>
               <Picker
                 ref={pickerRef}
                 selectedValue={values.fromCryptoType}
                 onValueChange={formik.handleChange("fromCryptoType")}
                 onBlur={formik.handleBlur("fromCryptoType")}
                 value={values.fromCryptoType}
-                style={{ width: 110 }}
+                style={{
+                  width: "35%",
+                  height: 50,
+                  fontSize: 12,
+                  alignSelf:'center'
+                }}
               >
                 <Picker.Item label="Select" value="" />
                 <Picker.Item label="BTC" value="BTC" />
@@ -165,7 +186,7 @@ const KeypadButtons = (formik) => {
                   setToggle("1");
                 }}
                 style={{
-                  width: 180,
+                  width: "35%",
                   height: 48,
                   justifyContent: "center",
                   backgroundColor: toggle === "1" ? "#ECECEC" : "white",
@@ -174,6 +195,7 @@ const KeypadButtons = (formik) => {
               >
                 <Text style={{ paddingLeft: 10 }}>{fromAmount}</Text>
               </TouchableOpacity>
+              <Text style={{ width:'15%', textAlign:'center', alignSelf:'center', color:'#8D00FF' }}>MXN</Text>
             </View>
           </View>
 
@@ -183,18 +205,32 @@ const KeypadButtons = (formik) => {
           <View style={{ marginTop: 20 }}>
             <Text style={[globalStyles.text, { marginLeft: 20 }]}>To</Text>
             <View
-              style={[
-                globalStyles.inputStyle,
-                { borderColor: "#ECECEC", flexDirection: "row" },
-              ]}
-            >
+                style={[
+                  globalStyles.inputStyle,
+                  {
+                    borderColor: "#ECECEC",
+                    flexDirection: "row",
+                    paddingLeft: 0,
+                    width:322
+                  },
+                ]}
+            ><View style={{ width: "15%", justifyContent: "center" }}>
+            <Image
+              style={{ width: 35, height: 35, alignSelf:'center' }}
+              source={require("../../assets/Bitcoin.png")}
+            /></View>
               <Picker
                 ref={pickerRef}
                 selectedValue={values.toCryptoType}
                 onValueChange={formik.handleChange("toCryptoType")}
                 onBlur={formik.handleBlur("toCryptoType")}
                 value={values.toCryptoType}
-                style={{ width: 110 }}
+                style={{
+                  width: "35%",
+                  height: 50,
+                  fontSize: 12,
+                  alignSelf:'center'
+                }}
               >
                 <Picker.Item label="Select" value="" />
                 <Picker.Item label="BTC" value="BTC" />
@@ -206,15 +242,17 @@ const KeypadButtons = (formik) => {
                   setToggle("2");
                 }}
                 style={{
-                  width: 180,
+                  width: "35%",
                   height: 48,
                   justifyContent: "center",
-                  borderColor: "#ECECEC",
                   backgroundColor: toggle === "2" ? "#ECECEC" : "white",
+                  borderColor: "#ECECEC",
                 }}
               >
                 <Text style={{ paddingLeft: 10 }}>{toAmount}</Text>
               </TouchableOpacity>
+              <Text style={{ width:'15%', textAlign:'center', alignSelf:'center', color:'#8D00FF' }}>MXN</Text>
+           
             </View>
           </View>
           <View>
