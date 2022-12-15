@@ -67,6 +67,7 @@ const WalletHome = () => {
           })
           .then((res) => {
             if (res.status === 200) {
+              setToggle(true);
               navigation.navigate("balancePage1");
             }
           });
