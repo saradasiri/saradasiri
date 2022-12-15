@@ -8,7 +8,7 @@ const CountryCodePicker = (props) => {
   return (
     <View >
       <PhoneInput
-        containerStyle={{ backgroundColor: "transparent", width: 320 }}
+        containerStyle={{ backgroundColor: "transparent", width:"100%" }}
         disableArrowIcon={false}
         // placeholder={"     "}
         // containerStyle={globalStyles.PhoneInput}

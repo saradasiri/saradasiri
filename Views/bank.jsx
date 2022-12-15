@@ -3,7 +3,7 @@ import React from "react";
 
 const Bank = () => {
   return (
-    <View style={{ marginTop: 300 }}>
+    <View style={{ marginTop: 300, backgroundColor:'white' }}>
       <Text style={{ textAlign:'center' }}>Wii be Attached Soon</Text>
     </View>
   );

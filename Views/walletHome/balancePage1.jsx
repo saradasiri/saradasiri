@@ -26,7 +26,9 @@ import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 import { useDispatch, useSelector } from "react-redux";
 import { API_PATHS } from "../../src/constants/apiPaths";
+import { useNavigation } from "@react-navigation/native";
 const BalancePage1 = () => {
+  const navigation = useNavigation();
   const [data, setData] = useState([]);
   const { email, password, access_token } = useSelector(
     (state) => state.userReducer
@@ -96,10 +98,16 @@ const BalancePage1 = () => {
                 borderRadius: 10,
               }}
             >
-              <Image
-                style={{ width: 40, height: 40 }}
-                source={require("../../assets/image.png")}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("profile");
+                }}
+              >
+                <Image
+                  style={{ width: 40, height: 40 }}
+                  source={require("../../assets/image.png")}
+                />
+              </TouchableOpacity>
               <Image
                 style={{ width: 30, height: 30 }}
                 source={require("../../assets/scan.png")}

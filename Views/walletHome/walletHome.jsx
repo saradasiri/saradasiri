@@ -37,23 +37,17 @@ const WalletHome = () => {
   );
 
   useEffect(() => {
-    axios
-      .get(
-        `${API_PATHS.EXISTENCE_OF_WALLET}${email}`
-      )
-      .then((res) => {
-        if (res.data == true) {
-          setToggle(true);
-        } else setToggle(false);
-      });
+    axios.get(`${API_PATHS.EXISTENCE_OF_WALLET}${email}`).then((res) => {
+      if (res.data == true) {
+        setToggle(true);
+      } else setToggle(false);
+    });
   }, []);
 
   useEffect(() => {
-    axios
-      .get(API_PATHS.MARKET_DATA)
-      .then((res) => {
-        setData(res.data.result);
-      });
+    axios.get(API_PATHS.MARKET_DATA).then((res) => {
+      setData(res.data.result);
+    });
   }, []);
 
   const createWallet = () => {
@@ -61,25 +55,23 @@ const WalletHome = () => {
       email: email,
       password: password,
     };
-    axios
-      .post(API_PATHS.WALLET_SIGNUP, obj)
-      .then((res) => {
-        if (res.data.access_token) {
-          dispatch(addAccessToken(res.data.access_token));
-          axios
-            .get(API_PATHS.CREATE_WALLET, {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${res.data.access_token}`,
-              },
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                navigation.navigate("balancePage1");
-              }
-            });
-        }
-      });
+    axios.post(API_PATHS.WALLET_SIGNUP, obj).then((res) => {
+      if (res.data.access_token) {
+        dispatch(addAccessToken(res.data.access_token));
+        axios
+          .get(API_PATHS.CREATE_WALLET, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${res.data.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              navigation.navigate("balancePage1");
+            }
+          });
+      }
+    });
   };
 
   const signIn = () => {
@@ -87,14 +79,12 @@ const WalletHome = () => {
       email: email,
       password: password,
     };
-    axios
-      .post(API_PATHS.WALLET_SIGNIN, obj)
-      .then((res) => {
-        if (res.data.access_token) {
-          dispatch(addAccessToken(res.data.access_token));
-          navigation.navigate("balancePage1");
-        }
-      });
+    axios.post(API_PATHS.WALLET_SIGNIN, obj).then((res) => {
+      if (res.data.access_token) {
+        dispatch(addAccessToken(res.data.access_token));
+        navigation.navigate("balancePage1");
+      }
+    });
   };
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -133,10 +123,16 @@ const WalletHome = () => {
                 borderRadius: 10,
               }}
             >
-              <Image
-                style={{ width: 40, height: 40 }}
-                source={require("../../assets/image.png")}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("profile");
+                }}
+              >
+                <Image
+                  style={{ width: 40, height: 40 }}
+                  source={require("../../assets/image.png")}
+                />
+              </TouchableOpacity>
               <Image
                 style={{ width: 30, height: 30 }}
                 source={require("../../assets/scan.png")}
@@ -176,7 +172,7 @@ const WalletHome = () => {
               style={{
                 marginTop: 70,
                 // paddingLeft: 30,
-                marginHorizontal: toggle ?70 : 55,
+                marginHorizontal: toggle ? 70 : 55,
                 justifyContent: "space-between",
                 flexDirection: "row",
               }}

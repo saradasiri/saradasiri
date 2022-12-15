@@ -48,13 +48,99 @@ function BellMenu() {
   );
 }
 
+function ConvertTabs() {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator
+      backBehavior="history"
+      initialRouteName="keypad"
+      screenOptions={{
+        headerShown: false,
+        headerTitle: "",
+      }}
+      tabBarOptions={{
+        showLabel: false,
+        tabStyle: {
+          top: -580,
+          justifyContent: "space-between",
+          width: 0,
+          height:0,
+          backgroundColor: "#ffffff",
+          elevation: 0,
+        },
+      }}
+      
+    >
+      <Tab.Screen
+        name="keypad"
+        component={ConvertProcess}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            // const image = focused
+            //   ? require("./assets/homeButton2.png")
+            //   : require("./assets/homeButton.png");
+            return (
+              <Text
+                style={{
+                  backgroundColor: focused ? "#2D0052" : "white",
+                  width: 120,
+                  height: 45,
+                  borderRadius: 10,
+                  textAlign: "center",
+                  color: focused ? "white" : "#2D0052",
+                  borderWidth: 1,
+                  borderColor: "#ECECEC",
+                  padding: 10,
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+              >
+                Convert
+              </Text>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="bank"
+        component={Bank}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Text
+              style={{
+                backgroundColor: focused ? "#2D0052" : "white",
+                color: focused ? "white" : "#2D0052",
+                width: 120,
+                height: 45,
+                borderRadius: 10,
+                textAlign: "center",
+                borderWidth: 1,
+                borderColor: "#ECECEC",
+                padding: 10,
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              Limit
+            </Text>
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Bank from "./views/bank";
 import Plus from "./views/plus";
+import ProfileProcess from "./views/profile/profileProcess";
+import Convert from "./views/fourFunctionality/convert";
+import ConvertProcess from "./views/fourFunctionality/convertProcess";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
+      backBehavior="history"
       initialRouteName="walletHome"
       screenOptions={{
         headerShown: false,
@@ -98,8 +184,9 @@ function MyTabs() {
       />
       <Tab.Screen
         name="plus"
-        component={Plus}
+        component={ConvertTabs}
         options={{
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ tintColor }) => (
             <Image
               style={{ alignSelf: "center", width: 64, height: 64, top: -10 }}
@@ -132,6 +219,14 @@ function MyTabs() {
           },
         }}
       />
+      <Tab.Screen
+        name="profile"
+        component={ProfileProcess}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -144,7 +239,9 @@ export default function App() {
           initialRouteName="homepage"
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
+          <Stack.Screen name="convertTabs" component={ConvertTabs} />
           <Stack.Screen name="tabs" component={MyTabs} />
+          <Stack.Screen name="convert" component={Convert} />
           <Stack.Screen name="homepage" component={HomePage} />
           <Stack.Screen name="joinVadi" component={JoinVadi} />
           <Stack.Screen name="registerSuccess" component={RegisterSuccess} />

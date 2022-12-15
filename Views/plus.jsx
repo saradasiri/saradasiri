@@ -3,7 +3,7 @@ import React from "react";
 
 const Plus = () => {
   return (
-    <View style={{ marginTop: 300 }}>
+    <View style={{ marginTop: 300, backgroundColor:'white' }}>
       <Text style={{ textAlign:'center' }}>Not attached Yet</Text>
     </View>
   );

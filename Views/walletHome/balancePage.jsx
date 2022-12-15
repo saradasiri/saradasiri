@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import React, { useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import PriceAlert from "../../src/priceAlert";
@@ -20,9 +20,9 @@ import { API_PATHS } from "../../src/constants/apiPaths";
 // import Footer from "../../src/footer/footer";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 
 const renderItem = ({ item, index }) => {
-
   return (
     <TouchableOpacity
       style={{
@@ -40,7 +40,7 @@ const renderItem = ({ item, index }) => {
       <View style={{ flexDirection: "row" }}>
         <View>
           <Image
-            source={{uri :item.image}}
+            source={{ uri: item.image }}
             resizeMode="cover"
             style={{ marginTop: 5, width: 25, height: 25 }}
           />
@@ -53,7 +53,7 @@ const renderItem = ({ item, index }) => {
 
       <View style={{ marginTop: 12 }}>
         <Text style={{ fontWeight: "bold" }}>
-        $ <Text style={{}}>{item.current_price}</Text>
+          $ <Text style={{}}>{item.current_price}</Text>
         </Text>
       </View>
     </TouchableOpacity>
@@ -61,15 +61,14 @@ const renderItem = ({ item, index }) => {
 };
 
 export default function BalancePage(props) {
-  const [data ,setData] = useState([])
+  const navigation = useNavigation();
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-      axios
-        .get(API_PATHS.MARKET_DATA)
-        .then((res) => {
-          setData(res.data.result);
-        });
-    }, []);
+  useEffect(() => {
+    axios.get(API_PATHS.MARKET_DATA).then((res) => {
+      setData(res.data.result);
+    });
+  }, []);
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
@@ -77,8 +76,6 @@ export default function BalancePage(props) {
   if (!fontsLoad) {
     return null;
   }
- 
-     
 
   return (
     <>
@@ -107,10 +104,16 @@ export default function BalancePage(props) {
                 borderRadius: 10,
               }}
             >
-              <Image
-                style={{ width: 40, height: 40 }}
-                source={require("../../assets/image.png")}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("profile");
+                }}
+              >
+                <Image
+                  style={{ width: 40, height: 40 }}
+                  source={require("../../assets/image.png")}
+                />
+              </TouchableOpacity>
               <Image
                 style={{ width: 30, height: 30 }}
                 source={require("../../assets/scan.png")}
