@@ -24,7 +24,32 @@ import Listitem from "../../src/Listitem";
 import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmail, addPassword, addAccessToken } from "../../src/redux/actions";
+import {
+  addAccessToken,
+  addRange,
+  addLower,
+  addUpper,
+  addFund,
+  addFirstName,
+  addLastName,
+  addName,
+  addBirth,
+  addNationality,
+  addCountryBirth,
+  addCurp,
+  addRfc,
+  addTax,
+  addPhone,
+  addOccupation,
+  addCountryCode,
+  addStreet,
+  addExterior,
+  addInside,
+  addPostalCode,
+  addColony,
+  addMunicipality,
+  addState,
+} from "../../src/redux/actions";
 
 const WalletHome = () => {
   const dispatch = useDispatch();
@@ -35,6 +60,40 @@ const WalletHome = () => {
   const { email, password, access_token } = useSelector(
     (state) => state.userReducer
   );
+
+  useEffect(() => {
+    const object = {
+      email: email,
+    };
+    axios.post(API_PATHS.FETCH_PROFILE, object).then((res) => {
+      // console.log(res.data);
+      if (res.data) {
+        dispatch(addRange(res.data.range));
+        dispatch(addLower(res.data.lower));
+        dispatch(addUpper(res.data.upper));
+        dispatch(addFund(res.data.fundAmount));
+        dispatch(addFirstName(res.data.firstName));
+        dispatch(addLastName(res.data.secondName));
+        dispatch(addName(res.data.fullName));
+        dispatch(addBirth(res.data.dateOfBirth));
+        dispatch(addNationality(res.data.nationality));
+        dispatch(addCountryBirth(res.data.countryOfBirth));
+        dispatch(addCurp(res.data.cURP));
+        dispatch(addRfc(res.data.rFC));
+        dispatch(addTax(res.data.tax));
+        dispatch(addPhone(res.data.phoneNumber));
+        dispatch(addOccupation(res.data.occupation));
+        dispatch(addCountryCode(`+${res.data.countryCode}`));
+        dispatch(addStreet(res.data.street));
+        dispatch(addExterior(res.data.exterior));
+        dispatch(addInside(res.data.interior));
+        dispatch(addPostalCode(res.data.postalCode));
+        dispatch(addColony(res.data.colony));
+        dispatch(addMunicipality(res.data.muncipiality));
+        dispatch(addState(res.data.state));
+      }
+    });
+  }, []);
 
   useEffect(() => {
     axios.get(`${API_PATHS.EXISTENCE_OF_WALLET}${email}`).then((res) => {
