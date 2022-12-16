@@ -9,10 +9,10 @@ import { useNavigation } from "@react-navigation/native";
 const LoginProcess = () => {
   const navigation = useNavigation();
 
-  const { email, password, access_token } = useSelector(
+  const { email, password, access_token, profileCreated } = useSelector(
     (state) => state.userReducer
   );
-  if (email && password) {
+  if (email && password && profileCreated) {
     navigation.navigate("tabs");
   }
   const initialValues = {

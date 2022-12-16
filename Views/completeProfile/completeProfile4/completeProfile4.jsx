@@ -25,6 +25,7 @@ import Tabs1234 from "../../../src/tabs1234";
 import { useSelector } from "react-redux";
 import globalStyles from "../../../globalStyles";
 import DocModal from "../../../src/docModal";
+import moment from "moment";
 const CompleteProfile4 = (profile) => {
   const navigation = useNavigation();
   const {
@@ -154,7 +155,7 @@ const CompleteProfile4 = (profile) => {
   const handleFormSubmit = () => {
     const obj = {
       range: range,
-      fund: fund,
+      // fund: fund,
       lower: lower,
       upper: upper,
       fundAmount: Number(fund),
@@ -163,12 +164,12 @@ const CompleteProfile4 = (profile) => {
       fullName: name,
       dateOfBirth: birth.toISOString(),
       nationality: nationality,
-      countryCode: countryCode,
+      countryCode: Number(countryCode),
       countryOfBirth: countryBirth,
-      cURP: curp ? curp : "",
-      rFC: rfc ? rfc: "",
+      cURP: curp ? curp : " ",
+      rFC: rfc ? rfc: " ",
       phoneNumber: Number(phone),
-      tax: tax ? tax : "",
+      tax: tax ? tax : " ",
       occupation: occupation ? occupation : " ",
       street: street,
       exterior: exterior,
@@ -184,9 +185,10 @@ const CompleteProfile4 = (profile) => {
           ? profile.route.params.documentNo
           : " ",
       isGeo: " ",
-      isEmailVerified: true,
+      // isEmailVerified: true,
       isProfileCompleted: true,
     };
+    console.log(obj)
     axios
       .post(API_PATHS.CREATE_PROFILE + email, obj)
       .then((res) => {
@@ -311,7 +313,7 @@ const CompleteProfile4 = (profile) => {
                   numberOfLines={1}
                   ellipsizeMode={"tail"}
                 >
-                  {birth.toDateString()}
+                  {moment(birth).format("MMMM Do YYYY")}
                 </Text>
               </View>
 
