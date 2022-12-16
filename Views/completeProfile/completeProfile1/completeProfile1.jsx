@@ -434,11 +434,8 @@ const CompleteProfile1 = (formik) => {
                 <View>
                   <TextInput
                     name="curp"
-                    keyboardType="numeric"
                     placeholder="Your CURP Number"
-                    onChangeText={(text) => {
-                      formik.handleChange("curp")(text.replace(/\D/g, ""));
-                    }}
+                    onChangeText={formik.handleChange("curp")}
                     onBlur={formik.handleBlur("curp")}
                     value={values.curp}
                     autoCapitalize="none"
@@ -470,11 +467,8 @@ const CompleteProfile1 = (formik) => {
                 <View>
                   <TextInput
                     name="rfc"
-                    keyboardType="numeric"
                     placeholder="Your RFC Number"
-                    onChangeText={(text) => {
-                      formik.handleChange("rfc")(text.replace(/\D/g, ""));
-                    }}
+                    onChangeText={formik.handleChange("rfc")}
                     onBlur={formik.handleBlur("rfc")}
                     value={values.rfc}
                     autoCapitalize="none"
@@ -507,11 +501,8 @@ const CompleteProfile1 = (formik) => {
               <View>
                 <TextInput
                   name="tax"
-                  keyboardType="numeric"
                   placeholder="Your RFC Number"
-                  onChangeText={(text) => {
-                    formik.handleChange("tax")(text.replace(/\D/g, ""));
-                  }}
+                  onChangeText={formik.handleChange("tax")}
                   onBlur={formik.handleBlur("tax")}
                   value={values.tax}
                   autoCapitalize="none"
