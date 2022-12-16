@@ -15,8 +15,9 @@ const LoginProcess = () => {
   const login = async () => {
     const userEmail = await AsyncStorage.getItem("@userEmail");
     const userPassword = await AsyncStorage.getItem("@userPassword");
+    const accessToken = await AsyncStorage.getItem("@accessToken");
 
-    if (userEmail != null && userPassword != null) {
+    if (userEmail != null && userPassword != null && accessToken != null) {
       dispatch(addEmail(userEmail));
       dispatch(addPassword(userPassword));
       navigation.navigate("tabs");

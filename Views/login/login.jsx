@@ -55,7 +55,7 @@ const Login = (formik) => {
             dispatch(addPassword(values.password));
             res.data.isVerified
               ? res.data.isProfileCompleted
-                ? saveData()
+                ? saveData(res.data.access_token)
                 : navigation.navigate("accountLevel")
               : sendOTP();
           }
@@ -68,10 +68,11 @@ const Login = (formik) => {
       });
   };
 
-  const saveData = async () => {
+  const saveData = async (value) => {
     try {
       await AsyncStorage.setItem("@userEmail", values.email);
       await AsyncStorage.setItem("@userPassword", values.password);
+      await AsyncStorage.setItem("@accessToken", value);
     } catch (error) {
       console.log(error);
     }
