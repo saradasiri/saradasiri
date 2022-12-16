@@ -54,14 +54,15 @@ import Plus from "./views/plus";
 import ProfileProcess from "./views/profile/profileProcess";
 import Convert from "./views/fourFunctionality/convert";
 import ConvertProcess from "./views/fourFunctionality/convertProcess";
+import Logout from "./src/logout";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
   const userEmail = AsyncStorage.getItem("@userEmail");
   return (
     <>
-      {userEmail ? (
+      {userEmail != null ? (
         <Tab.Navigator
-      backBehavior="history"
+          backBehavior="history"
           initialRouteName="walletHome"
           screenOptions={{
             headerShown: false,
@@ -83,6 +84,7 @@ function MyTabs() {
             name="walletHome"
             component={WalletHome}
             options={{
+              backBehavior: "none",
               tabBarIcon: ({ focused }) => {
                 const image = focused
                   ? require("./assets/homeButton2.png")
@@ -158,11 +160,11 @@ function MyTabs() {
     </>
   );
 }
+const Stack = createStackNavigator();
 export default function App() {
-  const Stack = createStackNavigator();
   return (
     <Provider store={Store}>
-      <NavigationContainer>
+      <NavigationContainer independent={true}>
         <Stack.Navigator
           initialRouteName="homepage"
           screenOptions={{ headerTitle: "", headerShown: false }}
@@ -178,6 +180,7 @@ export default function App() {
               headerRight: (props) => <BellMenu {...props} />,
             }}
           />
+          <Stack.Screen name="logout" component={Logout} />
           <Stack.Screen name="homepage" component={HomePage} />
           <Stack.Screen name="joinVadi" component={JoinVadi} />
           <Stack.Screen name="registerSuccess" component={RegisterSuccess} />

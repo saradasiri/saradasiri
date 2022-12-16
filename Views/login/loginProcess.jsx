@@ -16,12 +16,15 @@ const LoginProcess = () => {
     const userEmail = await AsyncStorage.getItem("@userEmail");
     const userPassword = await AsyncStorage.getItem("@userPassword");
 
-    if (userEmail !== "" && userPassword !== "") {
+    if (userEmail != null && userPassword != null) {
       dispatch(addEmail(userEmail));
       dispatch(addPassword(userPassword));
       navigation.navigate("tabs");
     }
   };
+  useEffect(() => {
+    login();
+  }, []);
 
   const initialValues = {
     password: "",

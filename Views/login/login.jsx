@@ -18,7 +18,7 @@ import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
 import globalStyles from "../../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   addEmail,
   addPassword,
@@ -26,7 +26,6 @@ import {
   addIsTokenSubscribed,
 } from "../../src/redux/actions";
 const Login = (formik) => {
-  const { profileCompleted } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
@@ -70,8 +69,12 @@ const Login = (formik) => {
   };
 
   const saveData = async () => {
-    await AsyncStorage.setItem("@userEmail", values.email);
-    await AsyncStorage.setItem("@userPassword", values.password);
+    try {
+      await AsyncStorage.setItem("@userEmail", values.email);
+      await AsyncStorage.setItem("@userPassword", values.password);
+    } catch (error) {
+      console.log(error);
+    }
     navigation.navigate("tabs");
   };
 

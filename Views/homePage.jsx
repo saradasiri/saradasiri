@@ -4,8 +4,9 @@ import {
   View,
   ImageBackground,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
@@ -13,6 +14,10 @@ import { getHeight } from "../src/Dimentions/DImentions";
 
 const HomePage = () => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => true);
+  }, []);
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
@@ -20,7 +25,6 @@ const HomePage = () => {
   if (!fontsLoad) {
     return null;
   }
-
   return (
     <ImageBackground
       style={{ flex: 1, alignSelf: "stretch", width: null }}
@@ -52,7 +56,14 @@ const HomePage = () => {
             }}
           >
             <Text style={{ color: "#fff", fontSize: 30 }}>+ </Text>
-            <Text style={{ color: "#fff", fontSize: 16, top: 11,fontFamily: "NunitoSans_400Regular" }}>
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: 16,
+                top: 11,
+                fontFamily: "NunitoSans_400Regular",
+              }}
+            >
               Iniciar registro
             </Text>
           </View>
@@ -69,7 +80,7 @@ const HomePage = () => {
               fontSize: 16,
               fontWeight: "400",
               marginTop: 20,
-              fontFamily: "NunitoSans_400Regular"
+              fontFamily: "NunitoSans_400Regular",
             }}
           >
             Entrar
