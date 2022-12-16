@@ -49,6 +49,7 @@ import {
   addPassword,
   addAccountAccessToken,
 } from "../../src/redux/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = (formik) => {
   const dispatch = useDispatch();
@@ -92,6 +93,7 @@ const Profile = (formik) => {
       dispatch(addColony(""));
       dispatch(addMunicipality(""));
       dispatch(addState(""));
+      AsyncStorage.clear();
       navigation.navigate('login')
   };
   return (

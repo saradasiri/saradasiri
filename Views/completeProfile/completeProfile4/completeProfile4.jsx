@@ -162,7 +162,7 @@ const CompleteProfile4 = (profile) => {
       firstName: firstName,
       lastName: lastName,
       fullName: name,
-      dateOfBirth: birth.toISOString(),
+      dateOfBirth: moment(birth).toISOString(),
       nationality: nationality,
       countryCode: Number(countryCode),
       countryOfBirth: countryBirth,

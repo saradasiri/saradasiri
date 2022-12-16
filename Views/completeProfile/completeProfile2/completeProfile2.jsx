@@ -197,6 +197,7 @@ const CompleteProfile2 = (formik) => {
                 onBlur={formik.handleBlur("postalCode")}
                 value={values.postalCode}
                 autoCapitalize="none"
+                maxLength={6}
                 style={[
                   globalStyles.inputStyle,
                   {

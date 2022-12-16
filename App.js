@@ -25,6 +25,7 @@ import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import { Store } from "./src/redux/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function BellMenu() {
   let [fontsLoad, error] = useFonts({
@@ -55,96 +56,106 @@ import Convert from "./views/fourFunctionality/convert";
 import ConvertProcess from "./views/fourFunctionality/convertProcess";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
+  const userEmail = AsyncStorage.getItem("@userEmail");
   return (
-    <Tab.Navigator
+    <>
+      {userEmail ? (
+        <Tab.Navigator
       backBehavior="history"
-      initialRouteName="walletHome"
-      screenOptions={{
-        headerShown: false,
-        headerTitle: "",
-      }}
-      tabBarOptions={{
-        showLabel: false,
-        tabStyle: {
-          height: 100,
-          bottom: 50,
-          justifyContent: "space-between",
-          width: "100%",
-          backgroundColor: "#ffffff",
-          elevation: 0,
-        },
-      }}
-    >
-      <Tab.Screen
-        name="walletHome"
-        component={WalletHome}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            const image = focused
-              ? require("./assets/homeButton2.png")
-              : require("./assets/homeButton.png");
-            return <Image source={image} style={{ width: 24 }} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="bank"
-        component={Bank}
-        options={{
-          tabBarIcon: ({ tintColor }) => (
-            <Image
-              style={{ alignSelf: "center", width: 25, height: 22 }}
-              source={require("./assets/exchange.png")}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="functions"
-        component={ConvertProcess}
-        options={{
-          tabBarStyle: { display: "none" },
-          tabBarIcon: ({ tintColor }) => (
-            <Image
-              style={{ alignSelf: "center", width: 64, height: 64, top: -10 }}
-              source={require("./assets/plus.png")}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="balancePage"
-        component={BalancePage}
-        options={{
-          tabBarIcon: ({ tintColor }) => (
-            <Image
-              style={{ alignSelf: "center", width: 25, height: 22 }}
-              source={require("./assets/graph.png")}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="balancePage1"
-        component={BalancePage1}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            const image = focused
-              ? require("./assets/wallet2.png")
-              : require("./assets/wallet.png");
-            return <Image source={image} style={{ width: 28 }} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="profile"
-        component={ProfileProcess}
-        options={{
-          tabBarButton: () => null,
-          tabBarVisible: false,
-        }}
-      />
-    </Tab.Navigator>
+          initialRouteName="walletHome"
+          screenOptions={{
+            headerShown: false,
+            headerTitle: "",
+          }}
+          tabBarOptions={{
+            showLabel: false,
+            tabStyle: {
+              height: 100,
+              bottom: 50,
+              justifyContent: "space-between",
+              width: "100%",
+              backgroundColor: "#ffffff",
+              elevation: 0,
+            },
+          }}
+        >
+          <Tab.Screen
+            name="walletHome"
+            component={WalletHome}
+            options={{
+              tabBarIcon: ({ focused }) => {
+                const image = focused
+                  ? require("./assets/homeButton2.png")
+                  : require("./assets/homeButton.png");
+                return <Image source={image} style={{ width: 24 }} />;
+              },
+            }}
+          />
+          <Tab.Screen
+            name="bank"
+            component={Bank}
+            options={{
+              tabBarIcon: ({ tintColor }) => (
+                <Image
+                  style={{ alignSelf: "center", width: 25, height: 22 }}
+                  source={require("./assets/exchange.png")}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="functions"
+            component={ConvertProcess}
+            options={{
+              tabBarStyle: { display: "none" },
+              tabBarIcon: ({ tintColor }) => (
+                <Image
+                  style={{
+                    alignSelf: "center",
+                    width: 64,
+                    height: 64,
+                    top: -10,
+                  }}
+                  source={require("./assets/plus.png")}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="balancePage"
+            component={BalancePage}
+            options={{
+              tabBarIcon: ({ tintColor }) => (
+                <Image
+                  style={{ alignSelf: "center", width: 25, height: 22 }}
+                  source={require("./assets/graph.png")}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="balancePage1"
+            component={BalancePage1}
+            options={{
+              tabBarIcon: ({ focused }) => {
+                const image = focused
+                  ? require("./assets/wallet2.png")
+                  : require("./assets/wallet.png");
+                return <Image source={image} style={{ width: 28 }} />;
+              },
+            }}
+          />
+          <Tab.Screen
+            name="profile"
+            component={ProfileProcess}
+            options={{
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+        </Tab.Navigator>
+      ) : null}
+    </>
   );
 }
 export default function App() {

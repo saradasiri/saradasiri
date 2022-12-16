@@ -1,20 +1,28 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import Login from "./login";
-import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addEmail, addPassword } from "../../src/redux/actions";
 
 const LoginProcess = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const login = async () => {
+    const userEmail = await AsyncStorage.getItem("@userEmail");
+    const userPassword = await AsyncStorage.getItem("@userPassword");
 
-  const { email, password, access_token, profileCreated } = useSelector(
-    (state) => state.userReducer
-  );
-  if (email && password && profileCreated) {
-    navigation.navigate("tabs");
-  }
+    if (userEmail !== "" && userPassword !== "") {
+      dispatch(addEmail(userEmail));
+      dispatch(addPassword(userPassword));
+      navigation.navigate("tabs");
+    }
+  };
+
   const initialValues = {
     password: "",
     email: "",

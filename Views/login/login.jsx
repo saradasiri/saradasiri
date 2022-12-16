@@ -17,39 +17,16 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
 import globalStyles from "../../globalStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addEmail,
   addPassword,
   addAccountAccessToken,
   addIsTokenSubscribed,
-  addRange,
-  addLower,
-  addUpper,
-  addFund,
-  addFirstName,
-  addLastName,
-  addName,
-  addBirth,
-  addNationality,
-  addCountryBirth,
-  addCurp,
-  addRfc,
-  addTax,
-  addPhone,
-  addOccupation,
-  addCountryCode,
-  addStreet,
-  addExterior,
-  addInside,
-  addPostalCode,
-  addColony,
-  addMunicipality,
-  addState,
-  addProfileCreated,
 } from "../../src/redux/actions";
 const Login = (formik) => {
-  const { name } = useSelector((state) => state.userReducer);
+  const { profileCompleted } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { values, errors, touched } = formik;
@@ -91,42 +68,11 @@ const Login = (formik) => {
         }
       });
   };
+
   const saveData = async () => {
-    const object = {
-      email: values.email,
-    };
-    await axios.post(API_PATHS.FETCH_PROFILE, object).then((res) => {
-      if (res.data.range) {
-        dispatch(addRange(res.data.range));
-        dispatch(addLower(res.data.lower));
-        dispatch(addUpper(res.data.upper));
-        dispatch(addFund(res.data.fundAmount));
-        dispatch(addFirstName(res.data.firstName));
-        dispatch(addLastName(res.data.secondName));
-        dispatch(addName(res.data.fullName));
-        dispatch(addBirth(res.data.dateOfBirth));
-        dispatch(addNationality(res.data.nationality));
-        dispatch(addCountryBirth(res.data.countryOfBirth));
-        dispatch(addCurp(res.data.cURP));
-        dispatch(addRfc(res.data.rFC));
-        dispatch(addTax(res.data.tax));
-        dispatch(addPhone(res.data.phoneNumber));
-        dispatch(addOccupation(res.data.occupation));
-        dispatch(addCountryCode(res.data.countryCode));
-        dispatch(addStreet(res.data.street));
-        dispatch(addExterior(res.data.exterior));
-        dispatch(addInside(res.data.interior));
-        dispatch(addPostalCode(res.data.postalCode));
-        dispatch(addColony(res.data.colony));
-        dispatch(addMunicipality(res.data.muncipiality));
-        dispatch(addState(res.data.state));
-        dispatch(addProfileCreated(res.data.isProfileCompleted));
-      }
-      if (name) {
-        console.log(name);
-        navigation.navigate("tabs");
-      }
-    });
+    await AsyncStorage.setItem("@userEmail", values.email);
+    await AsyncStorage.setItem("@userPassword", values.password);
+    navigation.navigate("tabs");
   };
 
   const sendOTP = () => {
