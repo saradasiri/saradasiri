@@ -99,7 +99,7 @@ const Profile = (formik) => {
     
   console.log( await AsyncStorage.getItem("@userEmail"))
     if (await AsyncStorage.getItem("@userEmail") === null) {
-      navigation.navigate("logout");
+      navigation.navigate("login");
     }
   };
   return (

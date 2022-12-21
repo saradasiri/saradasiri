@@ -54,7 +54,7 @@ import Plus from "./views/plus";
 import ProfileProcess from "./views/profile/profileProcess";
 import Convert from "./views/fourFunctionality/convert";
 import ConvertProcess from "./views/fourFunctionality/convertProcess";
-import Logout from "./src/logout";
+// import Logout from "./src/logout";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
   const userEmail = AsyncStorage.getItem("@userEmail");
@@ -180,7 +180,7 @@ export default function App() {
               headerRight: (props) => <BellMenu {...props} />,
             }}
           />
-          <Stack.Screen name="logout" component={Logout} />
+          {/* <Stack.Screen name="logout" component={Logout} /> */}
           <Stack.Screen name="homepage" component={HomePage} />
           <Stack.Screen name="joinVadi" component={JoinVadi} />
           <Stack.Screen name="registerSuccess" component={RegisterSuccess} />

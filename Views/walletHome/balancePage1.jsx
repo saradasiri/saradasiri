@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { VictoryPie } from "victory";
@@ -13,7 +14,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 // import Footer from "../../src/footer/footer";
-import { useFonts } from "expo-font";
+import globalStyles from "../../globalStyles";
+import { isLoading, useFonts } from "expo-font";
 import axios from "axios";
 import {
   widthPercentageToDP as wp,
@@ -27,9 +29,15 @@ const screenWidth = Dimensions.get("window").width;
 import { useDispatch, useSelector } from "react-redux";
 import { API_PATHS } from "../../src/constants/apiPaths";
 import { useNavigation } from "@react-navigation/native";
+
+import { addAccessToken } from "../../src/redux/actions";
 const BalancePage1 = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const { email, password, access_token } = useSelector(
     (state) => state.userReducer
   );
@@ -49,18 +57,96 @@ const BalancePage1 = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(API_PATHS.GET_BALANCES, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      })
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
+    axios.get(`${API_PATHS.EXISTENCE_OF_WALLET}${email}`).then((res) => {
+      if (res.data == true) {
+        setToggle(true);
+      } else setToggle(false);
+    });
   }, []);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded && access_token) {
+      setLoading(true);
+      axios
+        .get(API_PATHS.GET_BALANCES, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
+        })
+        .then((res) => {
+          setData(res.data);
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [isLoaded]);
+
+  const createWallet = () => {
+    setLoading(true);
+    const obj = {
+      email: email,
+      password: password,
+    };
+    axios.post(API_PATHS.WALLET_SIGNUP, obj).then((res) => {
+      if (res.data.access_token) {
+        dispatch(addAccessToken(res.data.access_token));
+        axios
+          .get(API_PATHS.CREATE_WALLET, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${res.data.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              axios
+                .get(API_PATHS.GET_BALANCES, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${res.data.access_token}`,
+                  },
+                })
+                .then((res) => {
+                  setData(res.data);
+                  setLoading(false);
+                })
+                .catch((err) => console.log(err));
+            }
+          });
+      }
+    });
+  };
+
+  const signIn = () => {
+    setLoading(true);
+    const obj = {
+      email: email,
+      password: password,
+    };
+    axios.post(API_PATHS.WALLET_SIGNIN, obj).then((res) => {
+      if (res.data.access_token) {
+        dispatch(addAccessToken(res.data.access_token));
+        axios
+          .get(API_PATHS.GET_BALANCES, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${res.data.access_token}`,
+            },
+          })
+          .then((res) => {
+            setData(res.data);
+            setLoading(false);
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  };
+
   const graphStyle = {
     marginVertical: 8,
   };
@@ -362,7 +448,14 @@ const BalancePage1 = () => {
               Tus criptomonedas
             </Text> */}
 
-            <View style={{ padding: 20, paddingBottom: 100, top: 20 }}>
+            <View
+              style={{
+                padding: 20,
+                marginBottom: 100,
+                top: 20,
+                height: "100%",
+              }}
+            >
               <Text
                 style={{
                   color: "#2D0052",
@@ -378,22 +471,51 @@ const BalancePage1 = () => {
               >
                 Tus criptomonedas
               </Text>
-              {data.map((item, idx) => {
-                return (
-                  <>
-                    <View key={idx}>
-                      <Listitem
-                        image={item.image}
-                        change={""}
-                        title={item.name}
-                        symbol={item.symbol}
-                        price={item.balance.balance}
-                      />
-                    </View>
-                  </>
-                );
-              })}
-              <View style={{ marginBottom: -90 }}></View>
+              <Text>{loading}</Text>
+              {/* <Text>{access_token}</Text> */}
+              {access_token ? (
+                loading ? (
+                  <ActivityIndicator
+                    // color="#000000"
+                    size="large"
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: 340,
+                    }}
+                  />
+                ) : (
+                  data.map((item, idx) => {
+                    return (
+                      <>
+                        <View key={idx}>
+                          <Listitem
+                            image={item.image}
+                            change={""}
+                            title={item.name}
+                            symbol={item.symbol}
+                            price={item.balance.balance}
+                          />
+                        </View>
+                      </>
+                    );
+                  })
+                )
+              ) : (
+                <View style={{ marginTop: 50 }}>
+                  <TouchableOpacity
+                    style={globalStyles.button}
+                    onPress={() => {
+                      toggle ? signIn() : createWallet();
+                    }}
+                  >
+                    <Text style={globalStyles.buttonText}>
+                      {toggle ? "Wallet Sign In" : "Wallet Register"}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+              <View style={{ marginBottom: -140 }}></View>
             </View>
           </View>
         </ScrollView>

@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
   Image,
+  BackHandler,
 } from "react-native";
 import { CoinData } from "../../data/coinsData";
 import React, { useEffect, useState } from "react";
@@ -66,12 +67,24 @@ const WalletHome = () => {
   const { email, password, access_token } = useSelector(
     (state) => state.userReducer
   );
-  useEffect(() => {
-    navigation.addListener('beforeRemove', (e) => {
-        e.preventDefault();
-    });
-}, [navigation])
+  //   useEffect(() => {
+  //     navigation.addListener('beforeRemove', (e) => {
+  //         e.preventDefault();
+  //     });
+  // }, [navigation])
+  React.useEffect(() =>
+    navigation.addListener("focus", () =>
+      BackHandler.addEventListener("hardwareBackPress", () => true)
+    )
+  );
 
+  React.useEffect(() =>
+    navigation.addListener("blur", () =>
+      BackHandler.addEventListener("hardwareBackPress", () =>
+        navigation.goBack()
+      )
+    )
+  );
   useEffect(() => {
     axios.get(`${API_PATHS.EXISTENCE_OF_WALLET}${email}`).then((res) => {
       if (res.data == true) {

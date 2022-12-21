@@ -33,7 +33,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import LoginProcess from "../views/login/loginProcess";
-import App from "../App";
+// import App from "../App";
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ const Logout = () => {
   return (
     <>
       {LogoutFunction}
-      <App />
+      {/* <App /> */}
     </>
   );
 };
