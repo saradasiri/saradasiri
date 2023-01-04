@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Pressable,
+  Pressable, StatusBar
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
@@ -51,15 +51,17 @@ const KeypadButtons = (formik) => {
   return (
     <View style={{ backgroundColor: "white" }}>
       <KeyboardAwareScrollView
-        contentContainerStyle={[globalStyles.flex_1]}
+        contentContainerStyle={[globalStyles.MainContainer]}
         style={{ backgroundColor: "#fff" }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
+          <StatusBar style="auto" />
           <View
             style={{
               flexDirection: "row",
               paddingHorizontal: 20,
               paddingVertical: 10,
+              marginTop:50,
 
               justifyContent: "space-between",
             }}
@@ -153,13 +155,13 @@ const KeypadButtons = (formik) => {
                   borderColor: "#ECECEC",
                   flexDirection: "row",
                   paddingLeft: 0,
-                  width:322
+                  width: 322,
                 },
               ]}
             >
               <View style={{ width: "15%", justifyContent: "center" }}>
                 <Image
-                  style={{ width: 35, height: 35, alignSelf:'center' }}
+                  style={{ width: 35, height: 35, alignSelf: "center" }}
                   source={require("../../assets/Bitcoin.png")}
                 />
               </View>
@@ -173,7 +175,7 @@ const KeypadButtons = (formik) => {
                   width: "35%",
                   height: 50,
                   fontSize: 12,
-                  alignSelf:'center'
+                  alignSelf: "center",
                 }}
               >
                 <Picker.Item label="Select" value="" />
@@ -195,7 +197,16 @@ const KeypadButtons = (formik) => {
               >
                 <Text style={{ paddingLeft: 10 }}>{fromAmount}</Text>
               </TouchableOpacity>
-              <Text style={{ width:'15%', textAlign:'center', alignSelf:'center', color:'#8D00FF' }}>MXN</Text>
+              <Text
+                style={{
+                  width: "15%",
+                  textAlign: "center",
+                  alignSelf: "center",
+                  color: "#8D00FF",
+                }}
+              >
+                MXN
+              </Text>
             </View>
           </View>
 
@@ -205,20 +216,22 @@ const KeypadButtons = (formik) => {
           <View style={{ marginTop: 20 }}>
             <Text style={[globalStyles.text, { marginLeft: 20 }]}>To</Text>
             <View
-                style={[
-                  globalStyles.inputStyle,
-                  {
-                    borderColor: "#ECECEC",
-                    flexDirection: "row",
-                    paddingLeft: 0,
-                    width:322
-                  },
-                ]}
-            ><View style={{ width: "15%", justifyContent: "center" }}>
-            <Image
-              style={{ width: 35, height: 35, alignSelf:'center' }}
-              source={require("../../assets/Bitcoin.png")}
-            /></View>
+              style={[
+                globalStyles.inputStyle,
+                {
+                  borderColor: "#ECECEC",
+                  flexDirection: "row",
+                  paddingLeft: 0,
+                  width: 322,
+                },
+              ]}
+            >
+              <View style={{ width: "15%", justifyContent: "center" }}>
+                <Image
+                  style={{ width: 35, height: 35, alignSelf: "center" }}
+                  source={require("../../assets/Bitcoin.png")}
+                />
+              </View>
               <Picker
                 ref={pickerRef}
                 selectedValue={values.toCryptoType}
@@ -229,7 +242,7 @@ const KeypadButtons = (formik) => {
                   width: "35%",
                   height: 50,
                   fontSize: 12,
-                  alignSelf:'center'
+                  alignSelf: "center",
                 }}
               >
                 <Picker.Item label="Select" value="" />
@@ -251,8 +264,16 @@ const KeypadButtons = (formik) => {
               >
                 <Text style={{ paddingLeft: 10 }}>{toAmount}</Text>
               </TouchableOpacity>
-              <Text style={{ width:'15%', textAlign:'center', alignSelf:'center', color:'#8D00FF' }}>MXN</Text>
-           
+              <Text
+                style={{
+                  width: "15%",
+                  textAlign: "center",
+                  alignSelf: "center",
+                  color: "#8D00FF",
+                }}
+              >
+                MXN
+              </Text>
             </View>
           </View>
           <View>

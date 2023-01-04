@@ -27,7 +27,8 @@ import {
   COLONY,
   MUNICIPALITY,
   STATE,
-  PROFILE_CREATED
+  PROFILE_CREATED,
+  CYPTO_NAME,
 } from "./actions";
 
 const initialValues = {
@@ -59,7 +60,8 @@ const initialValues = {
   colony: "",
   municipality: "",
   state: "",
-  profileCreated:false
+  profileCreated:false,
+  cyptoName:""
 };
 
 const userReducer = (state = initialValues, action) => {
@@ -149,6 +151,9 @@ const userReducer = (state = initialValues, action) => {
     }
     case PROFILE_CREATED: {
       return { ...state, profileCreated: action.payload };
+    }
+    case CYPTO_NAME: {
+      return { ...state, cyptoName: action.payload };
     }
 
     default:

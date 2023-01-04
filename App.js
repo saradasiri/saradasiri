@@ -54,6 +54,8 @@ import Plus from "./views/plus";
 import ProfileProcess from "./views/profile/profileProcess";
 import Convert from "./views/fourFunctionality/convert";
 import ConvertProcess from "./views/fourFunctionality/convertProcess";
+import BuyCoinsData from "./views/fourFunctionality/buyCoinsData";
+import AddFund from "./views/fourFunctionality/addFund";
 // import Logout from "./src/logout";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -95,7 +97,7 @@ function MyTabs() {
           />
           <Tab.Screen
             name="bank"
-            component={Bank}
+            component={AddFund}
             options={{
               tabBarIcon: ({ tintColor }) => (
                 <Image
@@ -151,6 +153,15 @@ function MyTabs() {
             name="profile"
             component={ProfileProcess}
             options={{
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
+            name="buycoinsdata"
+            component={BuyCoinsData}
+            options={{
+              unmountOnBlur: true,
               tabBarButton: () => null,
               tabBarVisible: false,
             }}
