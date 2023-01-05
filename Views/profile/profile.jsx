@@ -296,7 +296,7 @@ const Profile = (formik) => {
               )}
             </View>
             <TouchableOpacity
-              disabled={!(formik.isValid && formik.dirty)}
+              // disabled={!(formik.isValid && formik.dirty)}
               onPress={() => {
                 // handleFormSubmit(values);
               }}
