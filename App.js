@@ -56,6 +56,10 @@ import Convert from "./views/fourFunctionality/convert";
 import ConvertProcess from "./views/fourFunctionality/convertProcess";
 import BuyCoinsData from "./views/fourFunctionality/buyCoinsData";
 import AddFund from "./views/fourFunctionality/addFund";
+import PaymentGateway from "./views/paymentScreens/paymentGateway";
+import Checkout from "./views/paymentScreens/checkout";
+import PaymentPage from "./views/paymentScreens/paymentPage";
+import PaymentStatus from "./views/paymentScreens/paymentStatus";
 // import Logout from "./src/logout";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -166,6 +170,33 @@ function MyTabs() {
               tabBarVisible: false,
             }}
           />
+          <Tab.Screen
+            name="paymentGateway"
+            component={PaymentGateway}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
+            name="checkout"
+            component={Checkout}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
+            name="paymentPage"
+            component={PaymentPage}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
         </Tab.Navigator>
       ) : null}
     </>
@@ -181,6 +212,7 @@ export default function App() {
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
           <Stack.Screen name="tabs" component={MyTabs} />
+          <Stack.Screen name="paymentStatus" component={PaymentStatus} />
           <Stack.Screen
             name="plus"
             component={Plus}

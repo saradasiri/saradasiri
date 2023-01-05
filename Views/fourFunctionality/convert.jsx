@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  TextInput,
-  Pressable, StatusBar
+  StatusBar,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
@@ -59,10 +58,8 @@ const KeypadButtons = (formik) => {
           <View
             style={{
               flexDirection: "row",
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              marginTop:50,
-
+              paddingHorizontal: 30,
+              paddingTop: 20,
               justifyContent: "space-between",
             }}
           >
@@ -91,7 +88,7 @@ const KeypadButtons = (formik) => {
               style={{
                 textAlign: "center",
                 fontSize: 30,
-                fontWeight: "bold",
+                // fontWeight: "bold",
                 color: "#8D00FF",
                 marginLeft: -25,
               }}
@@ -125,7 +122,9 @@ const KeypadButtons = (formik) => {
             >
               Convert
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("plus")}>
+            <TouchableOpacity 
+            // onPress={() => navigation.navigate("plus")}
+            >
               <Text
                 style={{
                   backgroundColor: "white",

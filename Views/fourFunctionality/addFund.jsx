@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  StatusBar
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import globalStyles from "../../globalStyles";
 import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import KeyPad from "../../src/keyPad";
 
 const AddFund = () => {
@@ -43,7 +43,7 @@ const AddFund = () => {
             style={{
               flexDirection: "row",
               paddingHorizontal: 30,
-              paddingTop: 60,
+              paddingTop: 20,
               justifyContent: "space-between",
             }}
           >
@@ -72,7 +72,7 @@ const AddFund = () => {
               style={{
                 textAlign: "center",
                 fontSize: 30,
-                fontWeight: "bold",
+                // fontWeight: "bold",
                 color: "#8D00FF",
                 marginLeft: -25,
               }}
@@ -118,7 +118,7 @@ const AddFund = () => {
               { flexDirection: "row", justifyContent: "center" },
             ]}
             //   disabled={pin.length != 4}
-            // onPress={() => handleSubmit()}
+            onPress={() => {navigation.navigate('paymentGateway')}}
           >
             <Image
               style={{ alignSelf: "center" }}
