@@ -24,6 +24,7 @@ import { Text, Image } from "react-native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
+import CoinDetails from "./views/coinDetails/coinDetails";
 import { Store } from "./src/redux/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -208,7 +209,7 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          initialRouteName="homepage"
+          initialRouteName="coinDetails"
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
           <Stack.Screen name="tabs" component={MyTabs} />
@@ -228,6 +229,7 @@ export default function App() {
           <Stack.Screen name="joinVadi" component={JoinVadi} />
           <Stack.Screen name="registerSuccess" component={RegisterSuccess} />
           <Stack.Screen name="introSlides" component={IntroSlides} />
+          <Stack.Screen name="coinDetails" component={CoinDetails} />
           {/* <Stack.Screen
             name="balancePage"
             options={{ ...TransitionPresets.SlideFromRightIOS }}
