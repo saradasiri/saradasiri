@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { addCyptoName } from "./redux/actions";
 
-const Listitem = ({ image, change, title, symbol, price , key}) => {
+const Listitem = ({ image, change, title, symbol, price , key, id}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   let [fontsLoad, error] = useFonts({
@@ -21,7 +21,8 @@ const Listitem = ({ image, change, title, symbol, price , key}) => {
     dispatch(addCyptoName(title));
     const obj ={
       name:title,
-      symbol:image
+      symbol:image,
+      id:id
     }
     navigation.navigate('buycoinsdata',obj)
   }

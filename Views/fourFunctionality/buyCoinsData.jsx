@@ -66,7 +66,7 @@ const BuyCoinsData = (obj) => {
     );
     axios
       .get(
-        `https://vadi.ixiono.tech/api/coins/pricegraph?id=${obj.route.params.name.toLowerCase()}&from=${previous7day}&to=${today}`
+        `https://vadi.ixiono.tech/api/coins/pricegraph?id=${obj.route.params.id}&from=${previous7day}&to=${today}`
       )
       .then((res) => {
         const col = [];

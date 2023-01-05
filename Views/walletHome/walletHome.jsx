@@ -410,6 +410,7 @@ const WalletHome = () => {
                       title={item.name}
                       symbol={item.symbol}
                       price={item.current_price}
+                      id={item.id}
                     />
                   </View>
                 </>
