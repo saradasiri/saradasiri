@@ -3,14 +3,28 @@ import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { addCyptoName } from "./redux/actions";
 
-const Listitem = ({ image, change, title, symbol, price , key}) => {
+const Listitem = ({ image, change, title, symbol, price , key, id}) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
   });
 
   if (!fontsLoad) {
     return null;
+  }
+  const handleClick =(title, image)=>{
+    dispatch(addCyptoName(title));
+    const obj ={
+      name:title,
+      symbol:image,
+      id:id
+    }
+    navigation.navigate('buycoinsdata',obj)
   }
   const priceChange = change.toString().includes('-') ? 'red': 'green'
   return (
@@ -23,6 +37,7 @@ const Listitem = ({ image, change, title, symbol, price , key}) => {
         marginBottom:20
       }}
       key={key}
+      onPress={()=>{change !=="" ? handleClick(title, image): null}}
     >
       <View style={styles.itemWrapper}>
         {/* Left side */}

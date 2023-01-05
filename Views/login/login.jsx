@@ -17,7 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { API_PATHS } from "../../src/constants/apiPaths";
 import globalStyles from "../../globalStyles";
-import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
 import {
   addEmail,
   addPassword,
@@ -54,7 +55,7 @@ const Login = (formik) => {
             dispatch(addPassword(values.password));
             res.data.isVerified
               ? res.data.isProfileCompleted
-                ? navigation.navigate("tabs")
+                ? saveData(res.data.access_token)
                 : navigation.navigate("accountLevel")
               : sendOTP();
           }
@@ -65,6 +66,17 @@ const Login = (formik) => {
           ToastAndroid.show(err.message, ToastAndroid.SHORT);
         }
       });
+  };
+
+  const saveData = async (value) => {
+    try {
+      await AsyncStorage.setItem("@userEmail", values.email);
+      await AsyncStorage.setItem("@userPassword", values.password);
+      await AsyncStorage.setItem("@accessToken", value);
+    } catch (error) {
+      console.log(error);
+    }
+    navigation.navigate("tabs");
   };
 
   const sendOTP = () => {

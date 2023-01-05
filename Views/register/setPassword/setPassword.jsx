@@ -21,6 +21,7 @@ import globalStyles from "../../../globalStyles";
 import ProgressBar from "../../../src/progressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmail, addPassword } from "../../../src/redux/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SetPassword = (formik) => {
   const dispatch = useDispatch();
@@ -36,6 +37,12 @@ const SetPassword = (formik) => {
   if (!fontsLoad) {
     return null;
   }
+
+  const saveData = async () => {
+    await AsyncStorage.setItem("@userEmail", values.email);
+    await AsyncStorage.setItem("@userPassword", values.password);
+    navigation.navigate("verifyOTP");
+  };
   const handleSubmit = () => {
     setIsLoading(true);
     const obj = {
@@ -54,7 +61,7 @@ const SetPassword = (formik) => {
           ) {
             dispatch(addEmail(values.email));
             dispatch(addPassword(values.password));
-            navigation.navigate("verifyOTP");
+            saveData();
           }
         }
       })

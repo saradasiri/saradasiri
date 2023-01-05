@@ -11,7 +11,7 @@ const ProfileProcess = () => {
   );
   const initialValues = {
     username: name,
-    phone: countryCode+phone,
+    phone: phone,
     email: email,
     password: password,
   };

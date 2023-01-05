@@ -1,107 +1,163 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import React, { useState, useEffect } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
-import { FontAwesome5 } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { Button } from "native-base";
-import { NativeBaseProvider, Box }  from "native-base";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
+import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
+import { useFonts } from "expo-font";
 
-const KeyPad = ({ setNumber, onPress }) => {
-  const [updatedNumber, setUpdatedNumber] = useState("");
-  const [key1] = useState([1, 2, 3]);
-  const [key2] = useState([4, 5, 6]);
-  const [key3] = useState([7, 8, 9]);
-  const [key4] = useState([".", 0]);
+const KeyPad = ({ pin, setPin }) => {
+  let [fontsLoad, error] = useFonts({
+    NunitoSans_400Regular,
+  });
 
-  useEffect(() => {
-    setNumber(updatedNumber);
-  }, [updatedNumber]);
+  if (!fontsLoad) {
+    return null;
+  }
 
-  const renderNumber = (num) => {
-    let number = updatedNumber;
-    number = number + num.toString();
-    setUpdatedNumber(number);
+  const merge = async (value) => {
+    setPin(pin.concat(value.toString()));
   };
-
-  const removeNumber = () => {
-    let str = updatedNumber;
-    str = str.substring(0, str.length - 1);
-    setUpdatedNumber(str);
-  };
-
-  const display = (item) => {
-    return item.map((num, index) => {
-      return (
-        <TouchableOpacity>
-          <View
-            key={index}
-            style={{
-              margin: 10,
-              width: 100,
-              alignItems: "center",
-              borderRadius: 10,
-            }}
-          >
-            <Button backgroundColor="gray" onPress={() => renderNumber(num)}>
-              <Text style={{ fontSize: 20 }}>{num}</Text>
-            </Button>
-          </View>
-        </TouchableOpacity>
-      );
-    });
-  };
-
   return (
-    <NativeBaseProvider>
-      <View style={styles.container}>
-        <View style={{ flexDirection: "row" }}>{display(key1)}</View>
-        <View style={{ flexDirection: "row" }}>{display(key2)}</View>
-        <View style={{ flexDirection: "row" }}>{display(key3)}</View>
-        <View style={{ flexDirection: "row" }}>
-          {display(key4)}
-          <View
-            style={{
-              margin: 10,
-              width: 100,
-              alignItems: "center",
-              borderRadius: 10,
-            }}
+    <View>
+      <View>
+        <View style={{ flexDirection: "row", height: 50, marginTop: 30 }}>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("1")}
+            // disabled={pin.length == 4}
           >
-            <Button onPress={() => removeNumber()}>
-              <FontAwesome5 name="backspace" size={24} color="black" />
-            </Button>
-          </View>
+            <Text style={styles.number}>1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("2")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>2</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("3")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>3</Text>
+          </TouchableOpacity>
         </View>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 130,
-            width: 100
-          }}
-        >
-          <Button
-            backgroundColor="green.500"
-            style={{
-              width: 100,
-            }}
-            onPress={() => onPress()}
+        <View style={{ flexDirection: "row", height: 50 }}>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("4")}
+            // disabled={pin.length == 4}
           >
-            <AntDesign name="arrowright" size={24} color="black" />
-          </Button>
+            <Text style={styles.number}>4</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("5")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>5</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("6")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>6</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row", height: 50 }}>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("7")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>7</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("8")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>8</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("9")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>9</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row", height: 50 }}>
+          <View style={styles.keyButton}></View>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => merge("0")}
+            // disabled={pin.length == 4}
+          >
+            <Text style={styles.number}>0</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.keyButton}
+            onPress={() => setPin(pin.slice(0, -1))}
+          >
+            <Image style={styles.Logo} source={require("../assets/back.png")} />
+          </TouchableOpacity>
         </View>
       </View>
-    </NativeBaseProvider>
+
+      <TouchableOpacity
+        style={{ marginTop: 10, marginBottom: 35 }}
+        onPress={() => {
+          setPin("");
+        }}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 16,
+            color: "#2D0052",
+            fontFamily: "NunitoSans_400Regular",
+            color: "#2D0052",
+          }}
+        >
+          Reset
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 export default KeyPad;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 2,
-    flexDirection: "column",
-    width: 100,
+  keyButton: {
+    width: "33.33%",
+    justifyContent: "center",
+  },
+  Logo: {
+    height: 18,
+    width: 22,
+    alignSelf: "center",
+  },
+  display: {
+    height: 15,
+    width: 15,
+    borderRadius: 5,
+  },
+  number: {
+    fontFamily: "NunitoSans_400Regular",
+    color: "#2D0052",
+    textAlign: "center",
+    fontFamily: "NunitoSans_400Regular",
+    color: "#2D0052",
+    fontSize: 18,
+    // fontWeight: "bold",
   },
 });

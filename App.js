@@ -26,6 +26,7 @@ import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import CoinDetails from "./views/coinDetails/coinDetails";
 import { Store } from "./src/redux/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function BellMenu() {
   let [fontsLoad, error] = useFonts({
@@ -48,201 +49,150 @@ function BellMenu() {
     </Text>
   );
 }
-
-function ConvertTabs() {
-  const Tab = createBottomTabNavigator();
-  return (
-    <Tab.Navigator
-      backBehavior="history"
-      initialRouteName="keypad"
-      screenOptions={{
-        headerShown: false,
-        headerTitle: "",
-      }}
-      tabBarOptions={{
-        showLabel: false,
-        tabStyle: {
-          top: -580,
-          justifyContent: "space-between",
-          width: 0,
-          height:0,
-          backgroundColor: "#ffffff",
-          elevation: 0,
-        },
-      }}
-      
-    >
-      <Tab.Screen
-        name="keypad"
-        component={ConvertProcess}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            // const image = focused
-            //   ? require("./assets/homeButton2.png")
-            //   : require("./assets/homeButton.png");
-            return (
-              <Text
-                style={{
-                  backgroundColor: focused ? "#2D0052" : "white",
-                  width: 120,
-                  height: 45,
-                  borderRadius: 10,
-                  textAlign: "center",
-                  color: focused ? "white" : "#2D0052",
-                  borderWidth: 1,
-                  borderColor: "#ECECEC",
-                  padding: 10,
-                  fontSize: 16,
-                  fontWeight: "bold",
-                }}
-              >
-                Convert
-              </Text>
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="bank"
-        component={Bank}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Text
-              style={{
-                backgroundColor: focused ? "#2D0052" : "white",
-                color: focused ? "white" : "#2D0052",
-                width: 120,
-                height: 45,
-                borderRadius: 10,
-                textAlign: "center",
-                borderWidth: 1,
-                borderColor: "#ECECEC",
-                padding: 10,
-                fontSize: 16,
-                fontWeight: "bold",
-              }}
-            >
-              Limit
-            </Text>
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Bank from "./views/bank";
 import Plus from "./views/plus";
 import ProfileProcess from "./views/profile/profileProcess";
 import Convert from "./views/fourFunctionality/convert";
 import ConvertProcess from "./views/fourFunctionality/convertProcess";
+import BuyCoinsData from "./views/fourFunctionality/buyCoinsData";
+import AddFund from "./views/fourFunctionality/addFund";
+// import Logout from "./src/logout";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
+  const userEmail = AsyncStorage.getItem("@userEmail");
   return (
-    <Tab.Navigator
-      backBehavior="history"
-      initialRouteName="walletHome"
-      screenOptions={{
-        headerShown: false,
-        headerTitle: "",
-      }}
-      tabBarOptions={{
-        showLabel: false,
-        tabStyle: {
-          height: 100,
-          bottom: 50,
-          justifyContent: "space-between",
-          width: "100%",
-          backgroundColor: "#ffffff",
-          elevation: 0,
-        },
-      }}
-    >
-      <Tab.Screen
-        name="walletHome"
-        component={WalletHome}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            const image = focused
-              ? require("./assets/homeButton2.png")
-              : require("./assets/homeButton.png");
-            return <Image source={image} style={{ width: 24 }} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="bank"
-        component={Bank}
-        options={{
-          tabBarIcon: ({ tintColor }) => (
-            <Image
-              style={{ alignSelf: "center", width: 25, height: 22 }}
-              source={require("./assets/exchange.png")}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="plus"
-        component={ConvertTabs}
-        options={{
-          tabBarStyle: { display: "none" },
-          tabBarIcon: ({ tintColor }) => (
-            <Image
-              style={{ alignSelf: "center", width: 64, height: 64, top: -10 }}
-              source={require("./assets/plus.png")}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="balancePage"
-        component={BalancePage}
-        options={{
-          tabBarIcon: ({ tintColor }) => (
-            <Image
-              style={{ alignSelf: "center", width: 25, height: 22 }}
-              source={require("./assets/graph.png")}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="balancePage1"
-        component={BalancePage1}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            const image = focused
-              ? require("./assets/wallet2.png")
-              : require("./assets/wallet.png");
-            return <Image source={image} style={{ width: 28 }} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="profile"
-        component={ProfileProcess}
-        options={{
-          tabBarButton: () => null,
-          tabBarVisible: false,
-        }}
-      />
-    </Tab.Navigator>
+    <>
+      {userEmail != null ? (
+        <Tab.Navigator
+          backBehavior="history"
+          initialRouteName="walletHome"
+          screenOptions={{
+            headerShown: false,
+            headerTitle: "",
+          }}
+          tabBarOptions={{
+            showLabel: false,
+            tabStyle: {
+              height: 100,
+              bottom: 50,
+              justifyContent: "space-between",
+              width: "100%",
+              backgroundColor: "#ffffff",
+              elevation: 0,
+            },
+          }}
+        >
+          <Tab.Screen
+            name="walletHome"
+            component={WalletHome}
+            options={{
+              backBehavior: "none",
+              tabBarIcon: ({ focused }) => {
+                const image = focused
+                  ? require("./assets/homeButton2.png")
+                  : require("./assets/homeButton.png");
+                return <Image source={image} style={{ width: 24 }} />;
+              },
+            }}
+          />
+          <Tab.Screen
+            name="bank"
+            component={AddFund}
+            options={{
+              tabBarIcon: ({ tintColor }) => (
+                <Image
+                  style={{ alignSelf: "center", width: 25, height: 22 }}
+                  source={require("./assets/exchange.png")}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="functions"
+            component={ConvertProcess}
+            options={{
+              tabBarStyle: { display: "none" },
+              tabBarIcon: ({ tintColor }) => (
+                <Image
+                  style={{
+                    alignSelf: "center",
+                    width: 64,
+                    height: 64,
+                    top: -10,
+                  }}
+                  source={require("./assets/plus.png")}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="balancePage"
+            component={BalancePage}
+            options={{
+              tabBarIcon: ({ tintColor }) => (
+                <Image
+                  style={{ alignSelf: "center", width: 25, height: 22 }}
+                  source={require("./assets/graph.png")}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="balancePage1"
+            component={BalancePage1}
+            options={{
+              tabBarIcon: ({ focused }) => {
+                const image = focused
+                  ? require("./assets/wallet2.png")
+                  : require("./assets/wallet.png");
+                return <Image source={image} style={{ width: 28 }} />;
+              },
+            }}
+          />
+          <Tab.Screen
+            name="profile"
+            component={ProfileProcess}
+            options={{
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
+            name="buycoinsdata"
+            component={BuyCoinsData}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+        </Tab.Navigator>
+      ) : null}
+    </>
   );
 }
+const Stack = createStackNavigator();
 export default function App() {
-  const Stack = createStackNavigator();
   return (
     <Provider store={Store}>
-      <NavigationContainer>
+      <NavigationContainer independent={true}>
         <Stack.Navigator
           initialRouteName="coinDetails"
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
-          <Stack.Screen name="convertTabs" component={ConvertTabs} />
           <Stack.Screen name="tabs" component={MyTabs} />
-          <Stack.Screen name="convert" component={Convert} />
+          <Stack.Screen
+            name="plus"
+            component={Plus}
+            options={{
+              headerShown: false,
+              headerStyle: { backgroundColor: "white" },
+              ...TransitionPresets.SlideFromRightIOS,
+              headerRight: (props) => <BellMenu {...props} />,
+            }}
+          />
+          {/* <Stack.Screen name="logout" component={Logout} /> */}
           <Stack.Screen name="homepage" component={HomePage} />
           <Stack.Screen name="joinVadi" component={JoinVadi} />
           <Stack.Screen name="registerSuccess" component={RegisterSuccess} />

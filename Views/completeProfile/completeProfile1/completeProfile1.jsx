@@ -22,6 +22,7 @@ import globalStyles from "../../../globalStyles";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CountryCodePicker from "../../../src/countryCodePicker";
 import NationalityList from "../../../src/nationalityList";
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFund,
@@ -307,7 +308,9 @@ const CompleteProfile1 = (formik) => {
                   { color: age < 18 ? "#B9B9B9" : "black" },
                 ]}
               >
-                {age < 18 ? "DD / MM / YYYY" : date.toDateString()}
+                {age < 18
+                  ? "DD / MM / YYYY"
+                  : moment(date).format("MMMM Do YYYY")}
               </Text>
             </TouchableOpacity>
             <DateTimePickerModal
@@ -435,9 +438,7 @@ const CompleteProfile1 = (formik) => {
                   <TextInput
                     name="curp"
                     placeholder="Your CURP Number"
-                    onChangeText={(text) => {
-                      formik.handleChange("curp")(text.replace(/\D/g, ""));
-                    }}
+                    onChangeText={formik.handleChange("curp")}
                     onBlur={formik.handleBlur("curp")}
                     value={values.curp}
                     autoCapitalize="none"
@@ -470,9 +471,7 @@ const CompleteProfile1 = (formik) => {
                   <TextInput
                     name="rfc"
                     placeholder="Your RFC Number"
-                    onChangeText={(text) => {
-                      formik.handleChange("rfc")(text.replace(/\D/g, ""));
-                    }}
+                    onChangeText={formik.handleChange("rfc")}
                     onBlur={formik.handleBlur("rfc")}
                     value={values.rfc}
                     autoCapitalize="none"
@@ -505,11 +504,8 @@ const CompleteProfile1 = (formik) => {
               <View>
                 <TextInput
                   name="tax"
-                  keyboardType="numeric"
                   placeholder="Your RFC Number"
-                  onChangeText={(text) => {
-                    formik.handleChange("tax")(text.replace(/\D/g, ""));
-                  }}
+                  onChangeText={formik.handleChange("tax")}
                   onBlur={formik.handleBlur("tax")}
                   value={values.tax}
                   autoCapitalize="none"

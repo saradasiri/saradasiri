@@ -26,6 +26,8 @@ export const POSTAL_CODE = "POSTAL_CODE";
 export const COLONY = "COLONY";
 export const MUNICIPALITY = "MUNICIPALITY";
 export const STATE = "STATE";
+export const PROFILE_CREATED = "PROFILE_CREATED";
+export const CYPTO_NAME = "CYPTO_NAME";
 
 export const addEmail = (email) => (dispatch) => {
   return dispatch({
@@ -218,5 +220,19 @@ export const addState = (state) => (dispatch) => {
   return dispatch({
     type: STATE,
     payload: state,
+  });
+};
+
+export const addProfileCreated = (profileCreated) => (dispatch) => {
+  return dispatch({
+    type: PROFILE_CREATED,
+    payload: profileCreated,
+  });
+};
+
+export const addCyptoName = (cyptoName) => (dispatch) => {
+  return dispatch({
+    type: CYPTO_NAME,
+    payload: cyptoName,
   });
 };

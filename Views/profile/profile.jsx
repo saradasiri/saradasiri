@@ -8,6 +8,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import {createRef} from 'react';
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
@@ -19,7 +20,37 @@ import {
 } from "react-native-responsive-screen";
 import globalStyles from "../../globalStyles";
 import CountryCodePicker from "../../src/countryCodePicker";
-import { useDispatch, useSelector, } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAccessToken,
+  addRange,
+  addLower,
+  addUpper,
+  addFund,
+  addFirstName,
+  addLastName,
+  addName,
+  addBirth,
+  addNationality,
+  addCountryBirth,
+  addCurp,
+  addRfc,
+  addTax,
+  addPhone,
+  addOccupation,
+  addCountryCode,
+  addStreet,
+  addExterior,
+  addInside,
+  addPostalCode,
+  addColony,
+  addMunicipality,
+  addState,
+  addEmail,
+  addPassword,
+  addAccountAccessToken,
+} from "../../src/redux/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = (formik) => {
   const dispatch = useDispatch();
@@ -34,12 +65,49 @@ const Profile = (formik) => {
   if (!fontsLoad) {
     return null;
   }
+  const empty =""
+
+  const Logout = async () => {
+    dispatch(addAccessToken(""));
+    dispatch(addEmail(""));
+    dispatch(addPassword(""));
+    dispatch(addAccountAccessToken(""));
+    dispatch(addRange(""));
+    dispatch(addLower(""));
+    dispatch(addUpper(""));
+    dispatch(addFund(""));
+    dispatch(addFirstName(""));
+    dispatch(addLastName(""));
+    dispatch(addName(""));
+    dispatch(addBirth(""));
+    dispatch(addNationality(""));
+    dispatch(addCountryBirth(""));
+    dispatch(addCurp(""));
+    dispatch(addRfc(""));
+    dispatch(addTax(""));
+    dispatch(addPhone(""));
+    dispatch(addOccupation(""));
+    dispatch(addCountryCode(""));
+    dispatch(addStreet(""));
+    dispatch(addExterior(""));
+    dispatch(addInside(""));
+    dispatch(addPostalCode(""));
+    dispatch(addColony(""));
+    dispatch(addMunicipality(""));
+    dispatch(addState(""));
+  await AsyncStorage.clear();
+    
+  console.log( await AsyncStorage.getItem("@userEmail"))
+    if (await AsyncStorage.getItem("@userEmail") === null) {
+      navigation.navigate("login");
+    }
+  };
   return (
     <View>
       <KeyboardAwareScrollView style={styles.MainContainer}>
         <ScrollView contentContainerStyle={styles.MainContainer}>
           <StatusBar style="auto" />
-
+{/* <Text>{AsyncStorage.getItem("@userEmail")}</Text> */}
           <View
             style={{
               display: "flex",
@@ -309,7 +377,22 @@ const Profile = (formik) => {
                 },
               ]}
             >
-              <Text style={globalStyles.buttonText}>Next</Text>
+              <Text style={globalStyles.buttonText}>Update</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Logout()
+                // handleFormSubmit(values);
+              }}
+              style={[
+                globalStyles.button,
+                {
+                  marginVertical: 30,
+                  width: "95%",
+                },
+              ]}
+            >
+              <Text style={globalStyles.buttonText}>Logout</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

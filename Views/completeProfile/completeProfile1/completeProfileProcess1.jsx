@@ -27,20 +27,20 @@ const CompleteProfileProcess1 = () => {
     secondName: Yup.string(),
     name: Yup.string().required("Name cannot be blank"),
     countryBirth: Yup.string(),
-    curp: Yup.number().when(["nationality"], {
+    curp: Yup.string().when(["nationality"], {
       is: "Mexican",
-      then: Yup.number().required("CURP cannot be blank"),
+      then: Yup.string().required("CURP cannot be blank"),
       otherwise: null,
     }),
-    rfc: Yup.number().when(["nationality"], {
+    rfc: Yup.string().when(["nationality"], {
       is: "Mexican",
-      then: Yup.number().required("RFC cannot be blank"),
+      then: Yup.string().required("RFC cannot be blank"),
       otherwise: null,
     }),
-    tax: Yup.number().when(["nationality"], {
+    tax: Yup.string().when(["nationality"], {
       is: "Mexican",
       then: null,
-      otherwise: Yup.number().required("Tax cannot be blank"),
+      otherwise: Yup.string().required("Tax cannot be blank"),
     }),
     occupation: Yup.string().when(["range"], {
       is: "$60,000 - $1,20,000",
