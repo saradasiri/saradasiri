@@ -67,8 +67,8 @@ const PaymentStatus = () => {
         style={[globalStyles.button, { marginTop: 70 }]}
         //   disabled={pin.length != 4}
         onPress={() => {
-          alert("Payment Completed");
-          //   navigation.navigate("paymentStatus");
+          // alert("Payment Completed");
+            navigation.navigate("sellcoin");
         }}
       >
         <Text style={globalStyles.buttonText}>Done</Text>

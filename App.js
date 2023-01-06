@@ -61,6 +61,10 @@ import PaymentGateway from "./views/paymentScreens/paymentGateway";
 import Checkout from "./views/paymentScreens/checkout";
 import PaymentPage from "./views/paymentScreens/paymentPage";
 import PaymentStatus from "./views/paymentScreens/paymentStatus";
+import SellCoin from "./views/fourFunctionality/sellCoin";
+import StackExchange from "./views/fourFunctionality/stackExchange";
+import QrCode from "./views/fourFunctionality/qrCode";
+import Refferal from "./views/fourFunctionality/refferal";
 // import Logout from "./src/logout";
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -198,6 +202,42 @@ function MyTabs() {
               tabBarVisible: false,
             }}
           />
+          <Tab.Screen
+            name="sellcoin"
+            component={SellCoin}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
+            name="stackexchange"
+            component={StackExchange}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
+            name="qrCode"
+            component={QrCode}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
+          <Tab.Screen
+            name="refferal"
+            component={Refferal}
+            options={{
+              unmountOnBlur: true,
+              tabBarButton: () => null,
+              tabBarVisible: false,
+            }}
+          />
         </Tab.Navigator>
       ) : null}
     </>
@@ -209,7 +249,7 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          initialRouteName="coinDetails"
+          initialRouteName="homepage"
           screenOptions={{ headerTitle: "", headerShown: false }}
         >
           <Stack.Screen name="tabs" component={MyTabs} />

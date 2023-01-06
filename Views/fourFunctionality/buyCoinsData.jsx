@@ -116,6 +116,7 @@ const BuyCoinsData = (obj) => {
       activeColor={"#2D0052"}
       inactiveColor={"rgba(18, 3, 58, 0.4)"}
       style={{ marginTop: 25, backgroundColor: "white" }}
+      scrollEnabled={true}
     />
   );
 
