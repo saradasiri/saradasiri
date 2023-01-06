@@ -8,16 +8,35 @@ import {
   Image,
 } from "react-native";
 import Checkbox from "expo-checkbox";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import globalStyles from "../../globalStyles";
+import { VictoryPie, VictoryTooltip } from "victory-native";
 
 const Refferal = () => {
   const navigation = useNavigation();
-  const [paypal, setPaypal] = useState(false);
+
+  const graphicData = [
+    { y: 10, x: "105%", label: "105%" },
+    { y: 90, x: "90%", label: "90%" },
+    { y: 50, x: "50%", label: "50%" },
+    { y: 20, x: "20%", label: "20%" },
+    { y: 70, x: "70%", label: "70%" },
+  ];
+  const [color, setColor] = useState([]);
+
+  useEffect(() => {
+    if (graphicData.length != color.length) {
+      setColor((oldArray) => [
+        ...oldArray,
+        `#${Math.random().toString(16).substr(-6)}`,
+      ]);
+    }
+  });
+  const graphicColor = color;
 
   let [fontsLoad, error] = useFonts({
     NunitoSans_400Regular,
@@ -95,7 +114,9 @@ const Refferal = () => {
                 </Text>
               </View>
               <TouchableOpacity
-               onPress={()=>{navigation.navigate('qrCode')}}
+                onPress={() => {
+                  navigation.navigate("qrCode");
+                }}
                 style={{
                   backgroundColor: "#04BE7B",
                   padding: 15,
@@ -211,18 +232,73 @@ const Refferal = () => {
               elevation: 5,
             }}
           >
-            <Image
-              style={{
-                alignSelf: "center",
-              }}
-              source={require("../../assets/Diagram.png")}
-            />
+            <View style={styles.container}>
+              <VictoryPie
+                labelComponent={
+                  <VictoryTooltip
+                    renderInPortal={false}
+                    cornerRadius={15}
+                    pointerLength={10}
+                    // active={true}
+                    style={{ fontSize: "15px" }}
+                    center={{ x: 200, y: 30 }}
+                    pointerOrientation="bottom"
+                    flyoutWidth={150}
+                    flyoutHeight={50}
+                    // pointerWidth={150}
+                    // text={"$345,000.34"}
+                  />
+                }
+                data={graphicData}
+                width={400}
+                height={400}
+                colorScale={graphicColor}
+                innerRadius={110}
+                endAngle={-90}
+                startAngle={90}
+                // cornerRadius={30}
+                // labelPosition={"endAngle"}
+                style={{
+                  labels: {
+                    fill: "black",
+                    // fontSize: 12,
+                    // padding: -25,
+                    borderRadius: 20,
+                  },
+                }}
+                events={[
+                  {
+                    target: "data",
+                    eventHandlers: {
+                      onPressIn: ({ nativeEvent }) => {
+                        return [
+                          {
+                            // Add an event to reset all the points to the original color
+                            target: "labels",
+                            eventKey: "all",
+                            mutation: () => ({ active: false }),
+                          },
+                        ];
+                      },
+                      onPressOut: ({ nativeEvent }) => {
+                        return [
+                          {
+                            target: "labels",
+                            mutation: () => ({ active: true }),
+                          },
+                        ];
+                      },
+                    },
+                  },
+                ]}
+              />
+            </View>
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
                 paddingHorizontal: 30,
-                marginTop: 50,
+                marginTop: -150,
               }}
             >
               <Text style={[globalStyles.text, { justifyContent: "center" }]}>
@@ -334,4 +410,11 @@ const Refferal = () => {
 
 export default Refferal;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

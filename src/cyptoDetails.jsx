@@ -21,24 +21,55 @@ const CyptoDetails = () => {
     <ScrollView
       style={{ backgroundColor: "white", height: "100%", marginBottom: 50 }}
     >
+      <Text></Text>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Rank</Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Rank
+        </Text>
         <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>
           {data.length !== 0 ? data[0].market_cap_rank.toString() : " "}
         </Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Market cap</Text>
-        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>{data.length !== 0 ? data[0].market_cap.toString() : " "}</Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Market cap
+        </Text>
+        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>
+          {data.length !== 0 ? data[0].market_cap.toString() : " "}
+        </Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Circulating supply</Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Circulating supply
+        </Text>
         <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>
           {data.length !== 0 ? data[0].circulating_supply.toString() : " "}
         </Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Max supply</Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Max supply
+        </Text>
         <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>
           {data.length !== 0
             ? data[0].max_supply
@@ -48,31 +79,92 @@ const CyptoDetails = () => {
         </Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Issue date</Text>
-        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}></Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Issue date
+        </Text>
+        <Text
+          style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}
+        ></Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Issue price</Text>
-        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}></Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Issue price
+        </Text>
+        <Text
+          style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}
+        ></Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>All time high</Text>
-        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}></Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          All time high
+        </Text>
+        <Text
+          style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}
+        ></Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>All time low</Text>
-        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}></Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          All time low
+        </Text>
+        <Text
+          style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}
+        ></Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Contract address</Text>
-        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>vadi@email.com</Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Contract address
+        </Text>
+        <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>
+          vadi@email.com
+        </Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Website</Text>
-        <Text style={{ color: "#8D00FF", fontFamily: "NunitoSans_400Regular" }}>www.vadi.com</Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Website
+        </Text>
+        <Text style={{ color: "#8D00FF", fontFamily: "NunitoSans_400Regular" }}>
+          www.vadi.com
+        </Text>
       </View>
       <View style={styles.aboutContainer}>
-        <Text style={{ color: "rgba(18, 3, 58, 0.4)", fontFamily: "NunitoSans_400Regular" }}>Description</Text>
+        <Text
+          style={{
+            color: "rgba(18, 3, 58, 0.4)",
+            fontFamily: "NunitoSans_400Regular",
+          }}
+        >
+          Description
+        </Text>
       </View>
       <View style={[styles.aboutContainer, { marginTop: -10 }]}>
         <Text style={{ color: "#2D0052", fontFamily: "NunitoSans_400Regular" }}>
