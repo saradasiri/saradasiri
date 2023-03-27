@@ -20,7 +20,7 @@ import JoinVadi from "./views/joinVadi";
 import RegisterSuccess from "./views/registerSuccess";
 import BalancePage from "./views/walletHome/balancePage";
 import BalancePage1 from "./views/walletHome/balancePage1";
-import { Text, Image } from "react-native";
+import { Text, Image, StatusBar } from "react-native";
 import { NunitoSans_400Regular } from "@expo-google-fonts/nunito-sans";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
@@ -71,6 +71,7 @@ function MyTabs() {
   const userEmail = AsyncStorage.getItem("@userEmail");
   return (
     <>
+    <StatusBar backgroundColor={"black"} />
       {userEmail != null ? (
         <Tab.Navigator
           backBehavior="history"
@@ -247,6 +248,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <Provider store={Store}>
+    <StatusBar backgroundColor={"black"} />
       <NavigationContainer independent={true}>
         <Stack.Navigator
           initialRouteName="homepage"

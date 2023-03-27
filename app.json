@@ -1,15 +1,14 @@
 {
   "expo": {
-    "name": "vadi_mobile_new",
-    "slug": "vadi_mobile_new",
+    "name": "vadi",
+    "slug": "vadi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/adaptive-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/home.png",
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.v1403258.vadimobile"
     },
     "android": {
       "versionCode": 1,
@@ -33,7 +33,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "b7a4735e-b499-4bd8-a004-58262b40aa4f"
+        "projectId": "4c1cbdaa-1504-4843-9021-04f3b644fc0d"
       }
     }
   }
